@@ -9,6 +9,6 @@ public class MainController {
 
     @FXML
     protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+        welcomeText.setText("Welkom bij de 43-AI-Assistant!");
     }
 }
