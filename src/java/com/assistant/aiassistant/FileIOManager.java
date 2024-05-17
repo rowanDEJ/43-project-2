@@ -60,7 +60,7 @@ public class FileIOManager {
             FileWriter myWriter = new FileWriter(PATH_GEBRUIKERS, true);
 
             // schrijf de gebruiker naar het bestand
-            myWriter.write(userToSave.getUsername() + SEPERATOR + userToSave.getPassword() + SEPERATOR + userToSave.getEmail() + SEPERATOR + userToSave.getVoornaam() + SEPERATOR + userToSave.getAchternaam() + SEPERATOR + userToSave.getPrefferedLanguage() + "\n");
+            myWriter.write(userToSave.getUsername() + SEPERATOR + userToSave.getPassword() + SEPERATOR + userToSave.getEmail() + SEPERATOR + userToSave.getVoornaam() + SEPERATOR + userToSave.getAchternaam() + SEPERATOR + userToSave.getPreferredLanguage() + "\n");
 
             myWriter.close();
         } catch (IOException e) {
@@ -120,8 +120,8 @@ public class FileIOManager {
                     case "achternaam":
                         u.setAchternaam(nieuw);
                         break;
-                    case "prefferedLanguage":
-                        u.setPrefferedLanguage(nieuw);
+                    case "preferredLanguage":
+                        u.setPreferredLanguage(nieuw);
                         break;
                     default:
                         System.out.println("Er ging iets mis.");

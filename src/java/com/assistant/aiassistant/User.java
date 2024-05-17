@@ -6,18 +6,18 @@ public class User {
     private String email;
     private String voornaam;
     private String achternaam;
-    private String prefferedLanguage;
+    private String preferredLanguage;
 
-    public User(String userame, String wachtwoord, String email, String voornaam, String achternaam, String prefferedLanguage) {
+    public User(String username, String wachtwoord, String email, String voornaam, String achternaam, String preferredLanguage) {
         this.username = username;
-        this.password = password;
+        this.password = wachtwoord;
         this.email = email;
         this.voornaam = voornaam;
         this.achternaam = achternaam;
-        this.prefferedLanguage = prefferedLanguage;
+        this.preferredLanguage = preferredLanguage;
     }
 
-    public void setUsername(String name) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -37,8 +37,8 @@ public class User {
         this.achternaam = achternaam;
     }
 
-    public void setPrefferedLanguage(String prefferedLanguage) {
-        this.prefferedLanguage = prefferedLanguage;
+    public void setPreferredLanguage(String preferredLanguage) {
+        this.preferredLanguage = preferredLanguage;
     }
 
     public String getUsername() {
@@ -61,8 +61,8 @@ public class User {
         return achternaam;
     }
 
-    public String getPrefferedLanguage() {
-        return prefferedLanguage;
+    public String getPreferredLanguage() {
+        return preferredLanguage;
     }
 
     public void changeLanguage() {
