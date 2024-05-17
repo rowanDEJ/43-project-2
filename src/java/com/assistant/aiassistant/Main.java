@@ -33,6 +33,8 @@ public class Main extends Application {
         System.out.println();
         System.out.println("Query data: " + queryForm.getQueryData());
         System.out.println("Result data: " + result.getData());
+
+        scanner.close();
     }
 
     public static void main(String[] args) {
