@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileIOManager {
-    private final static String PATH_GEBRUIKERS = "gebruikers.txt";
+    private static final String PATH_GEBRUIKERS = "gebruikers.txt";
 
-    private final static String SEPERATOR = "/~/";
+    private static final String SEPERATOR = "/~/";
 
     public ArrayList<String> readFile(String path) {
         ArrayList<String> data = new ArrayList<>();
@@ -97,6 +97,37 @@ public class FileIOManager {
 
     // gebruiker bewerken
     // nieuw is de waarde waarin het attribuut van de gebruiker moet worden veranderd
-    // aspect is het attribuut dat moet worden veranderd (wachtwoord, gebruikersnaam, email enz)
-    public void editUser(User user, String nieuw, String aspect)
+    // aspect is het attribuut dat moet worden veranderd (wachtwoord, gebruikersnaam, email enz.)
+    // vergeet niet het aspect mee te geven aan deze methode als er iets veranderd moet worden.
+    public void editUser(User user, String nieuw, String aspect){
+        ArrayList<User> users = getUsersFromFile();
+
+        for (User u : users) {
+            if (user.getUsername().equals(u.getUsername())) {
+                switch (aspect) {
+                    case "gebruikersnaam":
+                        u.setUsername(nieuw);
+                        break;
+                    case "wachtwoord":
+                        u.setPassword(nieuw);
+                        break;
+                    case "email":
+                        u.setEmail(nieuw);
+                        break;
+                    case "voornaam":
+                        u.setVoornaam(nieuw);
+                        break;
+                    case "achternaam":
+                        u.setAchternaam(nieuw);
+                        break;
+                    case "prefferedLanguage":
+                        u.setPrefferedLanguage(nieuw);
+                        break;
+                    default:
+                        System.out.println("Er ging iets mis.");
+                }
+            }
+        }
+        rewriteUsersToFile(users);
+    }
 }
