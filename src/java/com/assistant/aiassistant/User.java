@@ -16,16 +16,48 @@ public class User {
         this.userName = userName;
     }
 
-    public void setPrefferedLanguage(String prefferedLanguage) {
-        this.prefferedLanguage = prefferedLanguage;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public String getPrefferedLanguage() {
-        return prefferedLanguage;
+    public void setVoornaam(String voornaam) {
+        this.voornaam = voornaam;
+    }
+
+    public void setAchternaam(String achternaam) {
+        this.achternaam = achternaam;
+    }
+
+    public void setPreferredLanguage(String preferredLanguage) {
+        this.preferredLanguage = preferredLanguage;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getVoornaam() {
+        return voornaam;
+    }
+
+    public String getAchternaam() {
+        return achternaam;
+    }
+
+    public String getPreferredLanguage() {
+        return preferredLanguage;
     }
 
     public void changeLanguage() {
