@@ -1,32 +1,27 @@
 package com.assistant.aiassistant;
 
 public class User {
-    private String username;
+    private String userName;
     private String password;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String voornaam;
-    private String achternaam;
-    private String preferredLanguage;
+    private String prefferedLanguage;
 
-    public User(String username, String wachtwoord, String email, String voornaam, String achternaam, String preferredLanguage) {
-        this.username = username;
-        this.password = wachtwoord;
-        this.email = email;
-        this.voornaam = voornaam;
-        this.achternaam = achternaam;
-        this.preferredLanguage = preferredLanguage;
+    public User(String name) {
+        this.userName = userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.userName = userName;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getUserName() {
+        return userName;
     }
 
     public void setVoornaam(String voornaam) {
@@ -66,14 +61,21 @@ public class User {
     }
 
     public void changeLanguage() {
+        if (prefferedLanguage.equals("NL")) {
+            prefferedLanguage = "EN";
+        } else {
+            prefferedLanguage = "NL";
+        }
 
     }
 
     public void login() {
+        // nog maken
 
     }
 
     public void logout() {
+        // nog maken
 
     }
 }
