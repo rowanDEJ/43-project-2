@@ -8,11 +8,20 @@ public class User {
     private String email;
     private String prefferedLanguage;
 
-    public User(String name) {
+    public User(String userName) {
         this.userName = userName;
     }
 
-    public void setName(String name) {
+    public User(String userName, String password, String firstName, String lastName, String email, String prefferedLanguage) {
+        this.userName = userName;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.prefferedLanguage = prefferedLanguage;
+    }
+
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
@@ -20,24 +29,24 @@ public class User {
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setVoornaam(String voornaam) {
-        this.voornaam = voornaam;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setAchternaam(String achternaam) {
-        this.achternaam = achternaam;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public void setPreferredLanguage(String preferredLanguage) {
-        this.preferredLanguage = preferredLanguage;
+    public void setPreferredLanguage(String prefferedLanguage) {
+        this.prefferedLanguage = prefferedLanguage;
     }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     public String getPassword() {
@@ -48,16 +57,16 @@ public class User {
         return email;
     }
 
-    public String getVoornaam() {
-        return voornaam;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getAchternaam() {
-        return achternaam;
+    public String getLastName() {
+        return lastName;
     }
 
     public String getPreferredLanguage() {
-        return preferredLanguage;
+        return prefferedLanguage;
     }
 
     public void changeLanguage() {

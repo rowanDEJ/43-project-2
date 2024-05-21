@@ -60,7 +60,7 @@ public class FileIOManager {
             FileWriter myWriter = new FileWriter(PATH_GEBRUIKERS, true);
 
             // schrijf de gebruiker naar het bestand
-            myWriter.write(userToSave.getUsername() + SEPERATOR + userToSave.getPassword() + SEPERATOR + userToSave.getEmail() + SEPERATOR + userToSave.getVoornaam() + SEPERATOR + userToSave.getAchternaam() + SEPERATOR + userToSave.getPreferredLanguage() + "\n");
+            myWriter.write(userToSave.getUsername() + SEPERATOR + userToSave.getPassword() + SEPERATOR + userToSave.getEmail() + SEPERATOR + userToSave.getFirstName() + SEPERATOR + userToSave.getLastName() + SEPERATOR + userToSave.getPreferredLanguage() + "\n");
 
             myWriter.close();
         } catch (IOException e) {
@@ -106,7 +106,7 @@ public class FileIOManager {
             if (user.getUsername().equals(u.getUsername())) {
                 switch (aspect) {
                     case "gebruikersnaam":
-                        u.setUsername(nieuw);
+                        u.setUserName(nieuw);
                         break;
                     case "wachtwoord":
                         u.setPassword(nieuw);
@@ -115,10 +115,10 @@ public class FileIOManager {
                         u.setEmail(nieuw);
                         break;
                     case "voornaam":
-                        u.setVoornaam(nieuw);
+                        u.setFirstName(nieuw);
                         break;
                     case "achternaam":
-                        u.setAchternaam(nieuw);
+                        u.setLastName(nieuw);
                         break;
                     case "preferredLanguage":
                         u.setPreferredLanguage(nieuw);
