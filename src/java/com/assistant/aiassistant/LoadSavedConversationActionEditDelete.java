@@ -1,4 +1,5 @@
 package com.assistant.aiassistant;
+
 import java.util.Scanner;
 
 public class LoadSavedConversationActionEditDelete {
@@ -8,7 +9,7 @@ public class LoadSavedConversationActionEditDelete {
         System.out.println("Voer een nieuw bericht in voor de conversatie:");
         String newMessage = scanner.nextLine();
         conversation.addMessage(newMessage);
-        IOFileManager.saveConversation(conversation);
+        FileIOManager.saveConversation(conversation);
         System.out.println("Conversatie is bijgewerkt.");
     }
 

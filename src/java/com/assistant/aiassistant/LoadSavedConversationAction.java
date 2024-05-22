@@ -14,7 +14,7 @@ public class LoadSavedConversationAction implements Action {
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        List<String> savedConversations = IOFileManager.getSavedConversations();
+        List<String> savedConversations = FileIOManager.getSavedConversations();
         if (!savedConversations.isEmpty()) {
 
             selectAction.setSavedConversations(savedConversations);
@@ -23,10 +23,10 @@ public class LoadSavedConversationAction implements Action {
             int conversationChoice = scanner.nextInt();
             if (conversationChoice > 0 && conversationChoice <= savedConversations.size()) {
                 Conversation loadedConversation = new Conversation(savedConversations.get(conversationChoice - 1), new ArrayList<>());
-                IOFileManager.loadConversation(loadedConversation);
+                FileIOManager.loadConversation(loadedConversation);
                 Map<Integer, Runnable> options = new HashMap<>();
                 options.put(1, () -> LoadSavedConversationActionEditDelete.editConversation(loadedConversation));
-                options.put(2, () -> IOFileManager.deleteConversation(loadedConversation));
+                options.put(2, () -> FileIOManager.deleteConversation(loadedConversation));
                 options.put(3, () -> LoadSavedConversationActionEditDelete.readConversation(loadedConversation));
                 menu.execute();
                 int editChoice = scanner.nextInt();

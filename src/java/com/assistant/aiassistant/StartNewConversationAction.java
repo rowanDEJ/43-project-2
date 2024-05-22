@@ -14,6 +14,6 @@ public class StartNewConversationAction implements Action {
         System.out.print("Voer een bericht in: ");
         String message = scanner.next();
         conversation.addMessage(message);
-        IOFileManager.saveConversation(conversation);
+        FileIOManager.saveConversation(conversation);
     }
 }
