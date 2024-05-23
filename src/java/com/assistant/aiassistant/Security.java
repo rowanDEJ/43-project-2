@@ -11,7 +11,7 @@ public class Security {
 
 
     private Security() {
-        setUser(null); // null betekent dat er niemand is ingelogd
+        setUserWithUsername(null); // null betekent dat er niemand is ingelogd
     }
 
     // als er nog geen instance is, wordt er een aangemaakt
@@ -22,10 +22,19 @@ public class Security {
         return instance;
     }
 
-    private void setUser(String userName) {
+    private void setUserWithUsername(String userName) {
         // als de gebruikersnaam gelijk is aan de gebruikersnaam in het bestand, wordt de gebruiker actief
         fileManager.getUsersFromFile().forEach(user -> {
             if (user.getUsername().equals(userName)) {
+                this.activeUser = user;
+            }
+        });
+    }
+
+    private void setUserWithEmail(String email) {
+        // als de email gelijk is aan de email in het bestand, wordt de gebruiker actief
+        fileManager.getUsersFromFile().forEach(user -> {
+            if (user.getEmail().equals(email)) {
                 this.activeUser = user;
             }
         });
@@ -36,7 +45,7 @@ public class Security {
     }
 
     public void logout() {
-        setUser(null);
+        setUserWithUsername(null);
     }
 
     // is er ingelogd of niet?
@@ -44,7 +53,7 @@ public class Security {
         return getActiveUser() != null;
     }
 
-    public boolean checkUser(String userName, String password) {
+    private boolean checkUsernamePassword(String userName, String password) {
         // Check alle gebruikers in het bestand, als de gebruikersnaam gelijk is aan het wachtwoord, return true
         for (User user : fileManager.getUsersFromFile()) {
             if (user.getUsername().equals(userName) && user.getPassword().equals(password)) {
@@ -54,26 +63,31 @@ public class Security {
         return false;
     }
 
-    public void login() {
-        Scanner scanner = new Scanner(System.in);
-
-        boolean isLoggedIn = false; // logt uit
-
-
-        // blijft proberen in te loggen tot je een bestaande gebruikersnaam invoert
-        while (!isLoggedIn) {
-            System.out.print("Voer een gebruikersnaam in: ");
-            String userName = scanner.nextLine();
-            System.out.print("Voer een wachtwoord in: ");
-            String password = scanner.nextLine();
-
-            if (checkUser(userName, password)) {
-                isLoggedIn = true;
-            } else {
-                System.out.println("Gebruikersnaam of wachtwoord verkeerd.");
+    private boolean checkEmailPassword(String email, String password) {
+        // Check alle gebruikers in het bestand, als de gebruikersnaam gelijk is aan het wachtwoord, return true
+        for (User user : fileManager.getUsersFromFile()) {
+            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+                return true;
             }
+        }
+        return false;
+    }
+    private User getUserFromEmail(String emailToSearch) {
+        for (User user : fileManager.getUsersFromFile()) {
+            if (user.getEmail().equals(emailToSearch)) {
+                return user;
+            }
+        }
+        return null;
+    }
 
-            setUser(userName);
+
+    public boolean login(String email, String password) {
+        if (checkEmailPassword(email, password)) {
+            setUserWithEmail(email);
+            return true;
+        } else {
+            return false;
         }
     }
 }

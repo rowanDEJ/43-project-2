@@ -1,0 +1,94 @@
+
+.button {
+    -fx-margin: 10 100 10 100;
+}
+
+.mainPane {
+    -fx-background-image: url("images/blue_pattern.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: WHITE;
+}
+
+.inputFieldContainer {
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 2;
+
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 16;
+}
+
+.inputFieldLabel {
+    -fx-background-color: transparent;
+    -fx-text-fill: WHITE;
+}
+
+.loginButton {
+    -fx-background-color: WHITE;
+    -fx-background-radius: 0;
+
+    -fx-font-size: 12;
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-text-fill: BLACK;
+
+    -fx-min-width: 225;
+
+    -fx-cursor: hand;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+}
+
+.loginButton:pressed {
+    -fx-background-color: DARKBLUE;
+    -fx-text-fill: WHITE;
+    -fx-border-color: WHITE;
+}
+
+.registerButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 12;
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+.registerButton:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: AQUA;
+    -fx-font-size: 12;
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-underline: true;
+}
+
+.registerButton:pressed {
+    -fx-text-fill: LIGHTBLUE;
+}
+
+.registerLabelThing {
+    -fx-background-color: transparent;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 12;
+    -fx-font-family: "Arial Rounded MT Bold";
+}
+
+.loginTitleLabel {
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 18;
+    -fx-text-fill: WHITE;
+
+    -fx-background-color: transparent;
+}
+
+.errorLabel {
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 16;
+    -fx-text-fill: DARKORANGE;
+
+    -fx-background-color: transparent;
+}
