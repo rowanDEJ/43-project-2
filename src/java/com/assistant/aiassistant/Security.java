@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Security {
     private static Security instance = null;
     private User activeUser;
+    FileIOManager fileManager = new FileIOManager();
 
 
     private Security() {
@@ -22,9 +23,12 @@ public class Security {
     }
 
     private void setUser(String userName) {
-        // CHECK ALLE GEBRUIKERS, ALS STRING GELIJK IS AAN USER, SELECTEER DIE USER EN ZET ALS ACTIVE USER
-        User user = new User(userName); // HAAL WEG LATER
-        this.activeUser = user;
+        // als de gebruikersnaam gelijk is aan de gebruikersnaam in het bestand, wordt de gebruiker actief
+        fileManager.getUsersFromFile().forEach(user -> {
+            if (user.getUsername().equals(userName)) {
+                this.activeUser = user;
+            }
+        });
     }
 
     public User getActiveUser() {
@@ -41,8 +45,13 @@ public class Security {
     }
 
     public boolean checkUser(String userName, String password) {
-        // CHECK ALLE GEBRUIKERS IN DE FILE, ALS HET KLOPT, RETURN TRUE
-        return true;
+        // Check alle gebruikers in het bestand, als de gebruikersnaam gelijk is aan het wachtwoord, return true
+        for (User user : fileManager.getUsersFromFile()) {
+            if (user.getUsername().equals(userName) && user.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void login() {
