@@ -1,17 +1,21 @@
 package com.assistant.aiassistant;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class FileIOManager {
     private static final String PATH_GEBRUIKERS = "gebruikers.txt";
+    private static final String DIRECTORY_PATH = "src/";
 
     private static final String SEPERATOR = "/~/";
 
+    // Hieronder staan alle methodes om gebruikers te lezen, schrijven, bewerken en verwijderen
+    // leest een bestand uit en zet de data in een ArrayList
     public ArrayList<String> readFile(String path) {
         ArrayList<String> data = new ArrayList<>();
 
@@ -130,4 +134,56 @@ public class FileIOManager {
         }
         rewriteUsersToFile(users);
     }
+
+    // Hieronder staan alle methodes voor de gesprekken (uit de oude IOFileManager class)
+    // leest een bestand uit
+    public static void saveConversation(Conversation conversation) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DIRECTORY_PATH + conversation.getTopic() + ".txt"))) {
+            for (String msg : conversation.getMessage()) {
+                writer.write(msg);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // laadt een gesprek
+    public static List<String> getSavedConversations() {
+        try {
+            return Files.walk(Paths.get(DIRECTORY_PATH))
+                    .filter(Files::isRegularFile)
+                    .filter(path -> path.toString().endsWith(".txt"))
+                    .map(path -> path.getFileName().toString().replaceFirst("[.][^.]+$", ""))
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    // laadt een gesprek
+    public static void loadConversation(Conversation conversation) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(DIRECTORY_PATH + conversation.getTopic() + ".txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                conversation.addMessage(line);
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // verwijderd een gesprek
+    public static void deleteConversation(Conversation conversation) {
+        File file = new File(DIRECTORY_PATH + conversation.getTopic() + ".txt");
+        if (file.delete()) {
+            System.out.println("Conversation deleted successfully");
+        } else {
+            System.out.println("Failed to delete the conversation");
+        }
+    }
 }
+
