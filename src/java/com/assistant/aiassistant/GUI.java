@@ -1,7 +1,7 @@
 package com.assistant.aiassistant;
 
 public class GUI {
-    // private String readanility;
+    // private String readability;
 
     public void display() {
 
