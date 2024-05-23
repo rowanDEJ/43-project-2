@@ -9,29 +9,14 @@ import java.util.Scanner;
 public class Menu {
     private final Scanner scanner = new Scanner(System.in);
     private final Map<Integer, Action> actions = new HashMap<>();
-    final private DisplayMenu displayMenu = new DisplayMenu();
     final public static boolean startMenu = true;
 
     public Menu() {
-        actions.put(1, new StartNewConversationAction());
+        actions.put(1, new StartNewConversationAction("", ""));
         actions.put(2, new LoadSavedConversationAction());
         actions.put(3, new ExitApplicationAction());
     }
 
-    public void display() {
-        displayMenu.execute();
-        while (startMenu) {
-            int choice = safeReadInt();
-
-            Action action = actions.get(choice);
-            if (action != null) {
-                action.execute();
-                break;
-            } else {
-                System.out.println("Ongeldige keuze. Probeer het opnieuw.");
-            }
-        }
-    }
 
     private int safeReadInt() {
         while (!scanner.hasNextInt()) {

@@ -24,8 +24,12 @@
     -fx-background-color: DARKGREY;
 }
 
+.NewChat:hover {
+    -fx-background-color: DARKGREY;
 
+}
 
 .HBox {
     -fx-background-color: LIGHTGREY;
 }
+

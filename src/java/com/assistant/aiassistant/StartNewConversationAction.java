@@ -2,18 +2,20 @@
 package com.assistant.aiassistant;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class StartNewConversationAction implements Action {
+    String topic;
+    String message;
+
     @Override
     public void execute() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Voer een onderwerp in voor de nieuwe conversatie: ");
-        String topic = scanner.next();
         Conversation conversation = new Conversation(topic, new ArrayList<>());
-        System.out.print("Voer een bericht in: ");
-        String message = scanner.next();
         conversation.addMessage(message);
         FileIOManager.saveConversation(conversation);
+    }
+
+    public StartNewConversationAction(String topic, String message) {
+        this.topic = topic;
+        this.message = message;
     }
 }

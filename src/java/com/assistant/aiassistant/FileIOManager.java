@@ -9,9 +9,8 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class FileIOManager {
-    private static final String PATH_GEBRUIKERS = "gebruikers.txt";
     private static final String DIRECTORY_PATH = "src/";
-
+    private static final String FILE_PATH = "files/";
     private static final String SEPERATOR = "/~/";
 
     // Hieronder staan alle methodes om gebruikers te lezen, schrijven, bewerken en verwijderen
@@ -39,7 +38,7 @@ public class FileIOManager {
 
     // leest alle gebruikers uit het gebruikers.txt bestand en zet ze in een ArrayList
     public ArrayList<User> getUsersFromFile() {
-        ArrayList<String> lines = readFile(PATH_GEBRUIKERS);
+        ArrayList<String> lines = readFile(FILE_PATH + "gebruikers.txt");
 
         ArrayList<User> usersReadFromFile = new ArrayList<>();
 
@@ -61,7 +60,7 @@ public class FileIOManager {
     public void saveUserToFile(User userToSave){
         try {
             // maak een nieuwe regel in gebruikers.txt en slaat de gebruiker daar op
-            FileWriter myWriter = new FileWriter(PATH_GEBRUIKERS, true);
+            FileWriter myWriter = new FileWriter(FILE_PATH + "gebruikers.txt", true);
 
             // schrijf de gebruiker naar het bestand
             myWriter.write(userToSave.getUsername() + SEPERATOR + userToSave.getPassword() + SEPERATOR + userToSave.getEmail() + SEPERATOR + userToSave.getFirstName() + SEPERATOR + userToSave.getLastName() + SEPERATOR + userToSave.getPreferredLanguage() + "\n");
@@ -76,7 +75,7 @@ public class FileIOManager {
     // Pas op: dit kan alle gebruikers in de lijst verwijderen!
     public void rewriteUsersToFile(ArrayList<User> users) {
         try {
-            new FileWriter(PATH_GEBRUIKERS, false).close();
+            new FileWriter(FILE_PATH + "gebruikers.txt", false).close();
             for(User user : users) {
                 saveUserToFile(user);
             }
@@ -138,7 +137,7 @@ public class FileIOManager {
     // Hieronder staan alle methodes voor de gesprekken (uit de oude IOFileManager class)
     // leest een bestand uit
     public static void saveConversation(Conversation conversation) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DIRECTORY_PATH + conversation.getTopic() + ".txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH + "conversations/" + conversation.getTopic() + ".txt"))) {
             for (String msg : conversation.getMessage()) {
                 writer.write(msg);
                 writer.newLine();
