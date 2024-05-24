@@ -28,7 +28,20 @@ public class Main extends Application {
 
     public static void showMainScreen() throws IOException {
         FXMLLoader MainFxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
-        Scene mainScene = new Scene(MainFxmlLoader.load(), 800, 600);
+        Scene mainScene = new Scene(MainFxmlLoader.load(), currentStage.getWidth(), currentStage.getHeight());
+        currentStage.setScene(mainScene);
+        currentStage.show();
+    }
+
+    public static void showRegisterScreen() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("register-view.fxml"));
+        Scene mainScene = new Scene(fxmlLoader.load(), currentStage.getScene().getWidth(), currentStage.getScene().getHeight());
+        currentStage.setScene(mainScene);
+        currentStage.show();
+    }
+    public static void showLoginScreen() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
+        Scene mainScene = new Scene(fxmlLoader.load(), currentStage.getScene().getWidth(), currentStage.getScene().getHeight());
         currentStage.setScene(mainScene);
         currentStage.show();
     }

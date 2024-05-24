@@ -28,7 +28,7 @@
     -fx-text-fill: WHITE;
 }
 
-.loginButton {
+.bigButton {
     -fx-background-color: WHITE;
     -fx-background-radius: 0;
 
@@ -43,13 +43,17 @@
     -fx-border-color: transparent;
 }
 
-.loginButton:pressed {
+.bigButton:hover {
+    -fx-font-size: 14;
+}
+
+.bigButton:pressed {
     -fx-background-color: DARKBLUE;
     -fx-text-fill: WHITE;
     -fx-border-color: WHITE;
 }
 
-.registerButton {
+.smallTextButton {
     -fx-background-color: transparent;
     -fx-text-fill: WHITE;
     -fx-font-size: 12;
@@ -58,7 +62,7 @@
     -fx-cursor: hand;
 }
 
-.registerButton:hover {
+.smallTextButton:hover {
     -fx-background-color: transparent;
     -fx-text-fill: AQUA;
     -fx-font-size: 12;
@@ -66,18 +70,18 @@
     -fx-underline: true;
 }
 
-.registerButton:pressed {
+.smallTextButton:pressed {
     -fx-text-fill: LIGHTBLUE;
 }
 
-.registerLabelThing {
+.smallTextButtonLabel {
     -fx-background-color: transparent;
     -fx-text-fill: WHITE;
     -fx-font-size: 12;
     -fx-font-family: "Arial Rounded MT Bold";
 }
 
-.loginTitleLabel {
+.bigTitle {
     -fx-font-family: "Arial Rounded MT Bold";
     -fx-font-size: 18;
     -fx-text-fill: WHITE;

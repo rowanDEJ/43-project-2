@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="masterPane" alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" styleClass="mainPane" stylesheets="@login-view-styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assistant.aiassistant.LoginController">
+<VBox fx:id="masterPane" alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" styleClass="mainPane" stylesheets="@login_page_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assistant.aiassistant.LoginController">
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <center>
@@ -21,7 +21,7 @@
                      </image></ImageView>
                </center>
                <bottom>
-                  <Label styleClass="loginTitleLabel" text="43 AI ASSISTANT LOGIN" BorderPane.alignment="CENTER" />
+                  <Label styleClass="bigTitle" text="43 AI ASSISTANT LOGIN" BorderPane.alignment="CENTER" />
                </bottom>
                <VBox.margin>
                   <Insets bottom="20.0" top="80.0" />
@@ -47,14 +47,14 @@
                   <PasswordField fx:id="passwordInput" promptText="password" />
                </children>
             </HBox>
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#tryLogin" prefHeight="26.0" styleClass="loginButton" text="LOGIN" textAlignment="CENTER">
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#tryLogin" prefHeight="26.0" styleClass="bigButton" text="LOGIN" textAlignment="CENTER">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Button>
             <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="23.0" prefWidth="225.0" VBox.vgrow="NEVER">
                <children>
-                  <Button fx:id="registerButton" mnemonicParsing="false" styleClass="registerLabelThing" text="Geen Account?" textAlignment="CENTER" />
-                  <Button layoutX="144.0" layoutY="10.0" mnemonicParsing="false" styleClass="registerButton" text="Registreer Nu." textAlignment="CENTER" />
+                  <Button mnemonicParsing="false" styleClass="smallTextButtonLabel" text="Geen Account?" textAlignment="CENTER" />
+                  <Button fx:id="registerButton" layoutX="144.0" layoutY="10.0" mnemonicParsing="false" onAction="#showRegisterScreen" styleClass="smallTextButton" text="Registreer Nu." textAlignment="CENTER" />
                </children>
             </HBox>
       <Label fx:id="errorLabel" styleClass="errorLabel" text=" " />
