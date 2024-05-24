@@ -1,5 +1,6 @@
 package com.assistant.aiassistant;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,6 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.File;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class MainController {
     public Button newChatButton;
@@ -32,10 +35,17 @@ public class MainController {
     }
 
     public void initialize() {
+        loadSavedConversations();
+        fileCreationListener();
+    }
+
+    private void loadSavedConversations() {
         File folder = new File(FILE_PATH + "conversations/");
         File[] listOfFiles = folder.listFiles();
 
         if (listOfFiles != null) {
+            Arrays.sort(listOfFiles, Comparator.comparingLong(File::lastModified));
+
             for (File file : listOfFiles) {
                 if (file.isFile()) {
                     String topic = file.getName().replace(".txt", "");
@@ -43,6 +53,18 @@ public class MainController {
                 }
             }
         }
+    }
+
+    private void fileCreationListener() {
+        FileCreationMonitor monitor = new FileCreationMonitor(new File("files/conversations"));
+        monitor.addObserver(fileName -> {
+            Platform.runLater(() -> {
+                // fileName is the name of the file that was created
+                String topic = fileName.replace(".txt", "");
+                createHBoxWithButtons(topic);
+            });
+        });
+        monitor.start();
     }
 
     public void createHBoxWithButtons(String topic) {

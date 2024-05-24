@@ -137,7 +137,7 @@ public class FileIOManager {
     // Hieronder staan alle methodes voor de gesprekken (uit de oude IOFileManager class)
     // leest een bestand uit
     public static void saveConversation(Conversation conversation) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH + "conversations/" + conversation.getTopic() + ".txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH  + "conversations/" + conversation.getTopic() + ".txt"))) {
             for (String msg : conversation.getMessage()) {
                 writer.write(msg);
                 writer.newLine();
@@ -150,7 +150,7 @@ public class FileIOManager {
     // laadt een gesprek
     public static List<String> getSavedConversations() {
         try {
-            return Files.walk(Paths.get(DIRECTORY_PATH))
+            return Files.walk(Paths.get(FILE_PATH + "conversations/"))
                     .filter(Files::isRegularFile)
                     .filter(path -> path.toString().endsWith(".txt"))
                     .map(path -> path.getFileName().toString().replaceFirst("[.][^.]+$", ""))
@@ -164,7 +164,7 @@ public class FileIOManager {
     // laadt een gesprek
     public static void loadConversation(Conversation conversation) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(DIRECTORY_PATH + conversation.getTopic() + ".txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH + "conversations/" + conversation.getTopic() + ".txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 conversation.addMessage(line);
@@ -177,7 +177,7 @@ public class FileIOManager {
 
     // verwijderd een gesprek
     public static void deleteConversation(Conversation conversation) {
-        File file = new File(DIRECTORY_PATH + conversation.getTopic() + ".txt");
+        File file = new File(FILE_PATH + "conversations/" + conversation.getTopic() + ".txt");
         if (file.delete()) {
             System.out.println("Conversation deleted successfully");
         } else {
