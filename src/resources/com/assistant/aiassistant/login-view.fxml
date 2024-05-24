@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="masterPane" alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" styleClass="mainPane" stylesheets="@login_page_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assistant.aiassistant.LoginController">
+<VBox fx:id="masterPane" alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" styleClass="mainPaneLogin" stylesheets="@login_page_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assistant.aiassistant.LoginController">
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <center>
@@ -24,7 +24,7 @@
                   <Label styleClass="bigTitle" text="43 AI ASSISTANT LOGIN" BorderPane.alignment="CENTER" />
                </bottom>
                <VBox.margin>
-                  <Insets bottom="20.0" top="80.0" />
+                  <Insets bottom="20.0" top="20.0" />
                </VBox.margin>
             </BorderPane>
             <HBox alignment="CENTER" fillHeight="false" layoutX="264.0" layoutY="292.0" maxWidth="-Infinity" styleClass="inputFieldContainer">

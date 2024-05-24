@@ -1,5 +1,7 @@
 package com.assistant.aiassistant;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -72,13 +74,37 @@ public class Security {
         }
         return false;
     }
-    private User getUserFromEmail(String emailToSearch) {
-        for (User user : fileManager.getUsersFromFile()) {
-            if (user.getEmail().equals(emailToSearch)) {
-                return user;
+    private Boolean checkIfUserExistsByMethodValue(String methodName, String valueToSearch) {
+        try {
+            ArrayList<User> users = fileManager.getUsersFromFile();
+            for (User user : users) {
+                Method method = User.class.getMethod(methodName);
+                String value = (String) method.invoke(user);
+                if (value.equalsIgnoreCase(valueToSearch)) {
+                    return true;
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return null;
+        return false;
+    }
+
+    public boolean checkIfUserWithEmailExists(String emailToSearch) {
+        return checkIfUserExistsByMethodValue("getEmail", emailToSearch);
+    }
+
+    public boolean checkIfUserWithUsernameExists(String usernameToSearch) {
+        return checkIfUserExistsByMethodValue("getUsername", usernameToSearch);
+    }
+
+    public boolean checkIfUserWithFullNameExists(String fullNameToSearch) {
+        return checkIfUserExistsByMethodValue("getFullName", fullNameToSearch);
+    }
+
+    public void createAccount(String username, String password, String email, String fname, String lname, String preferredlanguage) {
+        User newlyCreatedUser = new User(username, password, email, fname, lname, preferredlanguage);
+        fileManager.saveUserToFile(newlyCreatedUser);
     }
 
 

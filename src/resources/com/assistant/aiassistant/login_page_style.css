@@ -3,8 +3,15 @@
     -fx-margin: 10 100 10 100;
 }
 
-.mainPane {
+.mainPaneLogin {
     -fx-background-image: url("images/blue_pattern.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.mainPaneRegister {
+    -fx-background-image: url("images/random-bg-image.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-background-position: center center;
@@ -32,7 +39,7 @@
     -fx-background-color: WHITE;
     -fx-background-radius: 0;
 
-    -fx-font-size: 12;
+    -fx-font-size: 14;
     -fx-font-family: "Arial Rounded MT Bold";
     -fx-text-fill: BLACK;
 
@@ -44,13 +51,11 @@
 }
 
 .bigButton:hover {
-    -fx-font-size: 14;
+    -fx-background-color: LIGHTGRAY;
 }
 
 .bigButton:pressed {
-    -fx-background-color: DARKBLUE;
-    -fx-text-fill: WHITE;
-    -fx-border-color: WHITE;
+    -fx-background-color: GRAY;
 }
 
 .smallTextButton {
@@ -92,7 +97,7 @@
 .errorLabel {
     -fx-font-family: "Arial Rounded MT Bold";
     -fx-font-size: 16;
-    -fx-text-fill: DARKORANGE;
+    -fx-text-fill: RED;
 
     -fx-background-color: transparent;
 }
