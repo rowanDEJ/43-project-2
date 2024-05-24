@@ -75,6 +75,8 @@ public class Security {
         return false;
     }
     private Boolean checkIfUserExistsByMethodValue(String methodName, String valueToSearch) {
+        // check of een gebruiker bestaat door middel van een methodenaam, en een waarde.
+        // als het resultaat van user.[methodenaam]() gelijk is aan de waarde, return dan true, anders false.
         try {
             ArrayList<User> users = fileManager.getUsersFromFile();
             for (User user : users) {
@@ -103,12 +105,16 @@ public class Security {
     }
 
     public void createAccount(String username, String password, String email, String fname, String lname, String preferredlanguage) {
+        // maak een nieuw account aan, met de saveUserToFile method van de fileIOManager.
         User newlyCreatedUser = new User(username, password, email, fname, lname, preferredlanguage);
         fileManager.saveUserToFile(newlyCreatedUser);
     }
 
 
     public boolean login(String email, String password) {
+        // probeer in te loggen met credentials (email, password)
+        // als de credentials kloppen, dan loggen we die user in, en returnt de methode [true]
+        // anders, returnt de methode [false]
         if (checkEmailPassword(email, password)) {
             setUserWithEmail(email);
             return true;

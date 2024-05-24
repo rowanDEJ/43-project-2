@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterController implements Initializable {
     @FXML
@@ -54,6 +56,7 @@ public class RegisterController implements Initializable {
 
     @FXML
     private void tryRegistering() {
+        // check of in alle input velden een waarde ingevoerd is
         if(isTextfieldEmpty(usernameInput)) {
             errorLabel.setText("Enter Username");
             return;
@@ -78,6 +81,10 @@ public class RegisterController implements Initializable {
             errorLabel.setText("Enter preferred language");
             return;
         }
+        if(!isEmailValid(emailInput.getText())) {
+            errorLabel.setText("Enter a valid email address");
+            return;
+        }
         if(loginManager.checkIfUserWithEmailExists(emailInput.getText())) {
             errorLabel.setText("Account with this email already exists.");
             return;
@@ -96,6 +103,13 @@ public class RegisterController implements Initializable {
     }
     private boolean isTextfieldEmpty(TextField fieldToCheck) {
         return fieldToCheck.getText().equalsIgnoreCase("");
+    }
+
+    private boolean isEmailValid(String emailToCheck) {
+        String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(emailToCheck);
+        return matcher.matches();
     }
 
     @FXML

@@ -80,7 +80,7 @@
          <children>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                <image>
-                  <Image url="@images/user_icon.png" />
+                  <Image url="@images/globe-icon.png" />
                </image>
             </ImageView>
             <TextField fx:id="preferredLanguageInput" promptText="preferred language" />
