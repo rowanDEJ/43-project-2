@@ -13,9 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader LoginFxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
-
         Scene loginScene = new Scene(LoginFxmlLoader.load(), 800, 600);
-
         stage.setTitle("43-AI-Assistant");
         stage.setScene(loginScene);
         stage.show();
@@ -24,6 +22,7 @@ public class Main extends Application {
     }
     public static void main(String[] args) {
         launch();
+        Menu menu = new Menu();
     }
 
     public static void showMainScreen() throws IOException {
