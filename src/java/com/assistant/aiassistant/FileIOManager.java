@@ -56,9 +56,9 @@ public class FileIOManager {
         return usersReadFromFile;
     }
 
-    //krijg alle beschikbare talen uit availableLanguages.txt
+    //krijg alle beschikbare talen uit beschikbareTalen.txt
     public ArrayList<Language> getAvailableLanguages() {
-        ArrayList<String> lines = readFile(FILE_PATH + "gebruikers.txt");
+        ArrayList<String> lines = readFile(FILE_PATH + "beschikbareTalen.txt");
         ArrayList<Language> foundLanguages = new ArrayList<>();
         for(String line : lines) {
             foundLanguages.add(new Language(line));

@@ -4,11 +4,10 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,13 +36,19 @@ public class RegisterController implements Initializable {
     @FXML
     public Button registerButton;
     @FXML
-    public TextField preferredLanguageInput;
+    public ComboBox<Language> preferredLanguageChoiceBox;
 
     private final AccountManager loginManager = AccountManager.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         removeAutoFocusFromTextField(usernameInput);
+        addLanguageOptionsToDropdownMenu();
+    }
+
+    private void addLanguageOptionsToDropdownMenu() {
+        FileIOManager ioManager = new FileIOManager();
+        preferredLanguageChoiceBox.getItems().addAll(ioManager.getAvailableLanguages());
     }
 
     private void removeAutoFocusFromTextField(TextField textField) {
@@ -63,7 +68,7 @@ public class RegisterController implements Initializable {
             return;
         }
 
-        loginManager.createAccount(usernameInput.getText(), passwordInput.getText(), emailInput.getText(), firstNameInput.getText(), lastNameInput.getText(), preferredLanguageInput.getText());
+        loginManager.createAccount(usernameInput.getText(), passwordInput.getText(), emailInput.getText(), firstNameInput.getText(), lastNameInput.getText(), preferredLanguageChoiceBox.getValue().toString());
         loginManager.login(emailInput.getText(), passwordInput.getText());
         confirmationLabel.setText("Account created successfully. You can now log in.");
     }
@@ -93,8 +98,8 @@ public class RegisterController implements Initializable {
             errorLabel.setText("Enter a valid email address");
             return false;
         }
-        if(isTextfieldEmpty(preferredLanguageInput)) {
-            errorLabel.setText("Enter preferred language");
+        if(preferredLanguageChoiceBox.getValue() == null) {
+            errorLabel.setText("Choose a preferred language");
             return false;
         }
         if(loginManager.checkIfUserWithEmailExists(emailInput.getText())) {
