@@ -38,6 +38,7 @@ public class UserInterfaceManager {
     }
 
     public void start(Stage stage) throws IOException {
+        // start het UI (laat het login scherm zien met default grootte, en zet de titel van het window
         this.currentStage = stage;
 
         this.currentStage.setTitle("43-AI-Assistant");
@@ -48,20 +49,24 @@ public class UserInterfaceManager {
     }
 
     public void switchCurrentViewTo(String fxmlFileName) throws IOException {
+        // laat een andere fxml view ding zien op het scherm.
         Scene scene = getSceneWithCurrentSize(fxmlFileName);
         this.currentStage.setScene(scene);
         this.currentStage.show();
     }
 
     private Scene getSceneWithCurrentSize(String fxmlFileName) throws IOException {
+        // geeft een Scene object van de gespecificeerde fxml view file, met de huidige maten.
         return getScene(fxmlFileName, this.currentStage.getScene().getWidth(), this.currentStage.getScene().getHeight());
     }
 
     private Scene getSceneWithDefaultSize(String fxmlFileName) throws IOException {
+        // geeft een Scene object van de gespecificeerde fxml view file, met de default maten.
         return getScene(fxmlFileName, defaultWidth, defaultHeight);
     }
 
     private Scene getScene(String fxmlFileName, double width, double height) throws IOException {
+        // geeft een Scene object van de gespecificeerde fxml view file ding.
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFileName));
         return new Scene(fxmlLoader.load(), width, height);
     }
