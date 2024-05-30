@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -29,12 +30,30 @@ public class LoginController implements Initializable {
     public Button registerButton;
     @FXML
     public Label errorLabel;
+    @FXML
+    public TextField visiblePasswordInput;
+    @FXML
+    public CheckBox showPasswordCheckbox;
 
     private AccountManager loginManager = AccountManager.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         removeAutoFocusFromTextField(emailInput);
+        setupPasswordVisibilityToggle();
+    }
+
+    private void setupPasswordVisibilityToggle() {
+        visiblePasswordInput.setManaged(false);
+        visiblePasswordInput.setVisible(false);
+
+        visiblePasswordInput.managedProperty().bind(showPasswordCheckbox.selectedProperty());
+        visiblePasswordInput.visibleProperty().bind(showPasswordCheckbox.selectedProperty());
+
+        passwordInput.managedProperty().bind(showPasswordCheckbox.selectedProperty().not());
+        passwordInput.visibleProperty().bind(showPasswordCheckbox.selectedProperty().not());
+
+        visiblePasswordInput.textProperty().bindBidirectional(passwordInput.textProperty());
     }
 
     private void removeAutoFocusFromTextField(TextField textField) {

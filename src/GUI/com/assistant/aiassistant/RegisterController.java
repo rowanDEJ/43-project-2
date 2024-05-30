@@ -20,6 +20,8 @@ public class RegisterController implements Initializable {
     @FXML
     public TextField passwordInput;
     @FXML
+    public TextField visiblePasswordInput;
+    @FXML
     public TextField emailInput;
     @FXML
     public TextField firstNameInput;
@@ -37,6 +39,8 @@ public class RegisterController implements Initializable {
     public Button registerButton;
     @FXML
     public ComboBox<Language> preferredLanguageChoiceBox;
+    @FXML
+    public CheckBox showPasswordCheckbox;
 
     private final AccountManager loginManager = AccountManager.getInstance();
 
@@ -44,6 +48,20 @@ public class RegisterController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         removeAutoFocusFromTextField(usernameInput);
         addLanguageOptionsToDropdownMenu();
+        setupPasswordVisibilityToggle();
+    }
+
+    private void setupPasswordVisibilityToggle() {
+        visiblePasswordInput.setManaged(false);
+        visiblePasswordInput.setVisible(false);
+
+        visiblePasswordInput.managedProperty().bind(showPasswordCheckbox.selectedProperty());
+        visiblePasswordInput.visibleProperty().bind(showPasswordCheckbox.selectedProperty());
+
+        passwordInput.managedProperty().bind(showPasswordCheckbox.selectedProperty().not());
+        passwordInput.visibleProperty().bind(showPasswordCheckbox.selectedProperty().not());
+
+        visiblePasswordInput.textProperty().bindBidirectional(passwordInput.textProperty());
     }
 
     private void addLanguageOptionsToDropdownMenu() {

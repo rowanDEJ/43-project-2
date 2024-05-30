@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.CheckBox?>
 <VBox fx:id="masterPane" alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" styleClass="mainPaneLogin" stylesheets="@login_page_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assistant.aiassistant.LoginController">
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
@@ -27,7 +28,7 @@
                   <Insets bottom="20.0" top="20.0" />
                </VBox.margin>
             </BorderPane>
-            <HBox alignment="CENTER" fillHeight="false" layoutX="264.0" layoutY="292.0" maxWidth="-Infinity" styleClass="inputFieldContainer">
+            <HBox alignment="CENTER" fillHeight="false" layoutX="264.0" layoutY="292.0" maxWidth="-Infinity" prefWidth="230.0" styleClass="inputFieldContainer">
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                      <image>
@@ -37,7 +38,7 @@
                   <TextField fx:id="emailInput" promptText="email" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" fillHeight="false" layoutX="264.0" layoutY="310.0" maxWidth="-Infinity" styleClass="inputFieldContainer">
+            <HBox alignment="CENTER" fillHeight="false" layoutX="264.0" layoutY="310.0" maxWidth="-Infinity" prefWidth="230.0" styleClass="inputFieldContainer">
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -45,9 +46,11 @@
                      </image>
                   </ImageView>
                   <PasswordField fx:id="passwordInput" promptText="password" />
+                  <TextField fx:id="visiblePasswordInput" promptText="password" />
+                  <CheckBox fx:id="showPasswordCheckbox" mnemonicParsing="false" />
                </children>
             </HBox>
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#tryLogin" prefHeight="26.0" styleClass="bigButton" text="LOGIN" textAlignment="CENTER">
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#tryLogin" prefHeight="26.0" prefWidth="230.0" styleClass="bigButton" text="LOGIN" textAlignment="CENTER">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Button>
