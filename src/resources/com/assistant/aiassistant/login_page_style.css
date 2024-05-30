@@ -94,6 +94,14 @@
     -fx-background-color: transparent;
 }
 
+.confirmationLabel {
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 16;
+    -fx-text-fill: LIGHTGREEN;
+
+    -fx-background-color: transparent;
+}
+
 .errorLabel {
     -fx-font-family: "Arial Rounded MT Bold";
     -fx-font-size: 16;

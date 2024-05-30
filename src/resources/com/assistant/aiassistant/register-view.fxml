@@ -96,6 +96,7 @@
                   <Button fx:id="loginButton" layoutX="144.0" layoutY="10.0" mnemonicParsing="false" onAction="#showLoginScreen" styleClass="smallTextButton" text="Login" textAlignment="CENTER" />
                </children>
             </HBox>
-      <Label fx:id="errorLabel" styleClass="errorLabel" text=" " />
+            <Label fx:id="errorLabel" styleClass="errorLabel" text=" " />
+            <Label fx:id="confirmationLabel" styleClass="confirmationLabel" text=" " />
          </children>
       </VBox>

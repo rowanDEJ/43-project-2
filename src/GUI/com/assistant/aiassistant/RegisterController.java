@@ -31,6 +31,8 @@ public class RegisterController implements Initializable {
     @FXML
     public Label errorLabel;
     @FXML
+    public Label confirmationLabel;
+    @FXML
     public Button loginButton;
     @FXML
     public Button registerButton;
@@ -63,7 +65,7 @@ public class RegisterController implements Initializable {
 
         loginManager.createAccount(usernameInput.getText(), passwordInput.getText(), emailInput.getText(), firstNameInput.getText(), lastNameInput.getText(), preferredLanguageInput.getText());
         loginManager.login(emailInput.getText(), passwordInput.getText());
-        errorLabel.setText("Account created successfully. You can now log in.");
+        confirmationLabel.setText("Account created successfully. You can now log in.");
     }
 
     private boolean areAllTextInputsValid() {
