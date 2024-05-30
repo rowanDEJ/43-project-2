@@ -30,7 +30,7 @@
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                      <image>
-                        <Image url="@images/user_icon.png" />
+                        <Image url="@icons/user_icon.png" />
                      </image>
                   </ImageView>
                   <TextField fx:id="usernameInput" promptText="username" />
@@ -40,7 +40,7 @@
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@images/unlock.png" />
+                        <Image url="@icons/unlock.png" />
                      </image>
                   </ImageView>
                   <TextField fx:id="passwordInput" promptText="password" />
@@ -50,7 +50,7 @@
          <children>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                <image>
-                  <Image url="@images/envelope.png" />
+                  <Image url="@icons/envelope.png" />
                </image>
             </ImageView>
             <TextField fx:id="emailInput" promptText="email" />
@@ -60,7 +60,7 @@
          <children>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                <image>
-                  <Image url="@images/user_icon.png" />
+                  <Image url="@icons/user_icon.png" />
                </image>
             </ImageView>
             <TextField fx:id="firstNameInput" promptText="first name" />
@@ -70,7 +70,7 @@
          <children>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                <image>
-                  <Image url="@images/user_icon.png" />
+                  <Image url="@icons/user_icon.png" />
                </image>
             </ImageView>
             <TextField fx:id="lastNameInput" promptText="last name" />
@@ -80,7 +80,7 @@
          <children>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                <image>
-                  <Image url="@images/globe-icon.png" />
+                  <Image url="@icons/globe-icon.png" />
                </image>
             </ImageView>
             <TextField fx:id="preferredLanguageInput" promptText="preferred language" />

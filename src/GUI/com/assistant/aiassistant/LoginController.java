@@ -30,7 +30,7 @@ public class LoginController implements Initializable {
     @FXML
     public Label errorLabel;
 
-    private Security loginManager = Security.getInstance();
+    private AccountManager loginManager = AccountManager.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -60,7 +60,8 @@ public class LoginController implements Initializable {
 
         if(loginManager.login(emailInput.getText(), passwordInput.getText())) {
             try {
-                Main.showMainScreen();
+                UserInterfaceManager uiManager = UserInterfaceManager.getInstance();
+                uiManager.switchCurrentViewTo(uiManager.mainViewFilename);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -72,7 +73,8 @@ public class LoginController implements Initializable {
     @FXML
     private void showRegisterScreen() {
         try {
-            Main.showRegisterScreen();
+            UserInterfaceManager uiManager = UserInterfaceManager.getInstance();
+            uiManager.switchCurrentViewTo(uiManager.registerViewFilename);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -18,7 +18,7 @@
    <children>
       <BorderPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: GAINSBORO;">
          <left>
-            <AnchorPane prefHeight="600.0" prefWidth="146.0" style="-fx-background-color: LIGHTGREY;" stylesheets="@stylesheet.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="600.0" prefWidth="146.0" style="-fx-background-color: LIGHTGREY;" stylesheets="@main_view_style.css" BorderPane.alignment="CENTER">
                <children>
                   <VBox fx:id="convVBox" prefHeight="444.0" prefWidth="146.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 

@@ -2,24 +2,23 @@ package com.assistant.aiassistant;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 // zorgt ervoor dat de user kan in- en uitloggen
-public class Security {
-    private static Security instance = null;
+public class AccountManager {
+    private static AccountManager instance = null;
     private User activeUser;
     FileIOManager fileManager = new FileIOManager();
 
 
-    private Security() {
+    private AccountManager() {
         setUserWithUsername(null); // null betekent dat er niemand is ingelogd
     }
 
     // als er nog geen instance is, wordt er een aangemaakt
-    public static Security getInstance() {
+    public static AccountManager getInstance() {
         if (instance == null) {
-            instance = new Security();
+            instance = new AccountManager();
         }
         return instance;
     }
