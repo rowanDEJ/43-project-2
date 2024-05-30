@@ -14,8 +14,8 @@ public class UserInterfaceManager {
     private String font;
     private String color;
 
-    private int defaultWidth;
-    private int defaultHeight;
+    public final int defaultWidth = 800;
+    public final int defaultHeight = 600;
 
     public String loginViewFilename = "login-view.fxml";
     public String mainViewFilename = "main-view.fxml";
@@ -23,8 +23,6 @@ public class UserInterfaceManager {
 
     public UserInterfaceManager() {
         this.currentLanguage = null;
-        this.defaultHeight = 600;
-        this.defaultWidth = 800;
         if(AccountManager.getInstance().getActiveUser() != null) {
             this.currentLanguage = AccountManager.getInstance().getActiveUser().getPreferredLanguage();
         }
@@ -40,7 +38,6 @@ public class UserInterfaceManager {
     public void start(Stage stage) throws IOException {
         // start het UI (laat het login scherm zien met default grootte, en zet de titel van het window
         this.currentStage = stage;
-
         this.currentStage.setTitle("43-AI-Assistant");
 
         Scene scene = getSceneWithDefaultSize(loginViewFilename);
