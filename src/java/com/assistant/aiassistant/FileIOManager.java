@@ -56,6 +56,16 @@ public class FileIOManager {
         return usersReadFromFile;
     }
 
+    //krijg alle beschikbare talen uit availableLanguages.txt
+    public ArrayList<Language> getAvailableLanguages() {
+        ArrayList<String> lines = readFile(FILE_PATH + "gebruikers.txt");
+        ArrayList<Language> foundLanguages = new ArrayList<>();
+        for(String line : lines) {
+            foundLanguages.add(new Language(line));
+        }
+        return foundLanguages;
+    }
+
     // slaat een gebruiker op in het gebruikers.txt bestand
     public void saveUserToFile(User userToSave){
         try {
