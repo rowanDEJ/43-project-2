@@ -2,7 +2,6 @@ package com.assistant.aiassistant;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -20,10 +19,8 @@ public class LoginController implements Initializable {
     public TextField emailInput;
     @FXML
     public TextField passwordInput;
-
     @FXML
     public VBox masterPane;
-
     @FXML
     public Button loginButton;
     @FXML
@@ -40,33 +37,20 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         removeAutoFocusFromTextField(emailInput);
-        setupPasswordVisibilityToggle();
-    }
-
-    private void setupPasswordVisibilityToggle() {
-        visiblePasswordInput.setManaged(false);
-        visiblePasswordInput.setVisible(false);
-
-        visiblePasswordInput.managedProperty().bind(showPasswordCheckbox.selectedProperty());
-        visiblePasswordInput.visibleProperty().bind(showPasswordCheckbox.selectedProperty());
-
-        passwordInput.managedProperty().bind(showPasswordCheckbox.selectedProperty().not());
-        passwordInput.visibleProperty().bind(showPasswordCheckbox.selectedProperty().not());
-
-        visiblePasswordInput.textProperty().bindBidirectional(passwordInput.textProperty());
+        passwordVisibilityToggleSetup.execute(visiblePasswordInput, passwordInput, showPasswordCheckbox);
     }
 
     private void removeAutoFocusFromTextField(TextField textField) {
         final BooleanProperty firstTime = new SimpleBooleanProperty(true);
         textField.focusedProperty().addListener((observable,  oldValue,  newValue) -> {
             if(newValue && firstTime.get()){
-                masterPane.requestFocus(); // Delegate the focus to container
-                firstTime.setValue(false); // Variable value changed for future references
+                masterPane.requestFocus();
+                firstTime.setValue(false);
             }
         });
     }
 
-    public void tryLogin(ActionEvent actionEvent) {
+    public void tryLogin() {
         if(emailInput.getText().equalsIgnoreCase("")) {
             errorLabel.setText("Enter Email Address.");
             return;

@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,20 +47,7 @@ public class RegisterController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         removeAutoFocusFromTextField(usernameInput);
         addLanguageOptionsToDropdownMenu();
-        setupPasswordVisibilityToggle();
-    }
-
-    private void setupPasswordVisibilityToggle() {
-        visiblePasswordInput.setManaged(false);
-        visiblePasswordInput.setVisible(false);
-
-        visiblePasswordInput.managedProperty().bind(showPasswordCheckbox.selectedProperty());
-        visiblePasswordInput.visibleProperty().bind(showPasswordCheckbox.selectedProperty());
-
-        passwordInput.managedProperty().bind(showPasswordCheckbox.selectedProperty().not());
-        passwordInput.visibleProperty().bind(showPasswordCheckbox.selectedProperty().not());
-
-        visiblePasswordInput.textProperty().bindBidirectional(passwordInput.textProperty());
+        passwordVisibilityToggleSetup.execute(visiblePasswordInput, passwordInput, showPasswordCheckbox);
     }
 
     private void addLanguageOptionsToDropdownMenu() {
