@@ -35,7 +35,7 @@ public class LoginController implements Initializable {
     @FXML
     public CheckBox showPasswordCheckbox;
 
-    private AccountManager loginManager = AccountManager.getInstance();
+    private final AccountManager loginManager = AccountManager.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

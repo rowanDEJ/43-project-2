@@ -1,7 +1,7 @@
 package com.assistant.aiassistant;
 
 public class Language {
-    private String name;
+    private final String name;
 
     public Language(String name) {
         this.name = name;
