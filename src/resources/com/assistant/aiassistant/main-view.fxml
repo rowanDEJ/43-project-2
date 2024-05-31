@@ -18,7 +18,7 @@
    <children>
       <BorderPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: GAINSBORO;">
          <left>
-            <AnchorPane prefHeight="600.0" prefWidth="146.0" style="-fx-background-color: LIGHTGREY;" stylesheets="@stylesheet.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="600.0" prefWidth="146.0" style="-fx-background-color: LIGHTGREY;" stylesheets="@main_view_style.css" BorderPane.alignment="CENTER">
                <children>
                   <VBox fx:id="convVBox" prefHeight="444.0" prefWidth="146.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 
@@ -28,99 +28,91 @@
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox maxWidth="1.7976931348623157E308" prefHeight="498.0" prefWidth="649.0">
+                  <VBox fx:id="chatBox" maxWidth="1.7976931348623157E308" prefHeight="498.0" prefWidth="649.0">
                      <children>
-                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="117.0" prefWidth="670.0">
+                        <HBox layoutX="10.0" layoutY="10.0">
                            <children>
-                              <Label prefHeight="18.0" prefWidth="94.0" text="AI">
+                              <Label prefHeight="12.0" prefWidth="12.0" text="AI">
                                  <HBox.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="5.0" top="5.0" />
                                  </HBox.margin>
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
                               </Label>
-                              <TextFlow prefHeight="272.0" prefWidth="658.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="10.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." wrappingWidth="567.1171875" />
-                                 </children>
+                              <TextFlow maxWidth="440.0" minWidth="30.0" style="-fx-background-color: LIGHTGREY; -fx-background-radius: 10;" textAlignment="CENTER">
                                  <padding>
-                                    <Insets bottom="10.0" left="10.0" right="30.0" top="10.0" />
+                                    <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                                  </padding>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="10.0" text="Jo" textAlignment="CENTER" wrappingWidth="539.1171875" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="25.0" />
+                                 </HBox.margin>
                               </TextFlow>
                            </children>
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="118.0" prefWidth="663.0" style="-fx-background-color: LIGHTGREY;">
+                        <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="10.0">
                            <children>
-                              <TextFlow prefHeight="272.0" prefWidth="658.0" textAlignment="RIGHT">
+                              <TextFlow maxWidth="440.0" minWidth="30.0" style="-fx-background-color: DARKGREY; -fx-background-radius: 10;" textAlignment="CENTER">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="10.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." wrappingWidth="567.1171875" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="10.0" text="Jo" wrappingWidth="539.1171875" />
                                  </children>
                                  <padding>
-                                    <Insets bottom="10.0" left="10.0" right="30.0" top="10.0" />
+                                    <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                                  </padding>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="25.0" />
+                                 </HBox.margin>
                               </TextFlow>
-                              <Label prefHeight="18.0" prefWidth="50.0" text="Jij" textAlignment="RIGHT">
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
+                              <Label prefHeight="12.0" prefWidth="12.0" text="Jij" textAlignment="RIGHT">
+                                 <HBox.margin>
+                                    <Insets right="5.0" top="5.0" />
+                                 </HBox.margin>
                               </Label>
                            </children>
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="148.0" prefHeight="118.0" prefWidth="663.0" style="-fx-background-color: LIGHTGREY;">
+                        <HBox prefHeight="117.0" prefWidth="670.0">
                            <children>
-                              <TextFlow prefHeight="272.0" prefWidth="658.0" textAlignment="RIGHT">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="10.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." wrappingWidth="567.1171875" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="30.0" top="10.0" />
-                                 </padding>
-                              </TextFlow>
-                              <Label prefHeight="18.0" prefWidth="50.0" text="Jij" textAlignment="RIGHT">
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
+                              <Label prefHeight="12.0" prefWidth="12.0" text="AI">
+                                 <HBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </HBox.margin>
                               </Label>
+                              <TextFlow prefHeight="150.0" prefWidth="440.0" style="-fx-background-color: LIGHTGREY; -fx-background-radius: 10;" textAlignment="CENTER">
+                                 <padding>
+                                    <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                                 </padding>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="10.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." wrappingWidth="539.1171875" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="25.0" />
+                                 </HBox.margin>
+                              </TextFlow>
                            </children>
                         </HBox>
-                        <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="148.0" prefHeight="118.0" prefWidth="663.0" style="-fx-background-color: LIGHTGREY;">
+                        <HBox alignment="TOP_RIGHT" prefHeight="118.0" prefWidth="663.0">
                            <children>
-                              <TextFlow prefHeight="272.0" prefWidth="658.0" textAlignment="RIGHT">
+                              <TextFlow prefHeight="150.0" prefWidth="440.0" style="-fx-background-color: DARKGREY; -fx-background-radius: 10;" textAlignment="RIGHT">
+                                 <padding>
+                                    <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                                 </padding>
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="10.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." wrappingWidth="567.1171875" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="10.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." wrappingWidth="539.1171875" />
                                  </children>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="30.0" top="10.0" />
-                                 </padding>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="25.0" />
+                                 </HBox.margin>
                               </TextFlow>
-                              <Label prefHeight="18.0" prefWidth="50.0" text="Jij" textAlignment="RIGHT">
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="148.0" prefHeight="118.0" prefWidth="663.0" style="-fx-background-color: LIGHTGREY;">
-                           <children>
-                              <TextFlow prefHeight="272.0" prefWidth="658.0" textAlignment="RIGHT">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="10.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." wrappingWidth="567.1171875" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="30.0" top="10.0" />
-                                 </padding>
-                              </TextFlow>
-                              <Label prefHeight="18.0" prefWidth="50.0" text="Jij" textAlignment="RIGHT">
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
+                              <Label prefHeight="12.0" prefWidth="12.0" text="Jij" textAlignment="RIGHT">
+                                 <HBox.margin>
+                                    <Insets right="5.0" top="5.0" />
+                                 </HBox.margin>
                               </Label>
                            </children>
                         </HBox>
@@ -138,7 +130,7 @@
                      </children></HBox>
                   <HBox alignment="CENTER" layoutX="147.0" prefHeight="100.0" prefWidth="653.0">
                      <children>
-                        <TextArea maxHeight="25.0" prefHeight="10.0" prefWidth="458.0" promptText="Bericht..." />
+                        <TextArea fx:id="bericht" maxHeight="25.0" prefHeight="10.0" prefWidth="458.0" promptText="Bericht..." />
                      </children>
                   </HBox>
                </children>
@@ -162,7 +154,7 @@
                               </Button>
                            </children>
                         </AnchorPane>
-                        <Label text="Label" />
+                        <Label fx:id="chatTitle" text="Label" />
                      </children>
                   </HBox>
                </children>

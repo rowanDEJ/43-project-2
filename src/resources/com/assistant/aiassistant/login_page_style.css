@@ -17,6 +17,33 @@
     -fx-background-position: center center;
 }
 
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: BLACK;
+    -fx-font-size: 16;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: LIGHTGRAY;
+}
+
+.combo-box {
+    -fx-background-color: transparent;
+}
+
+.combo-box .list-cell, .combo-box .text-field {
+    -fx-text-fill: WHITE;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+.combo-box .arrow-button .arrow {
+    -fx-background-color: white;
+}
+.combo-box .arrow-button .arrow .arrow-shape {
+    -fx-background-color: white;
+}
+
 .text-field {
     -fx-background-color: transparent;
     -fx-text-fill: WHITE;
@@ -92,6 +119,33 @@
     -fx-text-fill: WHITE;
 
     -fx-background-color: transparent;
+}
+
+.confirmationLabel {
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 16;
+    -fx-text-fill: LIGHTGREEN;
+
+    -fx-background-color: transparent;
+}
+
+.check-box>.box {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: TRANSPARENT;
+}
+
+.check-box>.box>.mark {
+    -fx-background-image: url("icons/eye.png");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-shape: none;
+}
+
+.check-box:selected>.box>.mark{
+    -fx-background-color: transparent;
+    -fx-background-image: url("icons/eye-crossed.png");
 }
 
 .errorLabel {
