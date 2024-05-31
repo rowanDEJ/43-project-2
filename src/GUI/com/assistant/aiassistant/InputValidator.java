@@ -30,7 +30,6 @@ public class InputValidator {
         }
         return null;
     }
-
     public static TextField findFirstEmptyTextField(ArrayList<TextField> fields) {
         for(TextField field : fields) {
             if(isTextfieldEmpty(field)) {
