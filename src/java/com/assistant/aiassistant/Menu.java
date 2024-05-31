@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Menu {
     private final Scanner scanner = new Scanner(System.in);
     private final Map<Integer, Action> actions = new HashMap<>();
-    final public static boolean startMenu = true;
+    public static final boolean startMenu = true;
 
     public Menu() {
         actions.put(1, new StartNewConversationAction("", ""));
