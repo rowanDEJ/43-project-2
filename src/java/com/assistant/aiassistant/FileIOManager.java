@@ -118,19 +118,19 @@ public class FileIOManager {
         for (User u : users) {
             if (user.getUsername().equals(u.getUsername())) {
                 switch (aspect) {
-                    case "gebruikersnaam":
+                    case "username":
                         u.setUserName(nieuw);
                         break;
-                    case "wachtwoord":
+                    case "password":
                         u.setPassword(nieuw);
                         break;
                     case "email":
                         u.setEmail(nieuw);
                         break;
-                    case "voornaam":
+                    case "firstname":
                         u.setFirstName(nieuw);
                         break;
-                    case "achternaam":
+                    case "lastname":
                         u.setLastName(nieuw);
                         break;
                     case "preferredLanguage":
