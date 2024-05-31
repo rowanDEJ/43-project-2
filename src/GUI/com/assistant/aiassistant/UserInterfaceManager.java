@@ -11,8 +11,6 @@ public class UserInterfaceManager {
 
     private String currentLanguage;
     private Stage currentStage;
-    private String font;
-    private String color;
 
     public final int defaultWidth = 800;
     public final int defaultHeight = 600;
@@ -66,34 +64,5 @@ public class UserInterfaceManager {
         // geeft een Scene object van de gespecificeerde fxml view file ding.
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFileName));
         return new Scene(fxmlLoader.load(), width, height);
-    }
-
-
-    public void setCurrentLanguage(String currentLanguage) {
-        this.currentLanguage = currentLanguage;
-    }
-
-    public void setFont(String font) {
-        this.font = font;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getCurrentLanguage() {
-        return currentLanguage;
-    }
-
-    public String getFont() {
-        return font;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void showInfo() {
-
     }
 }
