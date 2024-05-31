@@ -9,9 +9,9 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class RegisterController implements Initializable {
     @FXML
@@ -78,27 +78,21 @@ public class RegisterController implements Initializable {
     }
 
     private boolean areAllTextInputsValid() {
-        if(isTextfieldEmpty(usernameInput)) {
-            errorLabel.setText("Enter Username");
+        ArrayList<TextField> inputs = new ArrayList<>(List.of(usernameInput, passwordInput, emailInput, firstNameInput, lastNameInput));
+        TextField firstEmptyTextField = InputValidator.findFirstEmptyTextField(inputs);
+        if(firstEmptyTextField != null) {
+            errorLabel.setText("Enter " + firstEmptyTextField.getPromptText());
             return false;
         }
-        if(isTextfieldEmpty(passwordInput)) {
-            errorLabel.setText("Enter Password");
+
+        TextField firstTextfieldWithTooManyCharacters = InputValidator.findFirstTextFieldWithTooManyCharacters(inputs);
+        if(firstTextfieldWithTooManyCharacters != null) {
+            errorLabel.setText(firstTextfieldWithTooManyCharacters.getPromptText() + " has too many characters (" + firstTextfieldWithTooManyCharacters.getText().length() + "/" + InputValidator.maxInputLength + ")");
             return false;
         }
-        if(isTextfieldEmpty(emailInput)) {
-            errorLabel.setText("Enter Email");
-            return false;
-        }
-        if(isTextfieldEmpty(firstNameInput)) {
-            errorLabel.setText("Enter First Name");
-            return false;
-        }
-        if(isTextfieldEmpty(lastNameInput)) {
-            errorLabel.setText("Enter Last Name");
-            return false;
-        }
-        if(!isEmailValid(emailInput.getText())) {
+
+
+        if(InputValidator.isInvalidEmail(emailInput.getText())) {
             errorLabel.setText("Enter a valid email address");
             return false;
         }
@@ -119,23 +113,6 @@ public class RegisterController implements Initializable {
             return false;
         }
         return true;
-    }
-
-    private boolean isTextfieldEmpty(TextField fieldToCheck) {
-        return fieldToCheck.getText().equalsIgnoreCase("");
-    }
-
-    private boolean isEmailValid(String emailToCheck) {
-        // checkt of een email adres valid is, met een regex / pattern
-        // HIJ CHECKT:
-        //   1 het email adres heeft alleen valid characters  voor de @ (alfanumerieke karakters, ! # & ' + = ? -  , zijn toegestaan)
-        //   2 het kan (ook voor de @) een . hebben met nog meer tekst, die moet voldoen aan 1
-        //   3 dan moet er een @ in zitten
-        //   4 daarna moet het domeinnaam alleen bestaan uit letters en nummers, dan een . en daarna minimaal 2 letters en max 6.
-        String regex = "^[\\w!#&'+=?-]+(?:\\.[\\w!#&'+=?-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(emailToCheck);
-        return matcher.matches();
     }
 
     @FXML

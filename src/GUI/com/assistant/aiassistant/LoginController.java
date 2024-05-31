@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -51,13 +53,21 @@ public class LoginController implements Initializable {
     }
 
     public void tryLogin() {
-        if(emailInput.getText().equalsIgnoreCase("")) {
-            errorLabel.setText("Enter Email Address.");
+        ArrayList<TextField> inputs = new ArrayList<>(List.of(emailInput, passwordInput));
+        TextField firstEmptyTextField = InputValidator.findFirstEmptyTextField(inputs);
+        if(firstEmptyTextField != null) {
+            errorLabel.setText("Voer " + firstEmptyTextField.getPromptText() + " in.");
             return;
         }
 
-        if(passwordInput.getText().equalsIgnoreCase("")) {
-            errorLabel.setText("Enter Password.");
+        TextField firstTextfieldWithTooManyCharacters = InputValidator.findFirstTextFieldWithTooManyCharacters(inputs);
+        if(firstTextfieldWithTooManyCharacters != null) {
+            errorLabel.setText(firstTextfieldWithTooManyCharacters.getPromptText() + " te lang (" + firstTextfieldWithTooManyCharacters.getText().length() + "/" + InputValidator.maxInputLength + ")");
+            return;
+        }
+
+        if(InputValidator.isInvalidEmail(emailInput.getText())) {
+            errorLabel.setText("Ongeldig email adres.");
             return;
         }
 
@@ -69,7 +79,7 @@ public class LoginController implements Initializable {
                 throw new RuntimeException(e);
             }
         } else {
-            errorLabel.setText("Invalid Credentials");
+            errorLabel.setText("ongeldige inlog gegevens");
         }
     }
 

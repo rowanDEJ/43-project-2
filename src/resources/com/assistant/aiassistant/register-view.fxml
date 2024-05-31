@@ -23,7 +23,7 @@
                      </image></ImageView>
                </center>
                <bottom>
-                  <Label styleClass="bigTitle" text="CREATE NEW ACCOUNT" BorderPane.alignment="CENTER" />
+                  <Label styleClass="bigTitle" text="MAAK NIEUW ACCOUNT" BorderPane.alignment="CENTER" />
                </bottom>
                <VBox.margin>
                   <Insets bottom="20.0" top="20.0" />
@@ -36,7 +36,7 @@
                         <Image url="@icons/user_icon.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="usernameInput" promptText="username" />
+                  <TextField fx:id="usernameInput" promptText="gebruikersnaam" />
                </children>
             </HBox>
             <HBox alignment="CENTER" fillHeight="false" layoutX="264.0" layoutY="310.0" maxWidth="-Infinity" prefWidth="230.0" styleClass="inputFieldContainer">
@@ -46,8 +46,8 @@
                         <Image url="@icons/unlock.png" />
                      </image>
                   </ImageView>
-                  <PasswordField fx:id="passwordInput" promptText="password" />
-                  <TextField fx:id="visiblePasswordInput" promptText="password" />
+                  <PasswordField fx:id="passwordInput" promptText="wachtwoord" />
+                  <TextField fx:id="visiblePasswordInput" promptText="wachtwoord" />
                   <CheckBox fx:id="showPasswordCheckbox" mnemonicParsing="false" />
                </children>
             </HBox>
@@ -58,7 +58,7 @@
                   <Image url="@icons/envelope.png" />
                </image>
             </ImageView>
-            <TextField fx:id="emailInput" promptText="email" />
+            <TextField fx:id="emailInput" promptText="e-mailadres" />
          </children>
       </HBox>
       <HBox alignment="CENTER" fillHeight="false" layoutX="298.0" layoutY="464.0" maxWidth="-Infinity" prefWidth="230.0" styleClass="inputFieldContainer">
@@ -68,7 +68,7 @@
                   <Image url="@icons/user_icon.png" />
                </image>
             </ImageView>
-            <TextField fx:id="firstNameInput" promptText="first name" />
+            <TextField fx:id="firstNameInput" promptText="voornaam" />
          </children>
       </HBox>
       <HBox alignment="CENTER" fillHeight="false" layoutX="298.0" layoutY="500.0" maxWidth="-Infinity" prefWidth="230.0" styleClass="inputFieldContainer">
@@ -78,7 +78,7 @@
                   <Image url="@icons/user_icon.png" />
                </image>
             </ImageView>
-            <TextField fx:id="lastNameInput" promptText="last name" />
+            <TextField fx:id="lastNameInput" promptText="achternaam" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="298.0" layoutY="430.0" maxWidth="-Infinity" prefWidth="230.0" styleClass="inputFieldContainer">
@@ -91,17 +91,17 @@
                   <Insets left="3.0" />
                </HBox.margin>
             </ImageView>
-            <ComboBox fx:id="preferredLanguageChoiceBox" prefHeight="31.0" prefWidth="210.0" promptText="choose language" />
+            <ComboBox fx:id="preferredLanguageChoiceBox" prefHeight="31.0" prefWidth="210.0" promptText="kies een taal" />
          </children>
       </HBox>
-            <Button fx:id="registerButton" mnemonicParsing="false" onAction="#tryRegistering" prefHeight="26.0" prefWidth="230.0" styleClass="bigButton" text="REGISTER" textAlignment="CENTER">
+            <Button fx:id="registerButton" mnemonicParsing="false" onAction="#tryRegistering" prefHeight="26.0" prefWidth="230.0" styleClass="bigButton" text="REGISTREER" textAlignment="CENTER">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Button>
             <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="23.0" prefWidth="225.0" VBox.vgrow="NEVER">
                <children>
-                  <Button mnemonicParsing="false" styleClass="smallTextButtonLabel" text="Heb Je Al Een Account?" textAlignment="CENTER" />
-                  <Button fx:id="loginButton" layoutX="144.0" layoutY="10.0" mnemonicParsing="false" onAction="#showLoginScreen" styleClass="smallTextButton" text="Login" textAlignment="CENTER" />
+                  <Button mnemonicParsing="false" styleClass="smallTextButtonLabel" text="Heb je al een account?" textAlignment="CENTER" />
+                  <Button fx:id="loginButton" layoutX="144.0" layoutY="10.0" mnemonicParsing="false" onAction="#showLoginScreen" styleClass="smallTextButton" text="log in" textAlignment="CENTER" />
                </children>
             </HBox>
             <Label fx:id="errorLabel" styleClass="errorLabel" text=" " />
