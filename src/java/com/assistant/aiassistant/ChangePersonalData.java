@@ -3,6 +3,7 @@ package com.assistant.aiassistant;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// De meeste van de souts kunnen worden weggehaald als hij aan de applicatie wordt gelinkt
 public class ChangePersonalData {
 
     public FileIOManager fileIOManager = new FileIOManager();
@@ -56,11 +57,8 @@ public class ChangePersonalData {
         System.out.println();
         System.out.println("Waar wilt u uw wachtwoord in veranderen?");
         String newPassword = scanner.nextLine();
-        while (checkUsername(newPassword)) {
-            newPassword = scanner.nextLine();
-        }
         fileIOManager.editUser(selectedUser, newPassword, "password");
-        System.out.println("Uw gebruikersnaam is succesvol veranderd.");
+        System.out.println("Uw wachtwoord is succesvol veranderd.");
     }
 
     private void changeEmail(User selectedUser, Scanner scanner) {
@@ -68,9 +66,7 @@ public class ChangePersonalData {
         System.out.println("Uw huidige email is: " + selectedUser.getUsername());
         System.out.println("Waar wilt u uw gebruikersnaam in veranderen?");
         String newEmail = scanner.nextLine();
-        while (checkUsername(newEmail)) {
-            newEmail = scanner.nextLine();
-        }
+        // Miss nog methode om email te checken of hij al in gebruik is
         fileIOManager.editUser(selectedUser, newEmail, "email");
         System.out.println("Uw email adres is succesvol veranderd naar: " + selectedUser.getEmail());    }
 
@@ -79,9 +75,6 @@ public class ChangePersonalData {
         System.out.println("Uw huidige voornaam is: " + selectedUser.getFirstName());
         System.out.println("Waar wilt u uw voornaam in veranderen?");
         String newFirstName = scanner.nextLine();
-        while (checkUsername(newFirstName)) {
-            newFirstName = scanner.nextLine();
-        }
         fileIOManager.editUser(selectedUser, newFirstName, "fistname");
         System.out.println("Uw voornaam is succesvol veranderd naar: " + selectedUser.getFirstName());    }
 
@@ -90,13 +83,8 @@ public class ChangePersonalData {
         System.out.println("Uw huidige achternaam is: " + selectedUser.getUsername());
         System.out.println("Waar wilt u uw achternaam in veranderen?");
         String newLastName = scanner.nextLine();
-        while (checkUsername(newLastName)) {
-            System.out.println("Deze gebruikersnaam bestaat al!");
-            System.out.println("Kies een andere gebruikersnaam:");
-            newLastName = scanner.nextLine();
-        }
         fileIOManager.editUser(selectedUser, newLastName, "lastname");
-        System.out.println("Uw gebruikersnaam is succesvol veranderd naar: " + selectedUser.getLastName());    }
+        System.out.println("Uw achternaam is succesvol veranderd naar: " + selectedUser.getLastName());    }
 
     // Hier misschien handig om opties te geven in welke taal de gebruiker zijn voorkeur heeft
     private void changePreferredLanguage(User selectedUser, Scanner scanner) {
