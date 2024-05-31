@@ -1,6 +1,6 @@
 package com.assistant.aiassistant;
 
-public class User {
+public class  User {
     private String userName;
     private String password;
     private String firstName;
@@ -12,7 +12,7 @@ public class User {
         this.userName = userName;
     }
 
-    public User(String userName, String password, String firstName, String lastName, String email, String prefferedLanguage) {
+    public User(String userName, String password, String email, String firstName, String lastName, String prefferedLanguage) {
         this.userName = userName;
         this.password = password;
         this.firstName = firstName;
@@ -63,6 +63,10 @@ public class User {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     public String getPreferredLanguage() {
