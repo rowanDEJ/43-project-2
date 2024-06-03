@@ -8,8 +8,13 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        // start het user interface
-        UserInterfaceManager.getInstance().start(stage);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        MainController controller = fxmlLoader.getController();
+        controller.setPrimaryStage(stage);
+        stage.setTitle("43-AI-Assistant");
+        stage.setScene(scene);
+        stage.show();
     }
     public static void main(String[] args) {
         launch();
