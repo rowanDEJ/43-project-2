@@ -1,24 +1,28 @@
 package com.assistant.aiassistant;
 
-public class User {
-    private String username;
+public class  User {
+    private String userName;
     private String password;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String voornaam;
-    private String achternaam;
     private String preferredLanguage;
 
-    public User(String username, String wachtwoord, String email, String voornaam, String achternaam, String preferredLanguage) {
-        this.username = username;
-        this.password = wachtwoord;
+    public User(String userName) {
+        this.userName = userName;
+    }
+
+    public User(String userName, String password, String email, String firstName, String lastName, String preferredLanguage) {
+        this.userName = userName;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.voornaam = voornaam;
-        this.achternaam = achternaam;
         this.preferredLanguage = preferredLanguage;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setPassword(String password) {
@@ -29,12 +33,12 @@ public class User {
         this.email = email;
     }
 
-    public void setVoornaam(String voornaam) {
-        this.voornaam = voornaam;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setAchternaam(String achternaam) {
-        this.achternaam = achternaam;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setPreferredLanguage(String preferredLanguage) {
@@ -42,7 +46,7 @@ public class User {
     }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     public String getPassword() {
@@ -53,12 +57,16 @@ public class User {
         return email;
     }
 
-    public String getVoornaam() {
-        return voornaam;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getAchternaam() {
-        return achternaam;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     public String getPreferredLanguage() {
@@ -66,14 +74,21 @@ public class User {
     }
 
     public void changeLanguage() {
+        if (preferredLanguage.equals("NL")) {
+            preferredLanguage = "EN";
+        } else {
+            preferredLanguage = "NL";
+        }
 
     }
 
     public void login() {
+        // nog maken
 
     }
 
     public void logout() {
+        // nog maken
 
     }
 }

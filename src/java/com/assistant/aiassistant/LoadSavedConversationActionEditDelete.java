@@ -16,7 +16,8 @@ public class LoadSavedConversationActionEditDelete {
     public static void readConversation(Conversation conversation) {
         System.out.println("Conversatie onderwerp: " + conversation.getTopic());
         System.out.println("Berichten in deze conversatie:");
-        for (String message : conversation.getMessage()) {System.out.println(message);
+        for (String message : conversation.getMessages()) {
+            System.out.println(message);
         }
     }
 }

@@ -6,9 +6,9 @@ public class ExamplequeryResolutionStrategy implements QueryResolutionStrategy<S
         String data = form.getQueryData();
 
         if(data.equalsIgnoreCase("ik wil kaas")) {
-            return new QueryResolutionResult<String>("Ik wil ook kaas, mijn beste vriend.");
+            return new QueryResolutionResult<>("Ik wil ook kaas, mijn beste vriend.");
         }
 
-        return new QueryResolutionResult<String>("Je query was \"" + data + "\", lengte: " + data.length());
+        return new QueryResolutionResult<>("Je query was \"" + data + "\", lengte: " + data.length());
     }
 }

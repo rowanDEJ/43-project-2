@@ -1,0 +1,4 @@
+username/~/wachtwoord/~/email/~/voornaam/~/achternaam/~/preferredLanguage
+MeneerMart/~/geheim/~/martvanderveen06@gmail.com/~/Mart/~/van der Veen/~/nederlands
+MisterCheese/~/kaasislekker/~/sathpremsital@gmail.com/~/Sathprem/~/Sital/~/english
+DanielD/~/wachtwoord/~/danieldijke@gmail.com/~/Daniel/~/Dijke/~/nederlands
