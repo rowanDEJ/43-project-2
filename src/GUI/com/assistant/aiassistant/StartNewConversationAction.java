@@ -10,8 +10,7 @@ public class StartNewConversationAction implements Action {
     @Override
     public void execute() {
         Conversation conversation = new Conversation(topic, new ArrayList<>());
-        conversation.addMessage(message);
-        FileIOManager.saveConversation(conversation);
+
     }
 
     public StartNewConversationAction(String topic, String message) {

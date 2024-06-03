@@ -1,6 +1,7 @@
 package com.assistant.aiassistant;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class FileIOManager {
     private static final String DIRECTORY_PATH = "src/";
     private static final String FILE_PATH = "files/";
     private static final String SEPERATOR = "/~/";
+
 
     // Hieronder staan alle methodes om gebruikers te lezen, schrijven, bewerken en verwijderen
     // leest een bestand uit en zet de data in een ArrayList
@@ -138,9 +140,8 @@ public class FileIOManager {
     // leest een bestand uit
     public static void saveConversation(Conversation conversation) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH  + "conversations/" + conversation.getTopic() + ".txt"))) {
-            for (String msg : conversation.getMessage()) {
-                writer.write(msg);
-                writer.newLine();
+            for (String message : conversation.getMessages()) {
+                writer.write(message + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -148,17 +149,26 @@ public class FileIOManager {
     }
 
     // laadt een gesprek
-    public static List<String> getSavedConversations() {
-        try {
-            return Files.walk(Paths.get(FILE_PATH + "conversations/"))
-                    .filter(Files::isRegularFile)
-                    .filter(path -> path.toString().endsWith(".txt"))
-                    .map(path -> path.getFileName().toString().replaceFirst("[.][^.]+$", ""))
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
+    public static ArrayList<Conversation> getSavedConversations() {
+        ArrayList<Conversation> savedConversations = new ArrayList<>();
+        File folder = new File(FILE_PATH + "conversations/");
+        File[] listOfFiles = folder.listFiles();
+
+        if (listOfFiles != null) {
+            for (File file : listOfFiles) {
+                if (file.isFile()) {
+                    String topic = file.getName().replace(".txt", "");
+                    Conversation conversation = new Conversation(topic, new ArrayList<>());
+                    savedConversations.add(conversation);
+                }
+            }
         }
+        return savedConversations;
+    }
+
+    public static void addMessageToConversation(String message, Conversation conversation) {
+        conversation.addMessage(message);
+        saveConversation(conversation);
     }
 
     // laadt een gesprek
