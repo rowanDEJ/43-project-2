@@ -22,7 +22,7 @@
                      </image></ImageView>
                </center>
                <bottom>
-                  <Label styleClass="bigTitle" text="43 AI ASSISTENT LOGIN" BorderPane.alignment="CENTER" />
+                  <Label styleClass="bigTitle" text="43 AI ASSISTENT LOGIN" BorderPane.alignment="CENTER" /> <!-- NL=EN -->
                </bottom>
                <VBox.margin>
                   <Insets bottom="20.0" top="20.0" />
@@ -35,7 +35,7 @@
                         <Image url="@icons/envelope.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="emailInput" promptText="e-mailadres" />
+                  <TextField fx:id="emailInput" promptText="e-mailadres" />  <!-- EN = "e-mail address"-->
                </children>
             </HBox>
             <HBox alignment="CENTER" fillHeight="false" layoutX="264.0" layoutY="310.0" maxWidth="-Infinity" prefWidth="230.0" styleClass="inputFieldContainer">
@@ -45,19 +45,19 @@
                         <Image url="@icons/unlock.png" />
                      </image>
                   </ImageView>
-                  <PasswordField fx:id="passwordInput" promptText="wachtwoord" />
-                  <TextField fx:id="visiblePasswordInput" promptText="wachtwoord" />
+                  <PasswordField fx:id="passwordInput" promptText="wachtwoord" /> <!-- EN = "password" -->
+                  <TextField fx:id="visiblePasswordInput" promptText="wachtwoord" /> <!-- EN = "password" -->
                   <CheckBox fx:id="showPasswordCheckbox" mnemonicParsing="false" />
                </children>
             </HBox>
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#tryLogin" prefHeight="26.0" prefWidth="230.0" styleClass="bigButton" text="LOG IN" textAlignment="CENTER">
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#tryLogin" prefHeight="26.0" prefWidth="230.0" styleClass="bigButton" text="LOG IN" textAlignment="CENTER">  <!-- EN = NL -->
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Button>
             <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="23.0" prefWidth="225.0" VBox.vgrow="NEVER">
                <children>
-                  <Button mnemonicParsing="false" styleClass="smallTextButtonLabel" text="Geen account?" textAlignment="CENTER" />
-                  <Button fx:id="registerButton" layoutX="144.0" layoutY="10.0" mnemonicParsing="false" onAction="#showRegisterScreen" styleClass="smallTextButton" text="Registreer Nu." textAlignment="CENTER" />
+                  <Button mnemonicParsing="false" styleClass="smallTextButtonLabel" text="Geen account?" textAlignment="CENTER" />  <!-- EN = "No account?" -->
+                  <Button fx:id="registerButton" layoutX="144.0" layoutY="10.0" mnemonicParsing="false" onAction="#showRegisterScreen" styleClass="smallTextButton" text="Registreer Nu." textAlignment="CENTER" /> <!-- EN = "Register Now." -->
                </children>
             </HBox>
       <Label fx:id="errorLabel" styleClass="errorLabel" text=" " />
