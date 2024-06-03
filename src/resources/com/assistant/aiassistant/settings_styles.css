@@ -1,0 +1,44 @@
+.primary-color {
+    -fx-background-color: #022340;
+}
+
+.secondary-color {
+    -fx-background-color: #0000FF;
+}
+
+.button{
+    -fx-background-color: #00000;
+    -fx-background-radius: 30;
+}
+
+.text-input{
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #000000;
+    -fx-text-inner-color: #000000;
+}
+
+.selected-border{
+    -fx-border-color: #000000;
+    -fx-border-width: 0 3 0 0;
+}
+
+.selected:hover{
+    -fx-background-color: #D3D3D3;
+}
+
+.primaryPaneSettings{
+    -fx-background-image: url("images/background.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #D3D3D3;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.secondaryPaneSettings{
+    -fx-background-image: url('images/background-right.jpg');
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #D3D3D3;
+    -fx-background-size: cover;
+    -fx-background-position: right;
+}
