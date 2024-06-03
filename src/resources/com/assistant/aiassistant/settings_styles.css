@@ -1,0 +1,42 @@
+.primary-color {
+    -fx-background-color: #022340;
+}
+
+.secondary-color {
+    -fx-background-color: #023439;
+}
+
+.button{
+    -fx-background-color: #242551;
+    -fx-background-radius: 30;
+}
+
+.text-input{
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #242551;
+    -fx-text-inner-color: #fff;
+}
+
+.selected-border{
+    -fx-border-color: #fff;
+    -fx-border-width: 0 3 0 0;
+}
+
+.selected:hover{
+    -fx-background-color: #3C3D5B;
+}
+
+.primaryPaneSettings{
+    -fx-background-image: url("images/blue_pattern.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.secondaryPaneSettings{
+    -fx-background-image: url('images/random-bg-image.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
