@@ -157,72 +157,6 @@
                   </Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="127.0" text="Username">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                           <padding>
-                              <Insets left="30.0" />
-                           </padding>
-                        </Label>
-                        <Pane prefHeight="200.0" prefWidth="140.0" />
-                        <TextField prefHeight="0.0" prefWidth="279.0" />
-                        <CheckBox mnemonicParsing="false">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="50.0" />
-                           </padding>
-                        </CheckBox>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
-                     <children>
-                        <Label prefHeight="30.0" prefWidth="127.0" text="Password">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                           <padding>
-                              <Insets left="30.0" />
-                           </padding>
-                        </Label>
-                        <Pane prefHeight="200.0" prefWidth="140.0" />
-                        <TextField prefHeight="0.0" prefWidth="279.0" />
-                        <CheckBox mnemonicParsing="false">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="50.0" />
-                           </padding>
-                        </CheckBox>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
-                     <children>
-                        <Label prefHeight="30.0" prefWidth="127.0" text="Email">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                           <padding>
-                              <Insets left="30.0" />
-                           </padding>
-                        </Label>
-                        <Pane prefHeight="200.0" prefWidth="140.0" />
-                        <TextField prefHeight="0.0" prefWidth="279.0" />
-                        <CheckBox mnemonicParsing="false">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="50.0" />
-                           </padding>
-                        </CheckBox>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
-                     <children>
                         <Label prefHeight="30.0" prefWidth="127.0" text="Name">
                            <font>
                               <Font size="17.0" />
@@ -232,8 +166,8 @@
                            </padding>
                         </Label>
                         <Pane prefHeight="200.0" prefWidth="140.0" />
-                        <TextField prefHeight="0.0" prefWidth="279.0" />
-                        <CheckBox mnemonicParsing="false">
+                        <TextField fx:id="firstName" prefHeight="0.0" prefWidth="279.0" />
+                        <CheckBox fx:id="buttonFirstName" mnemonicParsing="false">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -254,8 +188,52 @@
                            </padding>
                         </Label>
                         <Pane prefHeight="200.0" prefWidth="140.0" />
-                        <TextField prefHeight="0.0" prefWidth="279.0" />
-                        <CheckBox mnemonicParsing="false">
+                        <TextField fx:id="lastName" prefHeight="0.0" prefWidth="279.0" />
+                        <CheckBox fx:id="buttonLastName" mnemonicParsing="false">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="50.0" />
+                           </padding>
+                        </CheckBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="127.0" text="Password">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                        </Label>
+                        <Pane prefHeight="200.0" prefWidth="140.0" />
+                        <TextField fx:id="password" prefHeight="0.0" prefWidth="279.0" />
+                        <CheckBox fx:id="buttonPassword" mnemonicParsing="false">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="50.0" />
+                           </padding>
+                        </CheckBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="127.0" text="Email">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                        </Label>
+                        <Pane prefHeight="200.0" prefWidth="140.0" />
+                        <TextField fx:id="email" prefHeight="0.0" prefWidth="279.0" />
+                        <CheckBox fx:id="buttonEmail" mnemonicParsing="false">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -276,8 +254,8 @@
                            </padding>
                         </Label>
                         <Pane prefHeight="200.0" prefWidth="140.0" />
-                        <ChoiceBox prefHeight="25.0" prefWidth="267.0" styleClass="button" />
-                        <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="101.0">
+                        <ChoiceBox fx:id="prefferedLanguage" prefHeight="25.0" prefWidth="267.0" styleClass="button" />
+                        <CheckBox fx:id="checkPrefferedLanguage" mnemonicParsing="false" prefHeight="17.0" prefWidth="101.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -289,7 +267,7 @@
                   </HBox>
                </children>
             </VBox>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Save">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#checkChangable" prefHeight="30.0" prefWidth="60.0" text="Save">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
