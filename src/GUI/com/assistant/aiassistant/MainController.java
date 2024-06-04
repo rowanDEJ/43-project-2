@@ -16,6 +16,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -266,5 +267,10 @@ public class MainController {
                 }
             }
         }
+    }
+
+    public void showSettings() throws IOException {
+        UserInterfaceManager uiManager = UserInterfaceManager.getInstance();
+        uiManager.switchCurrentViewTo(uiManager.settingsViewFilename);
     }
 }
