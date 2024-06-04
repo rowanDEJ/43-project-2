@@ -28,10 +28,9 @@ public class MainController {
     private Stage primaryStage;
     public VBox convVBox;
     public VBox chatBox;
-    @FXML
-    private Label chatTitle;
-    @FXML
-    private TextArea bericht;
+    public Label chatTitle;
+    public TextArea bericht;
+    public ScrollPane convScrollPane;
 
     private static final String FILE_PATH = "files/";
     public ArrayList<Conversation> savedConversations;
@@ -48,6 +47,7 @@ public class MainController {
     public void initialize() {
         loadSavedConversations();
         fileCreationListener();
+        messageCreationListener();
         initializeMessagebox();
         LoadSavedConversationAction action = new LoadSavedConversationAction();
         action.execute();
@@ -95,17 +95,23 @@ public class MainController {
     }
 
     private void messageCreationListener() {
-        MessageCreationMonitor monitor = new MessageCreationMonitor();
-        monitor.addObserver(fileName -> {
-            Platform.runLater(() -> {
-                // fileName is the name of the file that was created
-                String topic = chatTitle.getText();
-                if (fileName.startsWith(topic)) {
-                    chatBox.getChildren().add(createAnswerHBox(fileName));
-                }
-            });
-        });
-        monitor.start();
+        File folder = new File(FILE_PATH + "conversations/");
+        File[] listOfFiles = folder.listFiles();
+
+        if (listOfFiles != null) {
+            for (File file : listOfFiles) {
+                MessageCreationMonitor monitor = new MessageCreationMonitor(file);
+                monitor.addObserver(message -> {
+                    Platform.runLater(() -> {
+                        // message is the message that was added to the file
+                        chatBox.getChildren().add(createQuestionHBox(message));
+
+                        Platform.runLater(() -> convScrollPane.setVvalue(1.0));
+                    });
+                });
+                monitor.start();
+            }
+        }
     }
 
     public void createHBoxWithButtons(String topic) {
@@ -160,6 +166,7 @@ public class MainController {
                     } else {
                         chatBox.getChildren().add(createQuestionHBox(message));
                     }
+                    convScrollPane.setVvalue(1.0);
                 }
             }
         }
@@ -252,7 +259,6 @@ public class MainController {
 
     private void MessageHandler(String message) {
         if (!(message.isBlank())) {
-            System.out.println(message);
             String topic = chatTitle.getText();
             for (Conversation conversation : savedConversations) {
                 if (conversation.getTopic().equals(topic)) {

@@ -15,15 +15,14 @@
    <children>
       <BorderPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: GAINSBORO;">
          <left>
-            <AnchorPane prefHeight="600.0" prefWidth="146.0" style="-fx-background-color: LIGHTGREY;" stylesheets="@stylesheet.css" BorderPane.alignment="CENTER">
-               <children>
-                  <VBox fx:id="convVBox" prefHeight="444.0" prefWidth="146.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-
-               </children>
-            </AnchorPane>
+            <ScrollPane fitToHeight="true" fitToWidth="true" vvalue="1.0" BorderPane.alignment="CENTER">
+               <content>
+                  <VBox fx:id="convVBox" prefHeight="444.0" prefWidth="148.0" style="-fx-background-color: LIGHTGREY;" stylesheets="@stylesheet.css" />
+               </content>
+            </ScrollPane>
          </left>
          <center>
-            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <ScrollPane fx:id="convScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vvalue="1.0" BorderPane.alignment="CENTER">
                <content>
                   <VBox fx:id="chatBox" maxWidth="1.7976931348623157E308" prefHeight="498.0" prefWidth="649.0" />
                </content>
@@ -32,11 +31,11 @@
          <bottom>
             <AnchorPane prefHeight="78.0" prefWidth="800.0" style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="147.0" style="-fx-background-color: LIGHTGREY;">
+                  <HBox prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: LIGHTGREY;">
                      <children>
                         <Label text="Settings" />
                      </children></HBox>
-                  <HBox alignment="CENTER" layoutX="147.0" prefHeight="100.0" prefWidth="653.0">
+                  <HBox alignment="CENTER" layoutX="149.0" prefHeight="100.0" prefWidth="652.0">
                      <children>
                         <TextArea fx:id="bericht" maxHeight="25.0" prefHeight="10.0" prefWidth="458.0" promptText="Bericht..." />
                      </children>
@@ -52,7 +51,7 @@
                      <children>
                         <Button fx:id="newChatButton" mnemonicParsing="false" onAction="#handleNewChat" styleClass="newChatButton">
                            <graphic>
-                              <ImageView fitHeight="26.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="26.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                  <image>
                                     <Image url="@icons/new_chat_icon.png" />
                                  </image>

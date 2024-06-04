@@ -1,13 +1,19 @@
 package com.assistant.aiassistant;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MessageCreationMonitor extends Thread{
+    private final File file;
+    private long lastModified;
     private final List<MessageCreationObserver> observers;
 
-    public MessageCreationMonitor() {
+    public MessageCreationMonitor(File file) {
+        this.file = file;
+        this.lastModified = file.lastModified();
         this.observers = new ArrayList<>();
     }
 
@@ -17,24 +23,57 @@ public class MessageCreationMonitor extends Thread{
 
     @Override
     public void run() {
-        long lastCheck = System.currentTimeMillis();
         while (true) {
-            File[] files = new File("messages").listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    if (file.lastModified() > lastCheck && file.getName().endsWith(".txt")) {
-                        for (MessageCreationObserver observer : observers) {
-                            observer.onMessageCreated(file.getName());
-                        }
-                    }
-                }
+            long newLastModified = file.lastModified();
+            if (newLastModified > lastModified) {
+                lastModified = newLastModified;
+                notifyObservers();
             }
-            lastCheck = System.currentTimeMillis();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void notifyObservers() {
+        String message = readLastLineFromFile();
+        for (MessageCreationObserver observer : observers) {
+            observer.onFileModified(message);
+        }
+    }
+
+    private String readLastLineFromFile() {
+        String lastLine = "";
+        try (RandomAccessFile fileHandler = new RandomAccessFile(file, "r")) {
+            long fileLength = fileHandler.length() - 1;
+            StringBuilder sb = new StringBuilder();
+
+            for (long filePointer = fileLength; filePointer != -1; filePointer--) {
+                fileHandler.seek(filePointer);
+                int readByte = fileHandler.readByte();
+
+                if (readByte == 0xA) {
+                    if (filePointer == fileLength) {
+                        continue;
+                    }
+                    break;
+
+                } else if (readByte == 0xD) {
+                    if (filePointer == fileLength - 1) {
+                        continue;
+                    }
+                    break;
+                }
+
+                sb.append((char) readByte);
+            }
+
+            lastLine = sb.reverse().toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lastLine;
     }
 }
