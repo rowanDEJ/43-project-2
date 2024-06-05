@@ -19,7 +19,6 @@ public class SettingController {
     public CheckBox buttonFirstName;
     public TextField lastName;
     public CheckBox buttonLastName;
-    public Label showName;
 //    public ChoiceBox preferredLanguage;
 //    public CheckBox buttonPreferredLanguage;
 
@@ -29,7 +28,7 @@ public class SettingController {
     public void initialize() {
         changePersonalData = new ChangePersonalData();
         accountManager = AccountManager.getInstance();
-        setUsername();
+//        setUsername();
     }
 
     public void checkChangable() {
@@ -54,7 +53,7 @@ public class SettingController {
 
     @FXML
     void setUsername() {
-        showName.setText(AccountManager.getInstance().getActiveUser().getUsername());
+//        showName.setText(AccountManager.getInstance().getActiveUser().getUsername());
     }
 
     @FXML
