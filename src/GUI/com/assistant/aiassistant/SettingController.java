@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class SettingController {
     @FXML
-//    public Label showName;
+    public Label showName;
     public TextField password;
     public CheckBox buttonPassword;
     public TextField email;
@@ -28,7 +28,7 @@ public class SettingController {
     public void initialize() {
         changePersonalData = new ChangePersonalData();
         accountManager = AccountManager.getInstance();
-//        setUsername();
+        setUsername();
     }
 
     public void checkChangable() {
@@ -53,7 +53,7 @@ public class SettingController {
 
     @FXML
     void setUsername() {
-//        showName.setText(AccountManager.getInstance().getActiveUser().getUsername());
+       showName.setText(AccountManager.getInstance().getActiveUser().getUsername());
     }
 
     @FXML
