@@ -18,10 +18,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class MainController {
     public Button newChatButton;
@@ -36,6 +33,10 @@ public class MainController {
     private static final String FILE_PATH = "files/";
     public ArrayList<Conversation> savedConversations;
     private ArrayList<String> createdConversations = new ArrayList<>();
+
+    public AccountManager accountManager = AccountManager.getInstance();
+    public Locale appLocale = new Locale(accountManager.getActiveUser().getPreferredLanguage());
+    ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", appLocale);
 
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
@@ -188,11 +189,11 @@ public class MainController {
         HBox.setMargin(textFlow, new Insets(25.0, 10.0, 5.0, 10.0));
 
         // Create the Label
-        Label label = new Label("Jij");
-        label.setPrefHeight(12.0);
-        label.setPrefWidth(12.0);
+        Label label = new Label(bundle.getString("you")); // Jij
+        label.setPrefHeight(20.0); // eerst op 12.0
+        label.setPrefWidth(30.0); // eerst op 12.0
         label.setTextAlignment(TextAlignment.RIGHT);
-        HBox.setMargin(label, new Insets(5.0, 5.0, 0, 0));
+        HBox.setMargin(label, new Insets(5.0, 5.0, 0, 0)); // 5.0, 5.0, 0, 0
 
         // Create the HBox and add the TextFlow and Label
         HBox hbox = new HBox();
@@ -239,9 +240,9 @@ public class MainController {
         dialog.initOwner(primaryStage);
 
         VBox dialogVBox = new VBox(10);
-        Label label = new Label("New chat dialog");
+        Label label = new Label(bundle.getString("newChatDialog")); // New chat dialog
         TextField textField = new TextField();
-        Button button = new Button("Start Chat");
+        Button button = new Button(bundle.getString("startChat")); // Start Chat
         button.setOnAction(e -> {
             String topic = textField.getText();
             StartNewConversationAction action = new StartNewConversationAction(topic, "");
@@ -253,7 +254,7 @@ public class MainController {
 
         Scene dialogScene = new Scene(dialogVBox, 300, 200);
         dialog.setScene(dialogScene);
-        dialog.setTitle("New Chat");
+        dialog.setTitle(bundle.getString("newChat")); // New Chat
         dialog.show();
     }
 
