@@ -14,16 +14,17 @@ public class SettingController {
     public TextField email;
     public TextField firstName;
     public TextField lastName;
-//    public ChoiceBox preferredLanguage;
-//    public CheckBox buttonPreferredLanguage;
+    public ChoiceBox preferredLanguage;
 
     public ChangePersonalData changePersonalData;
     public AccountManager accountManager;
+
 
     public void initialize() {
         changePersonalData = new ChangePersonalData();
         accountManager = AccountManager.getInstance();
         setUsername();
+        addLanguageOptionsToDropdownMenu();
     }
 
     public void checkChangable() {
@@ -41,9 +42,14 @@ public class SettingController {
         if (notNull(email.getText())) {
             changePersonalData.changeEmail(activeUser, email.getText());
         }
-//        if (notNull(preferredLanguage.getValue().toString()) {
-//            changePersonalData.changePreferredLanguage(activeUser, preferredLanguage.getValue().toString());
-//        }
+        if (notNull(preferredLanguage.getValue().toString())) {
+            changePersonalData.changePreferredLanguage(activeUser, preferredLanguage.getValue().toString());
+        }
+    }
+
+    public void addLanguageOptionsToDropdownMenu() {
+        FileIOManager ioManager = new FileIOManager();
+        preferredLanguage.getItems().addAll(ioManager.getAvailableLanguages());
     }
 
     @FXML
@@ -65,7 +71,6 @@ public class SettingController {
             throw new RuntimeException(e);
         }
     }
-
 
     private boolean notNull(String text) {
         return text != null && !text.isEmpty();
