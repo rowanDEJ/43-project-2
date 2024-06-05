@@ -55,6 +55,8 @@ public class MainController {
         action.execute();
         savedConversations = action.savedConversations;
         bericht.setDisable(true);
+        bericht.setPromptText(bundle.getString("messagePrompt")); // Bericht...
+        chatTitle.setText(bundle.getString("noChat")); // Geen Chat
     }
 
     private void initializeMessagebox() {
@@ -191,9 +193,8 @@ public class MainController {
         // Create the Label
         Label label = new Label(bundle.getString("you")); // Jij
         label.setPrefHeight(20.0); // eerst op 12.0
-        label.setPrefWidth(30.0); // eerst op 12.0
         label.setTextAlignment(TextAlignment.RIGHT);
-        HBox.setMargin(label, new Insets(5.0, 5.0, 0, 0)); // 5.0, 5.0, 0, 0
+        HBox.setMargin(label, new Insets(5.0, 12.0, 0, 0)); // 5.0, 5.0, 0, 0
 
         // Create the HBox and add the TextFlow and Label
         HBox hbox = new HBox();

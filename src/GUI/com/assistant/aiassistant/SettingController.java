@@ -1,9 +1,10 @@
 package com.assistant.aiassistant;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class SettingController {
     @FXML
@@ -18,12 +19,34 @@ public class SettingController {
 //    public ChoiceBox preferredLanguage;
 //    public CheckBox buttonPreferredLanguage;
 
+    public Label settingsLabel;
+    public Label profileLabel;
+    public Label profileLabel2;
+    public Label firstNameLabel;
+    public Label lastNameLabel;
+    public Label passwordLabel;
+    public Label emailLabel;
+    public Label preferredLanguageLabel;
+    public Button saveButton;
+
+    public AccountManager accountManager = AccountManager.getInstance();
+    public Locale appLocale = new Locale(accountManager.getActiveUser().getPreferredLanguage());
+    ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", appLocale);
+
     public ChangePersonalData changePersonalData;
-    public AccountManager accountManager;
 
     public void initialize() {
         changePersonalData = new ChangePersonalData();
-        accountManager = AccountManager.getInstance();
+
+        settingsLabel.setText(bundle.getString("settings")); //Settings
+        profileLabel.setText(bundle.getString("profile")); //Profile
+        profileLabel2.setText(bundle.getString("profile")); //Profile
+        firstNameLabel.setText(bundle.getString("firstName")); //Name
+        lastNameLabel.setText(bundle.getString("lastName")); //Surname
+        passwordLabel.setText(bundle.getString("password")); //Password
+        emailLabel.setText(bundle.getString("email")); //Email
+        preferredLanguageLabel.setText(bundle.getString("preferredLanguage")); //Preferred Language
+        saveButton.setText(bundle.getString("save")); //Save
     }
 
     public void checkChangable() {

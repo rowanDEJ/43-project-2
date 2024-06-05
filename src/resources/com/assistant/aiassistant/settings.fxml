@@ -85,7 +85,7 @@
                               <Image url="@images/user.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="34.0" prefWidth="181.0" styleClass="selected" stylesheets="@settings_styles.css" text=" Profile">
+                        <Label fx:id="profileLabel2" prefHeight="34.0" prefWidth="181.0" styleClass="selected" stylesheets="@settings_styles.css">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -134,7 +134,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="secondaryPaneSettings" stylesheets="@settings_styles.css" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="17.0" prefWidth="888.0" text="Settings">
+            <Label fx:id="settingsLabel" prefHeight="17.0" prefWidth="888.0" text="Settings">
                <font>
                   <Font size="25.0" />
                </font>
@@ -144,7 +144,7 @@
             </Label>
             <VBox prefHeight="266.0" prefWidth="880.0" spacing="50.0">
                <children>
-                  <Label prefHeight="46.0" prefWidth="880.0" text="Profiel">
+                  <Label fx:id="profileLabel" prefHeight="46.0" prefWidth="880.0" text="Profiel">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -157,7 +157,7 @@
                   </Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="127.0" text="Name">
+                        <Label fx:id="firstNameLabel" prefHeight="30.0" prefWidth="127.0" text="Name">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -179,7 +179,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="127.0" text="Surname">
+                        <Label fx:id="lastNameLabel" prefHeight="30.0" prefWidth="127.0" text="Surname">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -201,7 +201,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="127.0" text="Password">
+                        <Label fx:id="passwordLabel" prefHeight="30.0" prefWidth="127.0" text="Password">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -223,7 +223,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="127.0" text="Email">
+                        <Label fx:id="emailLabel" prefHeight="30.0" prefWidth="127.0" text="Email">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -245,7 +245,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="880.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="127.0" text="Language">
+                        <Label fx:id="preferredLanguageLabel" prefHeight="30.0" prefWidth="127.0" text="Language">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -267,7 +267,7 @@
                   </HBox>
                </children>
             </VBox>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#checkChangable" prefHeight="30.0" prefWidth="60.0" text="Save">
+            <Button fx:id="saveButton" alignment="CENTER" mnemonicParsing="false" onAction="#checkChangable" prefHeight="30.0" text="Save">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
