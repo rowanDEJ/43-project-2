@@ -20,8 +20,7 @@ public class SettingController {
     public TextField email;
     public TextField firstName;
     public TextField lastName;
-//    public ChoiceBox preferredLanguage;
-//    public CheckBox buttonPreferredLanguage;
+    public ChoiceBox preferredLanguage;
 
     public Label settingsLabel;
     public Label profileLabel;
@@ -39,11 +38,13 @@ public class SettingController {
 
     public ChangePersonalData changePersonalData;
 
+
     public void initialize() {
         changePersonalData = new ChangePersonalData();
 
         accountManager = AccountManager.getInstance();
         setUsername();
+        addLanguageOptionsToDropdownMenu();
 
         settingsLabel.setText(bundle.getString("settings")); //Settings
         profileLabel.setText(bundle.getString("profile")); //Profile
@@ -54,7 +55,6 @@ public class SettingController {
         emailLabel.setText(bundle.getString("email")); //Email
         preferredLanguageLabel.setText(bundle.getString("preferredLanguage")); //Preferred Language
         saveButton.setText(bundle.getString("save")); //Save
-
     }
 
     public void checkChangable() {
@@ -72,9 +72,14 @@ public class SettingController {
         if (notNull(email.getText())) {
             changePersonalData.changeEmail(activeUser, email.getText());
         }
-//        if (notNull(preferredLanguage.getValue().toString()) {
-//            changePersonalData.changePreferredLanguage(activeUser, preferredLanguage.getValue().toString());
-//        }
+        if (notNull(preferredLanguage.getValue().toString())) {
+            changePersonalData.changePreferredLanguage(activeUser, preferredLanguage.getValue().toString());
+        }
+    }
+
+    public void addLanguageOptionsToDropdownMenu() {
+        FileIOManager ioManager = new FileIOManager();
+        preferredLanguage.getItems().addAll(ioManager.getAvailableLanguages());
     }
 
     @FXML
@@ -97,10 +102,7 @@ public class SettingController {
         }
     }
 
-
     private boolean notNull(String text) {
         return text != null && !text.isEmpty();
     }
-
-
 }

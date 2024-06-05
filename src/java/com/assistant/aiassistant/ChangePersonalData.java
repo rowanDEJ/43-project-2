@@ -32,7 +32,7 @@ public class ChangePersonalData {
     // Hier misschien handig om opties te geven in welke taal de gebruiker zijn voorkeur heeft
     // Deze methode moet nog worden gebruikt als de dropdown bar werkt op de settings pagina
     public void changePreferredLanguage(User selectedUser, String newPreferredLanguage) {
-        fileIOManager.editUser(selectedUser, newPreferredLanguage, "preferredlanguage");
+        fileIOManager.editUser(selectedUser, newPreferredLanguage, "preferredLanguage");
     }
 
     // Misschien deze methode verplaatsen naar een andere class
