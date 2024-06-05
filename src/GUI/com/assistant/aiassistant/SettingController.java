@@ -3,10 +3,14 @@ package com.assistant.aiassistant;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 
 public class SettingController {
     @FXML
+//    public Label showName;
     public TextField password;
     public CheckBox buttonPassword;
     public TextField email;
@@ -15,6 +19,7 @@ public class SettingController {
     public CheckBox buttonFirstName;
     public TextField lastName;
     public CheckBox buttonLastName;
+    public Label showName;
 //    public ChoiceBox preferredLanguage;
 //    public CheckBox buttonPreferredLanguage;
 
@@ -24,6 +29,7 @@ public class SettingController {
     public void initialize() {
         changePersonalData = new ChangePersonalData();
         accountManager = AccountManager.getInstance();
+        setUsername();
     }
 
     public void checkChangable() {
@@ -45,6 +51,27 @@ public class SettingController {
 //            changePersonalData.changePreferredLanguage(activeUser, preferredLanguage.getValue().toString());
 //        }
     }
+
+    @FXML
+    void setUsername() {
+        showName.setText(AccountManager.getInstance().getActiveUser().getUsername());
+    }
+
+    @FXML
+    private void editImage() {
+
+    }
+
+    @FXML
+    private void returnToChatGUI() {
+        try {
+            UserInterfaceManager uiManager = UserInterfaceManager.getInstance();
+            uiManager.switchCurrentViewTo(uiManager.mainViewFilename);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     private boolean notNull(String text) {
         return text != null && !text.isEmpty();
