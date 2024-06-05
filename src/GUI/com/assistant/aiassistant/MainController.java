@@ -16,9 +16,12 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 public class MainController {
     public Button newChatButton;
@@ -26,12 +29,13 @@ public class MainController {
     private Stage primaryStage;
     public VBox convVBox;
     public VBox chatBox;
-    @FXML
-    private Label chatTitle;
-    @FXML
-    private TextArea bericht;
+    public Label chatTitle;
+    public TextArea bericht;
+    public ScrollPane convScrollPane;
 
     private static final String FILE_PATH = "files/";
+    public ArrayList<Conversation> savedConversations;
+    private ArrayList<String> createdConversations = new ArrayList<>();
 
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
@@ -44,6 +48,23 @@ public class MainController {
     public void initialize() {
         loadSavedConversations();
         fileCreationListener();
+        messageCreationListener();
+        initializeMessagebox();
+        LoadSavedConversationAction action = new LoadSavedConversationAction();
+        action.execute();
+        savedConversations = action.savedConversations;
+        bericht.setDisable(true);
+    }
+
+    private void initializeMessagebox() {
+        bericht.setOnKeyPressed(e -> {
+            if (e.getCode().toString().equals("ENTER")) {
+                String message = bericht.getText();
+                message = message.replace("\n", "");
+                bericht.clear();
+                MessageHandler(message);
+            }
+        });
     }
 
     private void loadSavedConversations() {
@@ -74,61 +95,87 @@ public class MainController {
         monitor.start();
     }
 
+    private void messageCreationListener() {
+        File folder = new File(FILE_PATH + "conversations/");
+        File[] listOfFiles = folder.listFiles();
+
+        if (listOfFiles != null) {
+            for (File file : listOfFiles) {
+                MessageCreationMonitor monitor = new MessageCreationMonitor(file);
+                monitor.addObserver(message -> {
+                    Platform.runLater(() -> {
+                        // message is the message that was added to the file
+                        chatBox.getChildren().add(createQuestionHBox(message));
+
+                        Platform.runLater(() -> convScrollPane.setVvalue(1.0));
+                    });
+                });
+                monitor.start();
+            }
+        }
+    }
+
     public void createHBoxWithButtons(String topic) {
-        HBox hbox = new HBox();
-        hbox.setPrefHeight(14.0);
-        hbox.setPrefWidth(146.0);
-        hbox.getStyleClass().add("HBox");
+      if (!(createdConversations.contains(topic))) {
+          createdConversations.add(topic);
+          HBox hbox = new HBox();
+          hbox.setPrefHeight(14.0);
+          hbox.setPrefWidth(146.0);
+          hbox.getStyleClass().add("HBox");
 
-        Button parentButton = new Button(topic);
-        parentButton.setGraphicTextGap(0.0);
-        parentButton.setMaxHeight(Double.MAX_VALUE);
-        parentButton.setMaxWidth(Double.MAX_VALUE);
-        parentButton.setPrefHeight(43.0);
-        parentButton.setPrefWidth(302.0);
-        parentButton.getStyleClass().add("parentButton");
-        parentButton.setId(topic);
-        parentButton.setOnAction(e -> showChat(topic));
+          Button parentButton = new Button(topic);
+          parentButton.setGraphicTextGap(0.0);
+          parentButton.setMaxHeight(Double.MAX_VALUE);
+          parentButton.setMaxWidth(Double.MAX_VALUE);
+          parentButton.setPrefHeight(43.0);
+          parentButton.setPrefWidth(302.0);
+          parentButton.getStyleClass().add("parentButton");
+          parentButton.setId(topic);
+          parentButton.setOnAction(e -> showChat(topic));
 
-        Button innerButton = new Button();
-        innerButton.setAlignment(Pos.CENTER_RIGHT);
-        innerButton.setContentDisplay(ContentDisplay.RIGHT);
-        innerButton.setMaxHeight(Double.MAX_VALUE);
-        innerButton.setMaxWidth(Double.MAX_VALUE);
-        innerButton.setPrefHeight(43.0);
-        innerButton.setPrefWidth(9.0);
-        innerButton.getStyleClass().add("innerButton");
+          Button innerButton = new Button();
+          innerButton.setAlignment(Pos.CENTER_RIGHT);
+          innerButton.setContentDisplay(ContentDisplay.RIGHT);
+          innerButton.setMaxHeight(Double.MAX_VALUE);
+          innerButton.setMaxWidth(Double.MAX_VALUE);
+          innerButton.setPrefHeight(43.0);
+          innerButton.setPrefWidth(9.0);
+          innerButton.getStyleClass().add("innerButton");
 
-        ImageView imageView = new ImageView(new Image("file:src/resources/com/assistant/aiassistant/icons/three-dots-vertical.png"));
-        imageView.setFitHeight(24.0);
-        imageView.setFitWidth(23.0);
-        imageView.setPickOnBounds(true);
-        imageView.setPreserveRatio(true);
+          ImageView imageView = new ImageView(new Image("file:src/resources/com/assistant/aiassistant/icons/three-dots-vertical.png"));
+          imageView.setFitHeight(24.0);
+          imageView.setFitWidth(23.0);
+          imageView.setPickOnBounds(true);
+          imageView.setPreserveRatio(true);
 
-        innerButton.setGraphic(imageView);
+          innerButton.setGraphic(imageView);
 
-        hbox.getChildren().addAll(parentButton, innerButton);
-        convVBox.getChildren().add(hbox);
+          hbox.getChildren().addAll(parentButton, innerButton);
+          convVBox.getChildren().add(hbox);
+      }
     }
 
     private void showChat(String topic) {
         chatBox.getChildren().clear();
         chatTitle.setText(topic);
-        FileIOManager fileIOManager = new FileIOManager();
-        String path = FILE_PATH + "conversations/" + topic + ".txt";
-        ArrayList<String> messages = fileIOManager.readFile(path);
-        for (String message : messages) {
-            if (message.startsWith("AI-")) {
-                chatBox.getChildren().add(createAnswerHBox(message.substring(3)));
-            } else {
-                chatBox.getChildren().add(createQuestionHBox(message));
+        bericht.setDisable(false);
+        for (Conversation conversation : savedConversations) {
+            if (conversation.getTopic().equals(topic)) {
+                for (String message : conversation.getMessages()) {
+                    if (message.startsWith("AI-")) {
+                        chatBox.getChildren().add(createAnswerHBox(message.substring(3)));
+                    } else {
+                        chatBox.getChildren().add(createQuestionHBox(message));
+                    }
+                    convScrollPane.setVvalue(1.0);
+                }
             }
         }
     }
 
     private HBox createQuestionHBox(String message) {
         // Create the Text
-        Text text = new Text("Jo");
+        Text text = new Text(message);
         text.setWrappingWidth(539.1171875);
 
         // Create the TextFlow and add the Text
@@ -137,7 +184,7 @@ public class MainController {
         textFlow.setMinWidth(30.0);
         textFlow.setStyle("-fx-background-color: DARKGREY; -fx-background-radius: 10;");
         textFlow.setTextAlignment(TextAlignment.CENTER);
-        textFlow.setPadding(new Insets(10.0, 5.0, 10.0, 5.0));
+        textFlow.setPadding(new Insets(10.0, 8.0, 10.0, 8.0));
         HBox.setMargin(textFlow, new Insets(25.0, 10.0, 5.0, 10.0));
 
         // Create the Label
@@ -145,7 +192,7 @@ public class MainController {
         label.setPrefHeight(12.0);
         label.setPrefWidth(12.0);
         label.setTextAlignment(TextAlignment.RIGHT);
-        HBox.setMargin(label, new Insets(5.0, 0, 0, 5.0));
+        HBox.setMargin(label, new Insets(5.0, 5.0, 0, 0));
 
         // Create the HBox and add the TextFlow and Label
         HBox hbox = new HBox();
@@ -159,7 +206,7 @@ public class MainController {
 
     private HBox createAnswerHBox(String message) {
         // Create the Text
-        Text text = new Text("Jo");
+        Text text = new Text(message);
         text.setWrappingWidth(539.1171875);
         text.setTextAlignment(TextAlignment.CENTER);
 
@@ -169,7 +216,7 @@ public class MainController {
         textFlow.setMinWidth(30.0);
         textFlow.setStyle("-fx-background-color: LIGHTGREY; -fx-background-radius: 10;");
         textFlow.setTextAlignment(TextAlignment.CENTER);
-        textFlow.setPadding(new Insets(10.0, 5.0, 10.0, 5.0));
+        textFlow.setPadding(new Insets(10.0, 8.0, 10.0, 8.0));
         HBox.setMargin(textFlow, new Insets(25.0, 10.0, 5.0, 10.0));
 
         // Create the Label
@@ -197,7 +244,7 @@ public class MainController {
         Button button = new Button("Start Chat");
         button.setOnAction(e -> {
             String topic = textField.getText();
-            StartNewConversationAction action = new StartNewConversationAction(topic, "Hello");
+            StartNewConversationAction action = new StartNewConversationAction(topic, "");
             action.execute();
             dialog.close();
         });
@@ -208,5 +255,22 @@ public class MainController {
         dialog.setScene(dialogScene);
         dialog.setTitle("New Chat");
         dialog.show();
+    }
+
+
+    private void MessageHandler(String message) {
+        if (!(message.isBlank())) {
+            String topic = chatTitle.getText();
+            for (Conversation conversation : savedConversations) {
+                if (conversation.getTopic().equals(topic)) {
+                   FileIOManager.addMessageToConversation(message, conversation);
+                }
+            }
+        }
+    }
+
+    public void showSettings() throws IOException {
+        UserInterfaceManager uiManager = UserInterfaceManager.getInstance();
+        uiManager.switchCurrentViewTo(uiManager.settingsViewFilename);
     }
 }
