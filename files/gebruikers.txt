@@ -2,9 +2,7 @@ username/~/wachtwoord/~/email/~/voornaam/~/achternaam/~/preferredLanguage
 MeneerMart/~/geheim/~/martvanderveen06@gmail.com/~/Mart/~/van der Veen/~/nederlands
 MisterCheese/~/kaasislekker/~/sathpremsital@gmail.com/~/Sathprem/~/Sital/~/english
 DanielD/~/wachtwoord/~/danieldijke@gmail.com/~/Daniel/~/Dijke/~/nederlands
-test/~/geheimwachtwoord/~/test@test.test/~/test/~/achternaam/~/english
 Ayhan/~/dikzak/~/hhs@live.nl/~/ayhan/~/bozkurt/~/nederlands
 Meneerm/~/geheim/~/meneermart@gmail.com/~/Meneer/~/Mart/~/nederlands
 test/~/test/~/t@t.tt/~/test/~/test/~/english
 test/~/test/~/nt@t.tt/~/test/~/test/~/nederlands
-Ayhan/~/dikzak/~/hhs@live.nl/~/ayhan/~/bozkurt/~/nederlands

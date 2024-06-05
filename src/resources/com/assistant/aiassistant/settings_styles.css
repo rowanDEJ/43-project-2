@@ -36,7 +36,7 @@
 }
 
 .secondaryPaneSettings{
-    -fx-background-image: url('images/background-right.jpg');
+    -fx-background-image: url('images/Background-Right-test.jpg');
     -fx-background-repeat: no-repeat;
     -fx-border-color: #D3D3D3;
     -fx-background-size: cover;
