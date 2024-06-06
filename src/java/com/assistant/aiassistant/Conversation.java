@@ -1,13 +1,14 @@
 package com.assistant.aiassistant;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Conversation {
     final private String topic; // The topic of the conversation
-    final private List<String> messages; // The messages in the conversation
+    final private ArrayList<String> messages; // The messages in the conversation
 
-    public Conversation(String topic, List<String> message) {
+    public Conversation(String topic, ArrayList<String> messages) {
         this.topic = topic;
-        this.messages = message;
+        this.messages = messages;
     }
 
     public String getTopic() {
@@ -19,6 +20,6 @@ public class Conversation {
     }
 
     public void addMessage(String message) {
-        this.messages.add(message);
+        messages.add(message);
     }
 }

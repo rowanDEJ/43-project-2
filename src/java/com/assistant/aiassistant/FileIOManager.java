@@ -1,18 +1,18 @@
 package com.assistant.aiassistant;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
+
 
 
 public class FileIOManager {
-    private static final String DIRECTORY_PATH = "src/";
     private static final String FILE_PATH = "files/";
     private static final String SEPARATOR = "/~/";
+
+    private static final String conversationsFolder = "conversations/";
+    private static final String usersFile = "gebruikers.txt";
+
 
     // Hieronder staan alle methodes om gebruikers te lezen, schrijven, bewerken en verwijderen
     // leest een bestand uit en zet de data in een ArrayList
@@ -39,7 +39,7 @@ public class FileIOManager {
 
     // leest alle gebruikers uit het gebruikers.txt bestand en zet ze in een ArrayList
     public ArrayList<User> getUsersFromFile() {
-        ArrayList<String> lines = readFile(FILE_PATH + "gebruikers.txt");
+        ArrayList<String> lines = readFile(FILE_PATH + usersFile);
 
         ArrayList<User> usersReadFromFile = new ArrayList<>();
 
@@ -71,7 +71,7 @@ public class FileIOManager {
     public void saveUserToFile(User userToSave){
         try {
             // maak een nieuwe regel in gebruikers.txt en slaat de gebruiker daar op
-            FileWriter myWriter = new FileWriter(FILE_PATH + "gebruikers.txt", true);
+            FileWriter myWriter = new FileWriter(FILE_PATH + usersFile, true);
 
             // schrijf de gebruiker naar het bestand
             myWriter.write(userToSave.getUsername() + SEPARATOR + userToSave.getPassword() + SEPARATOR + userToSave.getEmail() + SEPARATOR + userToSave.getFirstName() + SEPARATOR + userToSave.getLastName() + SEPARATOR + userToSave.getPreferredLanguage() + "\n");
@@ -97,7 +97,7 @@ public class FileIOManager {
     // Pas op: dit kan alle gebruikers in de lijst verwijderen!
     public void rewriteUsersToFile(ArrayList<User> users) {
         try {
-            new FileWriter(FILE_PATH + "gebruikers.txt", false).close();
+            new FileWriter(FILE_PATH + usersFile, false).close();
             for(User user : users) {
                 saveUserToFile(user);
             }
@@ -130,9 +130,6 @@ public class FileIOManager {
         for (User u : users) {
             if (user.getUsername().equals(u.getUsername())) {
                 switch (aspect) {
-                    case "username":
-                        u.setUserName(nieuw);
-                        break;
                     case "password":
                         u.setPassword(nieuw);
                         break;
@@ -150,6 +147,7 @@ public class FileIOManager {
                         break;
                     default:
                         System.out.println("Er ging iets mis.");
+                        break;
                 }
             }
         }
@@ -170,17 +168,27 @@ public class FileIOManager {
     }
 
     // laadt een gesprek
-    public static List<String> getSavedConversations() {
-        try {
-            Files.walk( Paths.get(FILE_PATH + "conversations/" + am.getActiveUser().getUsername() + "/" ))
-                    .filter(Files::isRegularFile)
-                    .filter(path -> path.toString().endsWith(".txt"))
-                    .map(path -> path.getFileName().toString().replaceFirst("[.][^.]+$", ""))
-                    .collect(Collectors.toList());
+    public static ArrayList<Conversation> getSavedConversations() {
+        ArrayList<Conversation> savedConversations = new ArrayList<>();
+        File folder = new File(FILE_PATH + conversationsFolder);
+        File[] listOfFiles = folder.listFiles();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (listOfFiles != null) {
+            for (File file : listOfFiles) {
+                if (file.isFile()) {
+                    String topic = file.getName().replace(".txt", "");
+                    Conversation conversation = new Conversation(topic, new ArrayList<>());
+                    savedConversations.add(conversation);
+                }
+            }
+
         }
+        return savedConversations;
+    }
+
+    public static void addMessageToConversation(String message, Conversation conversation) {
+        conversation.addMessage(message);
+        saveConversation(conversation);
     }
 
     // laadt een gesprek

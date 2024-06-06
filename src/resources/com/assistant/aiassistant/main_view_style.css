@@ -20,16 +20,15 @@
     -fx-background-radius: 10 0 0 10;
 }
 
-.newChatButton:hover {
+.HBox:hover .newChatButton {
     -fx-background-color: DARKGREY;
-}
-
-.NewChat:hover {
-    -fx-background-color: DARKGREY;
-
 }
 
 .HBox {
     -fx-background-color: LIGHTGREY;
+}
+
+.settingsButton:hover{
+    -fx-background-color: DARKGREY;
 }
 

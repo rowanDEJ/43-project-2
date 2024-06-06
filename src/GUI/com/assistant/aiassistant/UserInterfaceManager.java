@@ -18,6 +18,7 @@ public class UserInterfaceManager {
     public String loginViewFilename = "login-view.fxml";
     public String mainViewFilename = "main-view.fxml";
     public String registerViewFilename = "register-view.fxml";
+    public String settingsViewFilename = "settings.fxml";
 
     public UserInterfaceManager() {
         this.currentLanguage = null;

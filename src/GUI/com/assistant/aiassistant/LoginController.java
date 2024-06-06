@@ -73,6 +73,7 @@ public class LoginController implements Initializable {
 
         if(loginManager.login(emailInput.getText(), passwordInput.getText())) {
             try {
+                saveUser();
                 UserInterfaceManager uiManager = UserInterfaceManager.getInstance();
                 uiManager.switchCurrentViewTo(uiManager.mainViewFilename);
             } catch (IOException e) {
@@ -81,6 +82,10 @@ public class LoginController implements Initializable {
         } else {
             errorLabel.setText("ongeldige inlog gegevens");
         }
+    }
+
+    public void saveUser() {
+        User activeUser = loginManager.getActiveUser();
     }
 
     @FXML

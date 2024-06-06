@@ -50,7 +50,7 @@ public class RegisterController implements Initializable {
         PasswordVisibilityToggleSetup.execute(visiblePasswordInput, passwordInput, showPasswordCheckbox);
     }
 
-    private void addLanguageOptionsToDropdownMenu() {
+    public void addLanguageOptionsToDropdownMenu() {
         FileIOManager ioManager = new FileIOManager();
         preferredLanguageChoiceBox.getItems().addAll(ioManager.getAvailableLanguages());
     }
