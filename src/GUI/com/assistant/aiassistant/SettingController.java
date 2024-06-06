@@ -72,8 +72,11 @@ public class SettingController {
         if (notNull(email.getText())) {
             changePersonalData.changeEmail(activeUser, email.getText());
         }
-        if (notNull(preferredLanguage.getValue().toString())) {
+        if (preferredLanguage.getValue() != null) {
             changePersonalData.changePreferredLanguage(activeUser, preferredLanguage.getValue().toString());
+        }
+        else {
+            System.out.println("No changes made");
         }
     }
 
