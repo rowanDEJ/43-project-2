@@ -9,6 +9,10 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 
 public class ChatBubbleItemsCreator {
+    private static final Insets labelInsets = new Insets(5.0, 5.0, 0, 0);
+    private static final Insets textFlowPadding = new Insets(10.0, 8.0, 10.0, 8.0);
+    private static final Insets textFlowMargin = new Insets(25.0, 10.0, 5.0, 10.0);
+
     public static HBox createContainerHBox() {
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.TOP_RIGHT);
@@ -29,7 +33,7 @@ public class ChatBubbleItemsCreator {
         if(alignToTheRight) {
             label.setTextAlignment(TextAlignment.RIGHT);
         }
-        HBox.setMargin(label, new Insets(5.0, 5.0, 0, 0));
+        HBox.setMargin(label, labelInsets);
         return label;
     }
     public static TextFlow createTextFlow(Text text, String bgColor) {
@@ -38,8 +42,8 @@ public class ChatBubbleItemsCreator {
         textFlow.setMinWidth(30.0);
         textFlow.setStyle("-fx-background-color: " + bgColor + "; -fx-background-radius: 10;");
         textFlow.setTextAlignment(TextAlignment.CENTER);
-        textFlow.setPadding(new Insets(10.0, 8.0, 10.0, 8.0));
-        HBox.setMargin(textFlow, new Insets(25.0, 10.0, 5.0, 10.0));
+        textFlow.setPadding(textFlowPadding);
+        HBox.setMargin(textFlow, textFlowMargin);
         return textFlow;
     }
 }

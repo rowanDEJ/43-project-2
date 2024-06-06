@@ -105,8 +105,8 @@ public class MainController {
         if (createdConversations.contains(topic)) {
             return;
         }
-        HBox hbox = ChatItemCreator.createChatNavButton(topic, (e -> showChat(topic)));
-        chatNavigationBar.getChildren().add(hbox);
+        HBox buttonHBox = ChatItemCreator.createChatNavButton(topic, (e -> showChat(topic)));
+        chatNavigationBar.getChildren().add(buttonHBox);
         createdConversations.add(topic);
     }
 
@@ -129,7 +129,6 @@ public class MainController {
             }
         }
     }
-
     private void showNewChatDialog() {
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
