@@ -31,3 +31,7 @@
     -fx-background-color: LIGHTGREY;
 }
 
+.settingsButton:hover{
+    -fx-background-color: DARKGREY;
+}
+

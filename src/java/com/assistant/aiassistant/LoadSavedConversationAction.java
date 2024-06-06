@@ -14,7 +14,7 @@ public class LoadSavedConversationAction implements Action {
         savedConversations = FileIOManager.getSavedConversations();
         for (Conversation conversation : savedConversations) {
             FileIOManager fileIOManager = new FileIOManager();
-            ArrayList<String> messages = fileIOManager.readFile("files/conversations/" + conversation.getTopic() + ".txt");
+            ArrayList<String> messages = fileIOManager.readFile("files/conversations/" + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt");
             for (String message : messages) {
                 conversation.addMessage(message);
             }

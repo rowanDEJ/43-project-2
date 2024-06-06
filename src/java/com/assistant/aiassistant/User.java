@@ -1,24 +1,24 @@
 package com.assistant.aiassistant;
 
-public class User {
+public class  User {
     private String userName;
     private String password;
     private String firstName;
     private String lastName;
     private String email;
-    private String prefferedLanguage;
+    private String preferredLanguage;
 
     public User(String userName) {
         this.userName = userName;
     }
 
-    public User(String userName, String password, String firstName, String lastName, String email, String prefferedLanguage) {
+    public User(String userName, String password, String email, String firstName, String lastName, String preferredLanguage) {
         this.userName = userName;
         this.password = password;
+        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
-        this.prefferedLanguage = prefferedLanguage;
+        this.preferredLanguage = preferredLanguage;
     }
 
     public void setUserName(String userName) {
@@ -29,10 +29,6 @@ public class User {
         this.password = password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -41,8 +37,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setPreferredLanguage(String prefferedLanguage) {
-        this.prefferedLanguage = prefferedLanguage;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPreferredLanguage(String preferredLanguage) {
+        this.preferredLanguage = preferredLanguage;
     }
 
     public String getUsername() {
@@ -65,15 +65,19 @@ public class User {
         return lastName;
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     public String getPreferredLanguage() {
-        return prefferedLanguage;
+        return preferredLanguage;
     }
 
     public void changeLanguage() {
-        if (prefferedLanguage.equals("NL")) {
-            prefferedLanguage = "EN";
+        if (preferredLanguage.equals("NL")) {
+            preferredLanguage = "EN";
         } else {
-            prefferedLanguage = "NL";
+            preferredLanguage = "NL";
         }
 
     }

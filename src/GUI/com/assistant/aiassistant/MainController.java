@@ -13,6 +13,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class MainController {
     public Button newChatButton;
@@ -20,14 +23,17 @@ public class MainController {
     private Stage primaryStage;
     public VBox chatNavigationBar;
     public VBox chatBox;
-    @FXML
-    private Label chatTitle;
-    @FXML
-    private TextArea bericht;
+    public Label chatTitle;
+    public TextArea bericht;
+    public ScrollPane convScrollPane;
 
     private static final String FILE_PATH = "files/";
     public ArrayList<Conversation> savedConversations;
     private ArrayList<String> createdConversations = new ArrayList<>();
+
+    public AccountManager accountManager = AccountManager.getInstance();
+    public Locale appLocale = new Locale(accountManager.getActiveUser().getPreferredLanguage());
+    ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", appLocale);
 
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
@@ -40,11 +46,14 @@ public class MainController {
     public void initialize() {
         loadSavedConversations();
         fileCreationListener();
+        messageCreationListener();
         initializeMessagebox();
         LoadSavedConversationAction action = new LoadSavedConversationAction();
         action.execute();
         savedConversations = action.savedConversations;
         bericht.setDisable(true);
+        bericht.setPromptText(bundle.getString("messagePrompt")); // Bericht...
+        chatTitle.setText(bundle.getString("noChat")); // Geen Chat
     }
 
     private void initializeMessagebox() {
@@ -59,7 +68,7 @@ public class MainController {
     }
 
     private void loadSavedConversations() {
-        File folder = new File(FILE_PATH + "conversations/");
+        File folder = new File(FILE_PATH + "conversations/" + accountManager.getActiveUser().getUsername());
         File[] listOfFiles = folder.listFiles();
 
         if (listOfFiles != null) {
@@ -75,7 +84,7 @@ public class MainController {
     }
 
     private void fileCreationListener() {
-        FileCreationMonitor monitor = new FileCreationMonitor(new File("files/conversations"));
+        FileCreationMonitor monitor = new FileCreationMonitor(new File("files/conversations/" + accountManager.getActiveUser().getUsername()));
         monitor.addObserver(fileName -> {
             Platform.runLater(() -> {
                 // fileName is the name of the file that was created
@@ -87,18 +96,23 @@ public class MainController {
     }
 
     private void messageCreationListener() {
-        MessageCreationMonitor monitor = new MessageCreationMonitor();
-        monitor.addObserver(fileName -> {
-            Platform.runLater(() -> {
-                // fileName is the name of the file that was created
-                String topic = chatTitle.getText();
-                if (fileName.startsWith(topic)) {
-                    HBox answerBubble = ChatItemCreator.createAnswerBubble(fileName);
-                    chatBox.getChildren().add(answerBubble);
-                }
-            });
-        });
-        monitor.start();
+        File folder = new File(FILE_PATH + "conversations/" + accountManager.getActiveUser().getUsername());
+        File[] listOfFiles = folder.listFiles();
+
+        if (listOfFiles != null) {
+            for (File file : listOfFiles) {
+                MessageCreationMonitor monitor = new MessageCreationMonitor(file);
+                monitor.addObserver(message -> {
+                    Platform.runLater(() -> {
+                        HBox answerBubble = ChatItemCreator.createAnswerBubble(message);
+                        chatBox.getChildren().add(answerBubble);
+
+                        Platform.runLater(() -> convScrollPane.setVvalue(1.0));
+                    });
+                });
+                monitor.start();
+            }
+        }
     }
 
     public void createChatNavigationButton(String topic) {
@@ -125,6 +139,7 @@ public class MainController {
                         HBox questionBubble = ChatItemCreator.createQuestionBubble(message);
                         chatBox.getChildren().add(questionBubble);
                     }
+                    convScrollPane.setVvalue(1.0);
                 }
             }
         }
@@ -135,12 +150,12 @@ public class MainController {
         dialog.initOwner(primaryStage);
 
         VBox dialogVBox = new VBox(10);
-        Label label = new Label("New chat dialog");
+        Label label = new Label(bundle.getString("newChatDialog")); // New chat dialog
         TextField textField = new TextField();
-        Button button = new Button("Start Chat");
+        Button button = new Button(bundle.getString("startChat")); // Start Chat
         button.setOnAction(e -> {
             String topic = textField.getText();
-            StartNewConversationAction action = new StartNewConversationAction(topic, "");
+            StartNewConversationAction action = new StartNewConversationAction(topic, "AI-Hello! How can I help you?");
             action.execute();
             dialog.close();
         });
@@ -149,14 +164,13 @@ public class MainController {
 
         Scene dialogScene = new Scene(dialogVBox, 300, 200);
         dialog.setScene(dialogScene);
-        dialog.setTitle("New Chat");
+        dialog.setTitle(bundle.getString("newChat")); // New Chat
         dialog.show();
     }
 
 
     private void MessageHandler(String message) {
         if (!(message.isBlank())) {
-            System.out.println(message);
             String topic = chatTitle.getText();
             for (Conversation conversation : savedConversations) {
                 if (conversation.getTopic().equals(topic)) {
@@ -164,5 +178,10 @@ public class MainController {
                 }
             }
         }
+    }
+
+    public void showSettings() throws IOException {
+        UserInterfaceManager uiManager = UserInterfaceManager.getInstance();
+        uiManager.switchCurrentViewTo(uiManager.settingsViewFilename);
     }
 }
