@@ -8,6 +8,7 @@ public class  User {
     private String email;
     private String preferredLanguage;
 
+
     public User(String userName) {
         this.userName = userName;
     }
@@ -91,4 +92,5 @@ public class  User {
         // nog maken
 
     }
+
 }

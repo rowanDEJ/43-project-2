@@ -7,7 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -31,6 +35,7 @@ public class SettingController {
     public Label emailLabel;
     public Label preferredLanguageLabel;
     public Button saveButton;
+    public ImageView profileImageView;
 
     public AccountManager accountManager = AccountManager.getInstance();
     public Locale appLocale = new Locale(accountManager.getActiveUser().getPreferredLanguage());
@@ -75,9 +80,6 @@ public class SettingController {
         if (preferredLanguage.getValue() != null) {
             changePersonalData.changePreferredLanguage(activeUser, preferredLanguage.getValue().toString());
         }
-        else {
-            System.out.println("No changes made");
-        }
     }
 
     public void addLanguageOptionsToDropdownMenu() {
@@ -91,8 +93,18 @@ public class SettingController {
     }
 
     @FXML
-    private void editImage() {
+    public void editImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Profile Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
 
+        File selectedFile = fileChooser.showOpenDialog(profileImageView.getScene().getWindow());
+        if (selectedFile != null) {
+            Image image = new Image(selectedFile.toURI().toString());
+            profileImageView.setImage(image);
+        }
     }
 
     @FXML
