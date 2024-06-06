@@ -1,3 +1,5 @@
-testUser1/~/password1/~/email1@example.com/~/First1/~/Last1/~/EN
 testUser2/~/password2/~/email2@example.com/~/First2/~/Last2/~/EN
-testUser1/~/newPass/~/newEmail2@example.com/~/New/~/User/~/EN
+testUser/~/password/~/email@example.com/~/First/~/Last/~/EN
+testUser/~/password/~/email@example.com/~/First/~/Last/~/EN
+testUser3/~/password3/~/email3@example.com/~/First3/~/Last3/~/EN
+testUser3/~/password3/~/email3@example.com/~/First3/~/Last3/~/EN
