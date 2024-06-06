@@ -56,12 +56,14 @@
                   <Label fx:id="chatTitle" layoutX="372.0" layoutY="22.0" text="Geen Chat" />
                   <AnchorPane layoutX="50.0" layoutY="16.0" styleClass="HBox">
                      <children>
-                        <Button fx:id="newChatButton" layoutX="7.0" mnemonicParsing="false" onAction="#handleNewChat" styleClass="newChatButton" />
-                        <ImageView fitHeight="33.0" fitWidth="39.0" layoutX="13.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                           <image>
-                              <Image url="@icons/new_chat_icon.png" />
-                           </image>
-                        </ImageView>
+                        <Button fx:id="newChatButton" layoutX="7.0" mnemonicParsing="false" onAction="#handleNewChat" styleClass="newChatButton">
+                           <graphic>
+                              <ImageView fitHeight="33.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                 <image>
+                                    <Image url="@icons/new_chat_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
                      </children>
                   </AnchorPane>
                </children>
