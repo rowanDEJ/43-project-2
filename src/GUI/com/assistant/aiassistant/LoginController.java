@@ -39,7 +39,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         removeAutoFocusFromTextField(emailInput);
-        passwordVisibilityToggleSetup.execute(visiblePasswordInput, passwordInput, showPasswordCheckbox);
+        PasswordVisibilityToggleSetup.execute(visiblePasswordInput, passwordInput, showPasswordCheckbox);
     }
 
     private void removeAutoFocusFromTextField(TextField textField) {

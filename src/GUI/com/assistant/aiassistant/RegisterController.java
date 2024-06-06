@@ -47,7 +47,7 @@ public class RegisterController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         removeAutoFocusFromTextField(usernameInput);
         addLanguageOptionsToDropdownMenu();
-        passwordVisibilityToggleSetup.execute(visiblePasswordInput, passwordInput, showPasswordCheckbox);
+        PasswordVisibilityToggleSetup.execute(visiblePasswordInput, passwordInput, showPasswordCheckbox);
     }
 
     private void addLanguageOptionsToDropdownMenu() {
@@ -67,7 +67,7 @@ public class RegisterController implements Initializable {
 
     @FXML
     private void tryRegistering() {
-        // check of in alle input velden een waarde ingevoerd is, als dat zo is maak dan een account
+        // check of in alle input velden een waarde ingevoerd is, als dat zo is, maak dan een account
         if(!areAllTextInputsValid()) {
             return;
         }
