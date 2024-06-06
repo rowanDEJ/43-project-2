@@ -103,9 +103,9 @@ public class AccountManager {
         return checkIfUserExistsByMethodValue("getFullName", fullNameToSearch);
     }
 
-    public void createAccount(String username, String password, String email, String fname, String lname, String preferredlanguage) {
+    public void createAccount(String username, String password, String email, String fName, String lName, String preferredLanguage) {
         // maak een nieuw account aan, met de saveUserToFile method van de fileIOManager.
-        User newlyCreatedUser = new User(username, password, email, fname, lname, preferredlanguage);
+        User newlyCreatedUser = new User(username, password, email, fName, lName, preferredLanguage);
         fileManager.saveUserToFile(newlyCreatedUser);
     }
 

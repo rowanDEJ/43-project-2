@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
+
 public class FileIOManager {
     private static final String FILE_PATH = "files/";
     private static final String SEPARATOR = "/~/";
@@ -76,8 +77,19 @@ public class FileIOManager {
             myWriter.write(userToSave.getUsername() + SEPARATOR + userToSave.getPassword() + SEPARATOR + userToSave.getEmail() + SEPARATOR + userToSave.getFirstName() + SEPARATOR + userToSave.getLastName() + SEPARATOR + userToSave.getPreferredLanguage() + "\n");
 
             myWriter.close();
+            saveUserInConversationFolder(userToSave);
         } catch (IOException e) {
             System.out.println("Er ging iets mis");
+        }
+    }
+
+    public void saveUserInConversationFolder(User userToSave) {
+        try {
+            // maak een directory aan in de conversations directory met de username als naam
+            Files.createDirectories(Paths.get(FILE_PATH + "conversations/" + userToSave.getUsername()));
+
+        } catch (IOException e) {
+            System.out.println("Er ging iets mis in het aanmaken van de user conversations directory");
         }
     }
 
@@ -145,14 +157,14 @@ public class FileIOManager {
     // Hieronder staan alle methodes voor de gesprekken (uit de oude IOFileManager class)
     // leest een bestand uit
     public static void saveConversation(Conversation conversation) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH  + conversationsFolder + conversation.getTopic() + ".txt"))) {
+        AccountManager am = AccountManager.getInstance();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH + "conversations/" + am.getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt"))) {
             for (String msg : conversation.getMessages()) {
                 writer.write(msg);
                 writer.newLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
     }
 
     // laadt een gesprek
@@ -169,6 +181,7 @@ public class FileIOManager {
                     savedConversations.add(conversation);
                 }
             }
+
         }
         return savedConversations;
     }
@@ -181,7 +194,7 @@ public class FileIOManager {
     // laadt een gesprek
     public static void loadConversation(Conversation conversation) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH + conversationsFolder + conversation.getTopic() + ".txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH + "conversations/" + am.getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 conversation.addMessage(line);
@@ -192,9 +205,9 @@ public class FileIOManager {
         }
     }
 
-    // verwijderd een gesprek
+    // verwijdert een gesprek
     public static void deleteConversation(Conversation conversation) {
-        File file = new File(FILE_PATH + conversationsFolder + conversation.getTopic() + ".txt");
+        File file = new File(FILE_PATH + "conversations/" + am.getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt");
         if (file.delete()) {
             System.out.println("Conversation deleted successfully");
         } else {
