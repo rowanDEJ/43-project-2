@@ -209,7 +209,7 @@ public class FileIOManager {
     }
 
     // verwijdert een gesprek
-    public void deleteConversation (Conversation conversation){
+    public static void deleteConversation(Conversation conversation) {
 
         File file = new File(FILE_PATH + "conversations/" + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt");
         if (file.delete()) {
