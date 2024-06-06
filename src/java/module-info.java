@@ -6,4 +6,6 @@ module com.assistant.aiassistant {
 
     opens com.assistant.aiassistant to javafx.fxml;
     exports com.assistant.aiassistant;
+    exports com.assistant.aiassistant.chatItemCreatorClasses;
+    opens com.assistant.aiassistant.chatItemCreatorClasses to javafx.fxml;
 }
