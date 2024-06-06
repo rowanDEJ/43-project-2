@@ -1,6 +1,8 @@
 package com.assistant.aiassistant;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +14,7 @@ public class FileIOManager {
 
     private static final String conversationsFolder = "conversations/";
     private static final String usersFile = "gebruikers.txt";
+
 
 
     // Hieronder staan alle methodes om gebruikers te lezen, schrijven, bewerken en verwijderen
@@ -61,14 +64,14 @@ public class FileIOManager {
     public ArrayList<Language> getAvailableLanguages() {
         ArrayList<String> lines = readFile(FILE_PATH + "beschikbareTalen.txt");
         ArrayList<Language> foundLanguages = new ArrayList<>();
-        for(String line : lines) {
+        for (String line : lines) {
             foundLanguages.add(new Language(line));
         }
         return foundLanguages;
     }
 
     // slaat een gebruiker op in het gebruikers.txt bestand
-    public void saveUserToFile(User userToSave){
+    public void saveUserToFile(User userToSave) {
         try {
             // maak een nieuwe regel in gebruikers.txt en slaat de gebruiker daar op
             FileWriter myWriter = new FileWriter(FILE_PATH + usersFile, true);
@@ -98,7 +101,7 @@ public class FileIOManager {
     public void rewriteUsersToFile(ArrayList<User> users) {
         try {
             new FileWriter(FILE_PATH + usersFile, false).close();
-            for(User user : users) {
+            for (User user : users) {
                 saveUserToFile(user);
             }
         } catch (IOException e) {
@@ -124,7 +127,7 @@ public class FileIOManager {
     // nieuw is de waarde waarin het attribuut van de gebruiker moet worden veranderd
     // aspect is het attribuut dat moet worden veranderd (wachtwoord, gebruikersnaam, email enz.)
     // vergeet niet het aspect mee te geven aan deze methode als er iets veranderd moet worden.
-    public void editUser(User user, String nieuw, String aspect){
+    public void editUser(User user, String nieuw, String aspect) {
         ArrayList<User> users = getUsersFromFile();
 
         for (User u : users) {
@@ -157,20 +160,20 @@ public class FileIOManager {
     // Hieronder staan alle methodes voor de gesprekken (uit de oude IOFileManager class)
     // leest een bestand uit
     public static void saveConversation(Conversation conversation) {
-        AccountManager am = AccountManager.getInstance();
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH + "conversations/" + am.getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH + "conversations/" + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt"))) {
             for (String msg : conversation.getMessages()) {
                 writer.write(msg);
                 writer.newLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
     }
 
     // laadt een gesprek
-    public static ArrayList<Conversation> getSavedConversations() {
+    public static ArrayList<Conversation> getSavedConversations () {
         ArrayList<Conversation> savedConversations = new ArrayList<>();
-        File folder = new File(FILE_PATH + conversationsFolder);
+        File folder = new File(FILE_PATH + conversationsFolder + AccountManager.getInstance().getActiveUser().getUsername());
         File[] listOfFiles = folder.listFiles();
 
         if (listOfFiles != null) {
@@ -192,9 +195,9 @@ public class FileIOManager {
     }
 
     // laadt een gesprek
-    public static void loadConversation(Conversation conversation) {
+    public void loadConversation(Conversation conversation){
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH + "conversations/" + am.getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH + "conversations/" + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 conversation.addMessage(line);
@@ -206,8 +209,9 @@ public class FileIOManager {
     }
 
     // verwijdert een gesprek
-    public static void deleteConversation(Conversation conversation) {
-        File file = new File(FILE_PATH + "conversations/" + am.getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt");
+    public void deleteConversation (Conversation conversation){
+
+        File file = new File(FILE_PATH + "conversations/" + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt");
         if (file.delete()) {
             System.out.println("Conversation deleted successfully");
         } else {

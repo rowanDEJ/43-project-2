@@ -71,7 +71,7 @@ public class MainController {
     }
 
     private void loadSavedConversations() {
-        File folder = new File(FILE_PATH + "conversations/");
+        File folder = new File(FILE_PATH + "conversations/" + accountManager.getActiveUser().getUsername());
         File[] listOfFiles = folder.listFiles();
 
         if (listOfFiles != null) {
@@ -87,7 +87,7 @@ public class MainController {
     }
 
     private void fileCreationListener() {
-        FileCreationMonitor monitor = new FileCreationMonitor(new File("files/conversations"));
+        FileCreationMonitor monitor = new FileCreationMonitor(new File("files/conversations/" + accountManager.getActiveUser().getUsername()));
         monitor.addObserver(fileName -> {
             Platform.runLater(() -> {
                 // fileName is the name of the file that was created
@@ -99,7 +99,7 @@ public class MainController {
     }
 
     private void messageCreationListener() {
-        File folder = new File(FILE_PATH + "conversations/");
+        File folder = new File(FILE_PATH + "conversations/" + accountManager.getActiveUser().getUsername());
         File[] listOfFiles = folder.listFiles();
 
         if (listOfFiles != null) {
@@ -246,7 +246,7 @@ public class MainController {
         Button button = new Button(bundle.getString("startChat")); // Start Chat
         button.setOnAction(e -> {
             String topic = textField.getText();
-            StartNewConversationAction action = new StartNewConversationAction(topic, "");
+            StartNewConversationAction action = new StartNewConversationAction(topic, "AI-Hello! How can I help you?");
             action.execute();
             dialog.close();
         });
