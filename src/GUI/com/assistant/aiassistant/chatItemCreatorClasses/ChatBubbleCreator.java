@@ -10,9 +10,13 @@ public class ChatBubbleCreator {
         Text text = ChatBubbleItemsCreator.createTextItem(message);
         TextFlow textFlow = ChatBubbleItemsCreator.createTextFlow(text, bgColor);
         Label label = ChatBubbleItemsCreator.createMessageSenderLabel(senderName, alightToTheRight);
-        HBox hbox = ChatBubbleItemsCreator.createContainerHBox();
+        HBox hbox = ChatBubbleItemsCreator.createContainerHBox(alightToTheRight);
 
-        hbox.getChildren().addAll(textFlow, label);
+        if(alightToTheRight) {
+            hbox.getChildren().addAll(textFlow, label);
+        } else {
+            hbox.getChildren().addAll(label, textFlow);
+        }
         return hbox;
     }
 }

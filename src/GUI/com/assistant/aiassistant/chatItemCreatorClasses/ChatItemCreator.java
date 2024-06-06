@@ -9,7 +9,7 @@ public class ChatItemCreator {
         return ChatNavButtonCreator.Create(topic, buttonEvent);
     }
     public static HBox createAnswerBubble(String message) {
-        return ChatBubbleCreator.Create(message, "LIGHTGREY", "AI-Assistent", false);
+        return ChatBubbleCreator.Create(message, "LIGHTGRAY", "AI", false);
     }
     public static HBox createQuestionBubble(String message) {
         return ChatBubbleCreator.Create(message, "DARKGREY", "Jij", true);
