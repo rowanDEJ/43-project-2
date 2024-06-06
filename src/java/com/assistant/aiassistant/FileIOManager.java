@@ -1,6 +1,8 @@
 package com.assistant.aiassistant;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -165,6 +167,7 @@ public class FileIOManager {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
     }
 
     // laadt een gesprek
@@ -194,7 +197,7 @@ public class FileIOManager {
     // laadt een gesprek
     public static void loadConversation(Conversation conversation) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH + "conversations/" + am.getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH + "conversations/" + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 conversation.addMessage(line);
@@ -207,7 +210,7 @@ public class FileIOManager {
 
     // verwijdert een gesprek
     public static void deleteConversation(Conversation conversation) {
-        File file = new File(FILE_PATH + "conversations/" + am.getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt");
+        File file = new File(FILE_PATH + "conversations/" + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt");
         if (file.delete()) {
             System.out.println("Conversation deleted successfully");
         } else {
