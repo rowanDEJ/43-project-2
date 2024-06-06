@@ -54,7 +54,7 @@ public class AccountManager {
 
     protected boolean checkUsernamePassword(String userName, String password) {
         for (User user : fileManager.getUsersFromFile()) {
-            System.out.println("Checking username: " + user.getUsername() + " with password: " + user.getPassword());
+            //System.out.println("Checking username: " + user.getUsername() + " with password: " + user.getPassword());
             if (user.getUsername().equals(userName) && user.getPassword().equals(password)) {
                 return true;
             }
@@ -64,7 +64,7 @@ public class AccountManager {
 
     protected boolean checkEmailPassword(String email, String password) {
         for (User user : fileManager.getUsersFromFile()) {
-            System.out.println("Checking email: " + user.getEmail() + " with password: " + user.getPassword());
+            //System.out.println("Checking email: " + user.getEmail() + " with password: " + user.getPassword());
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 return true;
             }
@@ -84,7 +84,7 @@ public class AccountManager {
 
     public boolean checkIfUserWithUsernameExists(String usernameToSearch) {
         for (User user : fileManager.getUsersFromFile()) {
-            System.out.println("Checking username: " + user.getUsername() + " against: " + usernameToSearch);
+            //System.out.println("Checking username: " + user.getUsername() + " against: " + usernameToSearch);
             if (user.getUsername().equalsIgnoreCase(usernameToSearch)) {
                 return true;
             }
@@ -94,7 +94,7 @@ public class AccountManager {
 
     public boolean checkIfUserWithFullNameExists(String fullNameToSearch) {
         for (User user : fileManager.getUsersFromFile()) {
-            System.out.println("Checking full name: " + user.getFullName() + " against: " + fullNameToSearch);
+            //System.out.println("Checking full name: " + user.getFullName() + " against: " + fullNameToSearch);
             if (user.getFullName().equalsIgnoreCase(fullNameToSearch)) {
                 return true;
             }
