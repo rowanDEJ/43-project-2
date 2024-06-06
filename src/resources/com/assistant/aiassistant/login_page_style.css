@@ -1,0 +1,157 @@
+
+.button {
+    -fx-margin: 10 100 10 100;
+}
+
+.mainPaneLogin {
+    -fx-background-image: url("images/blue_pattern.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.mainPaneRegister {
+    -fx-background-image: url("images/random-bg-image.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: BLACK;
+    -fx-font-size: 16;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: LIGHTGRAY;
+}
+
+.combo-box {
+    -fx-background-color: transparent;
+}
+
+.combo-box .list-cell, .combo-box .text-field {
+    -fx-text-fill: WHITE;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+.combo-box .arrow-button .arrow {
+    -fx-background-color: white;
+}
+.combo-box .arrow-button .arrow .arrow-shape {
+    -fx-background-color: white;
+}
+
+.text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: WHITE;
+}
+
+.inputFieldContainer {
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 2;
+
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 16;
+}
+
+.inputFieldLabel {
+    -fx-background-color: transparent;
+    -fx-text-fill: WHITE;
+}
+
+.bigButton {
+    -fx-background-color: WHITE;
+    -fx-background-radius: 0;
+
+    -fx-font-size: 14;
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-text-fill: BLACK;
+
+    -fx-min-width: 225;
+
+    -fx-cursor: hand;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+}
+
+.bigButton:hover {
+    -fx-background-color: LIGHTGRAY;
+}
+
+.bigButton:pressed {
+    -fx-background-color: GRAY;
+}
+
+.smallTextButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 12;
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+.smallTextButton:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: AQUA;
+    -fx-font-size: 12;
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-underline: true;
+}
+
+.smallTextButton:pressed {
+    -fx-text-fill: LIGHTBLUE;
+}
+
+.smallTextButtonLabel {
+    -fx-background-color: transparent;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 12;
+    -fx-font-family: "Arial Rounded MT Bold";
+}
+
+.bigTitle {
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 18;
+    -fx-text-fill: WHITE;
+
+    -fx-background-color: transparent;
+}
+
+.confirmationLabel {
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 16;
+    -fx-text-fill: LIGHTGREEN;
+
+    -fx-background-color: transparent;
+}
+
+.check-box>.box {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: TRANSPARENT;
+}
+
+.check-box>.box>.mark {
+    -fx-background-image: url("icons/eye.png");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-shape: none;
+}
+
+.check-box:selected>.box>.mark{
+    -fx-background-color: transparent;
+    -fx-background-image: url("icons/eye-crossed.png");
+}
+
+.errorLabel {
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 16;
+    -fx-text-fill: RED;
+
+    -fx-background-color: transparent;
+}

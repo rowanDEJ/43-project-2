@@ -1,33 +1,25 @@
 package com.assistant.aiassistant;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class Conversation {
-    private String topic;
-    private ArrayList message;
+    final private String topic; // The topic of the conversation
+    final private ArrayList<String> messages; // The messages in the conversation
 
-    public Conversation(String topic, ArrayList message) {
+    public Conversation(String topic, ArrayList<String> messages) {
         this.topic = topic;
-        this.message = message;
-    }
-
-    public void setTopic(String topic) {
-        this.topic = topic;
-    }
-
-    public void setMessage(ArrayList message) {
-        this.message = message;
+        this.messages = messages;
     }
 
     public String getTopic() {
         return topic;
     }
 
-    public ArrayList getMessage() {
-        return message;
+    public List<String> getMessages() {
+        return messages;
     }
 
-    public void displayTopic() {
-
+    public void addMessage(String message) {
+        messages.add(message);
     }
 }
