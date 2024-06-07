@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +40,7 @@ public class MainController {
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
     }
+
     @FXML
     private void handleNewChat() {
         showNewChatPopup();
@@ -80,8 +82,9 @@ public class MainController {
         chatBox.heightProperty().addListener((observable, oldValue, newValue) -> {
             Platform.runLater(() -> convScrollPane.setVvalue(1.0));
         });
+    }
 
-    private void loadResourceBundle () {
+    private void loadResourceBundle() {
         Locale appLocale = new Locale(accountManager.getActiveUser().getPreferredLanguage());
         bundle = ResourceBundle.getBundle("MessageBundle", appLocale);
     }
@@ -149,6 +152,7 @@ public class MainController {
             }
         }
     }
+
     private void showNewChatPopup() {
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -194,7 +198,7 @@ public class MainController {
 
         Conversation conversation = getCurrentlyShowingConversation();
 
-        if(conversation == null) {
+        if (conversation == null) {
             return;
         }
 
@@ -213,7 +217,7 @@ public class MainController {
 
         Conversation conversation = getCurrentlyShowingConversation();
 
-        if(conversation == null) {
+        if (conversation == null) {
             return;
         }
 
