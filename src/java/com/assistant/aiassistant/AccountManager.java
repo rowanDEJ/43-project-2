@@ -121,6 +121,11 @@ public class AccountManager {
             return false;
         }
     }
+
+    public void setActiveUser(User user) {
+        // zet de actieve gebruiker
+        this.activeUser = user;
+    }
 }
 
 

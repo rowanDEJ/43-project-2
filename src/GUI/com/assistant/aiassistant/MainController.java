@@ -34,9 +34,8 @@ public class MainController {
     public ArrayList<Conversation> savedConversations;
     private ArrayList<String> createdConversations = new ArrayList<>();
 
-    public AccountManager accountManager = AccountManager.getInstance();
-    public Locale appLocale = new Locale(accountManager.getActiveUser().getPreferredLanguage());
-    ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", appLocale);
+    public AccountManager accountManager; // = AccountManager.getInstance();
+    public ResourceBundle bundle; // = ResourceBundle.getBundle("MessageBundle", appLocale);
 
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
@@ -47,6 +46,8 @@ public class MainController {
     }
 
     public void initialize() {
+        accountManager = AccountManager.getInstance();
+        loadResourceBundle();
         loadSavedConversations();
         fileCreationListener();
         messageCreationListener();
@@ -57,6 +58,16 @@ public class MainController {
         bericht.setDisable(true);
         bericht.setPromptText(bundle.getString("messagePrompt")); // Bericht...
         chatTitle.setText(bundle.getString("noChat")); // Geen Chat
+    }
+
+    private void loadResourceBundle () {
+        Locale appLocale = new Locale(accountManager.getActiveUser().getPreferredLanguage());
+        bundle = ResourceBundle.getBundle("MessageBundle", appLocale);
+    }
+
+    public void refreshLanguage() {
+        loadResourceBundle();
+        initialize();
     }
 
     private void initializeMessagebox() {
