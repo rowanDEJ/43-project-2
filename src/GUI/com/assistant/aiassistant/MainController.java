@@ -1,6 +1,9 @@
 package com.assistant.aiassistant;
 
 import com.assistant.aiassistant.chatItemCreatorClasses.ChatItemCreator;
+import com.assistant.aiassistant.query_API.ExamplequeryResolutionStrategy;
+import com.assistant.aiassistant.query_API.QueryResolutionForm;
+import com.assistant.aiassistant.query_API.QueryResolutionResult;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -14,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class MainController {
@@ -39,23 +41,45 @@ public class MainController {
     }
     @FXML
     private void handleNewChat() {
-        showNewChatDialog();
+        showNewChatPopup();
     }
 
     public void initialize() {
         accountManager = AccountManager.getInstance();
         loadResourceBundle();
         loadSavedConversations();
+        createChatScrollListener();
         fileCreationListener();
-        messageCreationListener();
         initializeMessagebox();
-        LoadSavedConversationAction action = new LoadSavedConversationAction();
-        action.execute();
-        savedConversations = action.savedConversations;
+        loadConversations();
+
         bericht.setDisable(true);
         bericht.setPromptText(bundle.getString("messagePrompt")); // Bericht...
         chatTitle.setText(bundle.getString("noChat")); // Geen Chat
     }
+
+    private void loadConversations() {
+        LoadSavedConversationAction action = new LoadSavedConversationAction();
+        action.execute();
+        savedConversations = action.savedConversations;
+    }
+
+    private void fileCreationListener() {
+        FileCreationMonitor monitor = new FileCreationMonitor(new File("files/conversations/" + accountManager.getActiveUser().getUsername()));
+        monitor.addObserver(fileName -> {
+            Platform.runLater(() -> {
+                // fileName is the name of the file that was created
+                String topic = fileName.replace(".txt", "");
+                createChatNavigationButton(topic);
+            });
+        });
+        monitor.start();
+    }
+
+    private void createChatScrollListener() {
+        chatBox.heightProperty().addListener((observable, oldValue, newValue) -> {
+            Platform.runLater(() -> convScrollPane.setVvalue(1.0));
+        });
 
     private void loadResourceBundle () {
         Locale appLocale = new Locale(accountManager.getActiveUser().getPreferredLanguage());
@@ -65,6 +89,7 @@ public class MainController {
     public void refreshLanguage() {
         loadResourceBundle();
         initialize();
+
     }
 
     private void initializeMessagebox() {
@@ -73,7 +98,7 @@ public class MainController {
                 String message = bericht.getText();
                 message = message.replace("\n", "");
                 bericht.clear();
-                MessageHandler(message);
+                handleMessage(message);
             }
         });
     }
@@ -94,42 +119,11 @@ public class MainController {
         }
     }
 
-    private void fileCreationListener() {
-        FileCreationMonitor monitor = new FileCreationMonitor(new File("files/conversations/" + accountManager.getActiveUser().getUsername()));
-        monitor.addObserver(fileName -> {
-            Platform.runLater(() -> {
-                // fileName is the name of the file that was created
-                String topic = fileName.replace(".txt", "");
-                createChatNavigationButton(topic);
-            });
-        });
-        monitor.start();
-    }
-
-    private void messageCreationListener() {
-        File folder = new File(FILE_PATH + "conversations/" + accountManager.getActiveUser().getUsername());
-        File[] listOfFiles = folder.listFiles();
-
-        if (listOfFiles != null) {
-            for (File file : listOfFiles) {
-                MessageCreationMonitor monitor = new MessageCreationMonitor(file);
-                monitor.addObserver(message -> {
-                    Platform.runLater(() -> {
-                        HBox answerBubble = ChatItemCreator.createAnswerBubble(message);
-                        chatBox.getChildren().add(answerBubble);
-
-                        Platform.runLater(() -> convScrollPane.setVvalue(1.0));
-                    });
-                });
-                monitor.start();
-            }
-        }
-    }
-
     public void createChatNavigationButton(String topic) {
         if (createdConversations.contains(topic)) {
             return;
         }
+
         HBox buttonHBox = ChatItemCreator.createChatNavButton(topic, (e -> showChat(topic)));
         chatNavigationBar.getChildren().add(buttonHBox);
         createdConversations.add(topic);
@@ -150,12 +144,12 @@ public class MainController {
                         HBox questionBubble = ChatItemCreator.createQuestionBubble(message);
                         chatBox.getChildren().add(questionBubble);
                     }
-                    convScrollPane.setVvalue(1.0);
                 }
+                break;
             }
         }
     }
-    private void showNewChatDialog() {
+    private void showNewChatPopup() {
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(primaryStage);
@@ -166,8 +160,11 @@ public class MainController {
         Button button = new Button(bundle.getString("startChat")); // Start Chat
         button.setOnAction(e -> {
             String topic = textField.getText();
-            StartNewConversationAction action = new StartNewConversationAction(topic, "AI-Hello! How can I help you?");
-            action.execute();
+
+            new StartNewConversationAction(topic, "AI-Hello! How can I help you?").execute();
+            loadConversations();
+            showChat(topic);
+
             dialog.close();
         });
 
@@ -179,16 +176,58 @@ public class MainController {
         dialog.show();
     }
 
-
-    private void MessageHandler(String message) {
-        if (!(message.isBlank())) {
-            String topic = chatTitle.getText();
-            for (Conversation conversation : savedConversations) {
-                if (conversation.getTopic().equals(topic)) {
-                   FileIOManager.addMessageToConversation(message, conversation);
-                }
+    private Conversation getCurrentlyShowingConversation() {
+        String topic = chatTitle.getText();
+        for (Conversation conversation : savedConversations) {
+            if (conversation.getTopic().equals(topic)) {
+                return conversation;
             }
         }
+        return null;
+    }
+
+
+    private void handleMessage(String message) {
+        if (message.isBlank()) {
+            return;
+        }
+
+        Conversation conversation = getCurrentlyShowingConversation();
+
+        if(conversation == null) {
+            return;
+        }
+
+        // save message to the appropriate conversation file
+        FileIOManager.addMessageToConversation(message, conversation);
+
+        // create text bubble in gui, with the question in it
+        HBox questionBubble = ChatItemCreator.createQuestionBubble(message);
+        chatBox.getChildren().add(questionBubble);
+
+        // geef message door aan AI
+        sendQueryToAI(message);
+    }
+
+    private void sendQueryToAI(String query) {
+
+        Conversation conversation = getCurrentlyShowingConversation();
+
+        if(conversation == null) {
+            return;
+        }
+
+        QueryResolutionForm<String> queryForm = new QueryResolutionForm<>(query);
+
+        ExamplequeryResolutionStrategy exampleStrategy = new ExamplequeryResolutionStrategy();
+        QueryResolutionResult<String> result = exampleStrategy.resolve(queryForm);
+
+        String resultData = result.getData();
+
+        FileIOManager.addMessageToConversation("AI-" + resultData, conversation);
+
+        HBox questionBubble = ChatItemCreator.createAnswerBubble(resultData);
+        chatBox.getChildren().add(questionBubble);
     }
 
     public void showSettings() throws IOException {
