@@ -86,7 +86,7 @@ public class FileIOManager {
         }
     }
 
-    public void saveUserInConversationFolder(User userToSave) {
+    public static void saveUserInConversationFolder(User userToSave) {
         try {
             // maak een directory aan in de conversations directory met de username als naam
             Files.createDirectories(Paths.get(FILE_PATH + "conversations/" + userToSave.getUsername()));
@@ -160,7 +160,13 @@ public class FileIOManager {
     // Hieronder staan alle methodes voor de gesprekken (uit de oude IOFileManager class)
     // leest een bestand uit
     public static void saveConversation(Conversation conversation) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH + "conversations/" + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt"))) {
+        User user = AccountManager.getInstance().getActiveUser();
+
+        if(!Files.exists(Paths.get(FILE_PATH + "conversations/" + user.getUsername()))) {
+            saveUserInConversationFolder(user);
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH + "conversations/" + user.getUsername() + "/" + conversation.getTopic() + ".txt"))) {
             for (String msg : conversation.getMessages()) {
                 writer.write(msg);
                 writer.newLine();
