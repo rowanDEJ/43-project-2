@@ -8,8 +8,9 @@ import java.io.IOException;
 
 public class UserInterfaceManager {
     private static UserInterfaceManager instance;
+    private MainController mainController;
 
-    private String currentLanguage;
+    public String currentLanguage;
     private Stage currentStage;
 
     public final int defaultWidth = 800;
@@ -39,14 +40,22 @@ public class UserInterfaceManager {
         this.currentStage = stage;
         this.currentStage.setTitle("43-AI-Assistant");
 
-        Scene scene = getSceneWithDefaultSize(loginViewFilename);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(loginViewFilename));
+        Scene scene = new Scene(fxmlLoader.load(), defaultWidth, defaultHeight);
+//        Scene scene = getSceneWithDefaultSize(loginViewFilename);
         this.currentStage.setScene(scene);
         this.currentStage.show();
     }
 
     public void switchCurrentViewTo(String fxmlFileName) throws IOException {
         // laat een andere fxml view ding zien op het scherm.
-        Scene scene = getSceneWithCurrentSize(fxmlFileName);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFileName));
+        Scene scene = new Scene(fxmlLoader.load(), defaultWidth, defaultHeight);
+
+        if (fxmlFileName.equals(mainViewFilename)) {
+            mainController = fxmlLoader.getController();
+        }
+
         this.currentStage.setScene(scene);
         this.currentStage.show();
     }
@@ -67,5 +76,18 @@ public class UserInterfaceManager {
         // geeft een Scene object van de gespecificeerde fxml view file ding.
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFileName));
         return new Scene(fxmlLoader.load(), width, height);
+    }
+
+    public void updateLanguage(String newLanguage) {
+        // update de taal van de applicatie
+        this.currentLanguage = newLanguage;
+        System.out.println("Language updated to: " + newLanguage);
+    }
+
+    public void refreshLanguage() {
+        // refresh de taal van de applicatie
+        if (mainController != null) {
+            mainController.refreshLanguage();
+        }
     }
 }
