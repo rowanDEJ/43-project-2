@@ -104,10 +104,15 @@ public class MainController {
                 MessageCreationMonitor monitor = new MessageCreationMonitor(file);
                 monitor.addObserver(message -> {
                     Platform.runLater(() -> {
-                        HBox answerBubble = ChatItemCreator.createAnswerBubble(message);
-                        chatBox.getChildren().add(answerBubble);
-
-                        Platform.runLater(() -> convScrollPane.setVvalue(1.0));
+                        if (message.startsWith("AI-")) {
+                            String contents = message.substring(3);
+                            HBox answerBubble = ChatItemCreator.createAnswerBubble(contents);
+                            chatBox.getChildren().add(answerBubble);
+                        } else {
+                            HBox questionBubble = ChatItemCreator.createQuestionBubble(message);
+                            chatBox.getChildren().add(questionBubble);
+                        }
+                        convScrollPane.setVvalue(1.0);
                     });
                 });
                 monitor.start();
@@ -170,12 +175,14 @@ public class MainController {
 
 
     private void MessageHandler(String message) {
-        if (!(message.isBlank())) {
-            String topic = chatTitle.getText();
-            for (Conversation conversation : savedConversations) {
-                if (conversation.getTopic().equals(topic)) {
-                   FileIOManager.addMessageToConversation(message, conversation);
-                }
+        if (message.isBlank()) {
+            return;
+        }
+
+        String topic = chatTitle.getText();
+        for (Conversation conversation : savedConversations) {
+            if (conversation.getTopic().equals(topic)) {
+               FileIOManager.addMessageToConversation(message, conversation);
             }
         }
     }
