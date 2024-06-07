@@ -46,7 +46,6 @@ public class MainController {
     public void initialize() {
         loadSavedConversations();
         fileCreationListener();
-        messageCreationListener();
         initializeMessagebox();
         LoadSavedConversationAction action = new LoadSavedConversationAction();
         action.execute();
@@ -95,31 +94,6 @@ public class MainController {
         monitor.start();
     }
 
-    private void messageCreationListener() {
-        File folder = new File(FILE_PATH + "conversations/" + accountManager.getActiveUser().getUsername());
-        File[] listOfFiles = folder.listFiles();
-
-        if (listOfFiles != null) {
-            for (File file : listOfFiles) {
-                MessageCreationMonitor monitor = new MessageCreationMonitor(file);
-                monitor.addObserver(message -> {
-                    Platform.runLater(() -> {
-                        if (message.startsWith("AI-")) {
-                            String contents = message.substring(3);
-                            HBox answerBubble = ChatItemCreator.createAnswerBubble(contents);
-                            chatBox.getChildren().add(answerBubble);
-                        } else {
-                            HBox questionBubble = ChatItemCreator.createQuestionBubble(message);
-                            chatBox.getChildren().add(questionBubble);
-                        }
-                        convScrollPane.setVvalue(1.0);
-                    });
-                });
-                monitor.start();
-            }
-        }
-    }
-
     public void createChatNavigationButton(String topic) {
         if (createdConversations.contains(topic)) {
             return;
@@ -146,6 +120,7 @@ public class MainController {
                     }
                     convScrollPane.setVvalue(1.0);
                 }
+                break;
             }
         }
     }
@@ -183,6 +158,8 @@ public class MainController {
         for (Conversation conversation : savedConversations) {
             if (conversation.getTopic().equals(topic)) {
                FileIOManager.addMessageToConversation(message, conversation);
+                HBox questionBubble = ChatItemCreator.createQuestionBubble(message);
+                chatBox.getChildren().add(questionBubble);
             }
         }
     }
