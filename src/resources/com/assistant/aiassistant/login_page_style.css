@@ -93,7 +93,6 @@
 .smallTextButton:hover {
     -fx-background-color: transparent;
     -fx-underline: true;
-    -fx-font-family: "Roboto Thin";
 }
 
 .smallTextButton:pressed {
@@ -116,8 +115,8 @@
 }
 
 .check-box:hover {
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
 }
 
 .check-box:pressed {
