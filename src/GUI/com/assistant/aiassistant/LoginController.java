@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class LoginController implements Initializable {
     @FXML
     public TextField passwordInput;
     @FXML
-    public VBox masterPane;
+    public HBox masterPane;
     @FXML
     public Button loginButton;
     @FXML

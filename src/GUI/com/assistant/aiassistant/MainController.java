@@ -37,8 +37,17 @@ public class MainController {
     public AccountManager accountManager; // = AccountManager.getInstance();
     public ResourceBundle bundle; // = ResourceBundle.getBundle("MessageBundle", appLocale);
 
+    private static MainController instance = null;
+
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
+    }
+
+    public static MainController getInstance() {
+        if(instance == null) {
+            instance = new MainController();
+        }
+        return instance;
     }
 
     @FXML
