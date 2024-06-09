@@ -54,6 +54,9 @@ public class LoginController implements Initializable {
     }
 
     public void tryLogin() {
+        errorLabel.getStyleClass().removeAll();
+        errorLabel.getStyleClass().add("errorLabel");
+
         ArrayList<TextField> inputs = new ArrayList<>(List.of(emailInput, passwordInput));
         TextField firstEmptyTextField = InputValidator.findFirstEmptyTextField(inputs);
         if(firstEmptyTextField != null) {

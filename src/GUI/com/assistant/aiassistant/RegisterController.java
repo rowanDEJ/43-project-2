@@ -74,7 +74,7 @@ public class RegisterController implements Initializable {
         loginManager.createAccount(usernameInput.getText(), passwordInput.getText(), emailInput.getText(), firstNameInput.getText(), lastNameInput.getText(), preferredLanguageChoiceBox.getValue().toString());
         loginManager.login(emailInput.getText(), passwordInput.getText());
         errorLabel.getStyleClass().removeAll();
-        errorLabel.getStyleClass().add("errorLabel");
+        errorLabel.getStyleClass().add("confirmationLabel");
         errorLabel.setText("Account gecreëerd. Je kan nu inloggen.");
     }
 
@@ -82,7 +82,7 @@ public class RegisterController implements Initializable {
         ArrayList<TextField> inputs = new ArrayList<>(List.of(usernameInput, passwordInput, emailInput, firstNameInput, lastNameInput));
         TextField firstEmptyTextField = InputValidator.findFirstEmptyTextField(inputs);
         errorLabel.getStyleClass().removeAll();
-        errorLabel.getStyleClass().add("confirmationLabel");
+        errorLabel.getStyleClass().add("errorLabel");
 
         if(firstEmptyTextField != null) {
             errorLabel.setText("Voer " + firstEmptyTextField.getPromptText() + " in.");
