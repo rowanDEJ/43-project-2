@@ -84,22 +84,20 @@
 
 .smallTextButton {
     -fx-background-color: transparent;
-    -fx-text-fill: BLACK;
+    -fx-text-fill: #0066cc;
     -fx-font-size: 14;
     -fx-font-family: "Roboto Thin";
-    -fx-underline: true;
     -fx-cursor: hand;
 }
 
 .smallTextButton:hover {
     -fx-background-color: transparent;
-    -fx-text-fill: #0066cc;
-    -fx-font-family: "Roboto Thin";
     -fx-underline: true;
+    -fx-font-family: "Roboto Thin";
 }
 
 .smallTextButton:pressed {
-    -fx-text-fill: LIGHTBLUE;
+    -fx-text-fill: DARKCYAN;
 }
 
 .smallTextButtonLabel {

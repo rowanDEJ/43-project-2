@@ -11,6 +11,7 @@
 
 <HBox fx:id="masterPane" alignment="CENTER" prefHeight="600.0" prefWidth="800.0" styleClass="mainPane" stylesheets="@login_page_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assistant.aiassistant.LoginController">
    <children>
+      <VBox alignment="TOP_RIGHT" layoutX="361.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
       <VBox alignment="CENTER" styleClass="contentContainer" HBox.hgrow="NEVER">
          <children>
             <VBox alignment="CENTER" layoutX="10.0" layoutY="410.0" maxHeight="-Infinity" styleClass="secondaryContainer">
@@ -52,5 +53,6 @@
             </VBox>
          </children>
       </VBox>
+      <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
    </children>
 </HBox>
