@@ -50,7 +50,12 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="298.0" layoutY="430.0" maxWidth="-Infinity" prefWidth="250.0" styleClass="inputFieldContainer">
                      <children>
-                        <ComboBox fx:id="preferredLanguageChoiceBox" prefWidth="250.0" promptText="kies een taal" HBox.hgrow="ALWAYS" /> <!-- EN = "choose a language" -->
+                        <ComboBox fx:id="preferredLanguageChoiceBox" prefWidth="250.0" promptText="kies een voorkeurstaal" HBox.hgrow="ALWAYS" /> <!-- EN = "choose a language" -->
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="60.0" layoutY="232.0" maxWidth="-Infinity" prefWidth="250.0" styleClass="inputFieldContainer">
+                     <children>
+                        <ComboBox fx:id="aiLanguageChoiceBox" prefWidth="250.0" promptText="kies een ai taal" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                         <Button fx:id="registerButton" mnemonicParsing="false" onAction="#tryRegistering" prefHeight="26.0" prefWidth="230.0" styleClass="bigButton" text="REGISTREER" textAlignment="CENTER"> <!-- EN = "REGISTER" -->
