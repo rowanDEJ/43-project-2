@@ -89,7 +89,7 @@ public class FileIOManager {
     public static void saveUserInConversationFolder(User userToSave) {
         try {
             // maak een directory aan in de conversations directory met de username als naam
-            Files.createDirectories(Paths.get(FILE_PATH + "conversations/" + userToSave.getUsername()));
+            Files.createDirectories(Paths.get(FILE_PATH + conversationsFolder + userToSave.getUsername()));
 
         } catch (IOException e) {
             System.out.println("Er ging iets mis in het aanmaken van de user conversations directory");
@@ -165,11 +165,11 @@ public class FileIOManager {
     public static void saveConversation(Conversation conversation) {
         User user = AccountManager.getInstance().getActiveUser();
 
-        if(!Files.exists(Paths.get(FILE_PATH + "conversations/" + user.getUsername()))) {
+        if(!Files.exists(Paths.get(FILE_PATH + conversationsFolder + user.getUsername()))) {
             saveUserInConversationFolder(user);
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH + "conversations/" + user.getUsername() + "/" + conversation.getTopic() + ".txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH + conversationsFolder + user.getUsername() + "/" + conversation.getTopic() + ".txt"))) {
             for (String msg : conversation.getMessages()) {
                 writer.write(msg);
                 writer.newLine();
@@ -206,7 +206,7 @@ public class FileIOManager {
     // laadt een gesprek
     public void loadConversation(Conversation conversation){
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH + "conversations/" + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH + conversationsFolder + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 conversation.addMessage(line);
@@ -220,9 +220,8 @@ public class FileIOManager {
     // verwijdert een gesprek
     public static void deleteConversation(Conversation conversation) {
 
-        File file = new File(FILE_PATH + "conversations/" + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt");
+        File file = new File(FILE_PATH + conversationsFolder + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt");
         if (file.delete()) {
-            System.out.println("Conversation deleted successfully");
         } else {
             System.out.println("Failed to delete the conversation");
         }

@@ -41,7 +41,6 @@ public class UserInterfaceManager {
         this.currentStage = stage;
         this.currentStage.setTitle("43-AI-Assistant");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(loginViewFilename));
         Scene scene = getSceneWithDefaultSize(loginViewFilename);
         this.currentStage.setScene(scene);
         this.currentStage.show();
@@ -76,6 +75,5 @@ public class UserInterfaceManager {
     public void updateLanguage(String newLanguage) {
         // update de taal van de applicatie
         this.currentLanguage = newLanguage;
-        System.out.println("Language updated to: " + newLanguage);
     }
 }

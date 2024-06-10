@@ -107,7 +107,7 @@ public class SettingController {
             changePersonalData.changeAiLanguage(activeUser, aiLanguage.getValue().toString());
             hasChanged = true;
         }
-        
+
         // Als er wijzigingen zijn, update de gebruiker
         if (hasChanged) {
             User updatedUser = new User(
@@ -123,12 +123,10 @@ public class SettingController {
             accountManager.setActiveUser(updatedUser); // Update de actieve gebruiker in AccountManager
 
             reloadSettings(); // Herlaad de instellingen om de veranderingen door te voeren
-        } else {
-            System.out.println("No changes made");
         }
     }
 
-    public void reloadSettings() {
+    public void reloadSettings(){
         try {
             loadResourceBundle();
             setLabelTexts();

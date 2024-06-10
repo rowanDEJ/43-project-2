@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ChangePersonalData {
 
-    public FileIOManager fileIOManager = new FileIOManager();
+    public static final FileIOManager fileIOManager = new FileIOManager();
     public ArrayList<User> users = new ArrayList<>();
 
     public void changeFirstName(User selectedUser, String newFirstName) {
