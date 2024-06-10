@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -21,9 +22,8 @@ public class RegisterController implements Initializable {
     public TextField emailInput;
     public TextField firstNameInput;
     public TextField lastNameInput;
-    public VBox masterPane;
+    public HBox masterPane;
     public Label errorLabel;
-    public Label confirmationLabel;
     public Button loginButton;
     public Button registerButton;
     public ComboBox<Language> preferredLanguageChoiceBox;
@@ -62,14 +62,19 @@ public class RegisterController implements Initializable {
 
         loginManager.createAccount(usernameInput.getText(), passwordInput.getText(), emailInput.getText(), firstNameInput.getText(), lastNameInput.getText(), preferredLanguageChoiceBox.getValue().toString());
         loginManager.login(emailInput.getText(), passwordInput.getText());
-        confirmationLabel.setText("Account created successfully. You can now log in.");
+        errorLabel.getStyleClass().removeAll();
+        errorLabel.getStyleClass().add("confirmationLabel");
+        errorLabel.setText("Account gecreëerd. Je kan nu inloggen.");
     }
 
     private boolean areAllTextInputsValid() {
         ArrayList<TextField> inputs = new ArrayList<>(List.of(usernameInput, passwordInput, emailInput, firstNameInput, lastNameInput));
         TextField firstEmptyTextField = InputValidator.findFirstEmptyTextField(inputs);
+        errorLabel.getStyleClass().removeAll();
+        errorLabel.getStyleClass().add("errorLabel");
+
         if(firstEmptyTextField != null) {
-            errorLabel.setText("Enter " + firstEmptyTextField.getPromptText());
+            errorLabel.setText("Voer " + firstEmptyTextField.getPromptText() + " in.");
             return false;
         }
 
