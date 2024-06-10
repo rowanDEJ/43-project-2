@@ -14,31 +14,19 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
-    @FXML
+
     public TextField usernameInput;
-    @FXML
     public TextField passwordInput;
-    @FXML
     public TextField visiblePasswordInput;
-    @FXML
     public TextField emailInput;
-    @FXML
     public TextField firstNameInput;
-    @FXML
     public TextField lastNameInput;
-    @FXML
     public VBox masterPane;
-    @FXML
     public Label errorLabel;
-    @FXML
     public Label confirmationLabel;
-    @FXML
     public Button loginButton;
-    @FXML
     public Button registerButton;
-    @FXML
     public ComboBox<Language> preferredLanguageChoiceBox;
-    @FXML
     public CheckBox showPasswordCheckbox;
 
     private final AccountManager loginManager = AccountManager.getInstance();

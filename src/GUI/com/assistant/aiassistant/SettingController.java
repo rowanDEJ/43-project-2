@@ -20,14 +20,13 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 public class SettingController {
-    @FXML
+
     public Label showName;
     public TextField password;
     public TextField email;
     public TextField firstName;
     public TextField lastName;
     public ChoiceBox<String> preferredLanguage;
-
     public Label settingsLabel;
     public Label profileLabel;
     public Label profileLabel2;
@@ -41,12 +40,9 @@ public class SettingController {
     public Button logOutButton;
     public Label notification;
     public Label policy;
-
     private AccountManager accountManager;
     private ResourceBundle bundle;
-
     public ChangePersonalData changePersonalData;
-
 
     public void initialize() {
         changePersonalData = new ChangePersonalData();

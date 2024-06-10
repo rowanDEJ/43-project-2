@@ -3,6 +3,7 @@ module com.assistant.aiassistant {
     requires javafx.fxml;
 
     requires org.kordamp.bootstrapfx.core;
+    requires java.desktop;
 
     opens com.assistant.aiassistant to javafx.fxml;
     exports com.assistant.aiassistant;
