@@ -4,7 +4,7 @@
 }
 
 .mainPane {
-    -fx-background-image: url("images/beach.jpg"); /* unsplash, Pedro Monteiro */
+    -fx-background-image: url("images/blue_wallpaper.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-background-position: center center;
@@ -13,6 +13,7 @@
 .combo-box-popup .list-view .list-cell {
     -fx-text-fill: BLACK;
     -fx-font-size: 16;
+    -fx-cursor: hand;
 }
 
 .combo-box-popup .list-view .list-cell:hover {
@@ -21,6 +22,7 @@
 
 .combo-box {
     -fx-background-color: transparent;
+    -fx-cursor: hand;
 }
 
 .combo-box .list-cell, .combo-box .text-field {
@@ -35,6 +37,10 @@
 }
 .combo-box .arrow-button .arrow .arrow-shape {
     -fx-background-color: BLACK;
+}
+
+.combo-box:hover {
+
 }
 
 .text-field {
@@ -117,6 +123,7 @@
 .check-box:hover {
     -fx-scale-x: 1.2;
     -fx-scale-y: 1.2;
+    -fx-cursor: hand;
 }
 
 .check-box:pressed {
