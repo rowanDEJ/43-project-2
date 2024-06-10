@@ -50,7 +50,7 @@ public class FileIOManager {
             String[] parts = line.split(SEPARATOR);
 
             // elke part is een attribuut van de gebruiker
-            User userReadFromFile = new User(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5]);
+            User userReadFromFile = new User(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6]);
 
             // voeg de gebruiker toe aan de ArrayList met alle gebruikers
             usersReadFromFile.add(userReadFromFile);
@@ -77,7 +77,7 @@ public class FileIOManager {
             FileWriter myWriter = new FileWriter(FILE_PATH + usersFile, true);
 
             // schrijf de gebruiker naar het bestand
-            myWriter.write(userToSave.getUsername() + SEPARATOR + userToSave.getPassword() + SEPARATOR + userToSave.getEmail() + SEPARATOR + userToSave.getFirstName() + SEPARATOR + userToSave.getLastName() + SEPARATOR + userToSave.getPreferredLanguage() + "\n");
+            myWriter.write(userToSave.getUsername() + SEPARATOR + userToSave.getPassword() + SEPARATOR + userToSave.getEmail() + SEPARATOR + userToSave.getFirstName() + SEPARATOR + userToSave.getLastName() + SEPARATOR + userToSave.getPreferredLanguage() + SEPARATOR + userToSave.getAiLanguage() + "\n");
 
             myWriter.close();
             saveUserInConversationFolder(userToSave);
@@ -147,6 +147,9 @@ public class FileIOManager {
                         break;
                     case "preferredLanguage":
                         u.setPreferredLanguage(nieuw);
+                        break;
+                    case "aiLanguage":
+                        u.setAiLanguage(nieuw);
                         break;
                     default:
                         System.out.println("Er ging iets mis.");

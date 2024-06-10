@@ -27,6 +27,7 @@ public class RegisterController implements Initializable {
     public Button loginButton;
     public Button registerButton;
     public ComboBox<Language> preferredLanguageChoiceBox;
+    public ComboBox<Language> aiLanguageChoiceBox;
     public CheckBox showPasswordCheckbox;
 
     private final AccountManager loginManager = AccountManager.getInstance();
@@ -41,6 +42,7 @@ public class RegisterController implements Initializable {
     public void addLanguageOptionsToDropdownMenu() {
         FileIOManager ioManager = new FileIOManager();
         preferredLanguageChoiceBox.getItems().addAll(ioManager.getAvailableLanguages());
+        aiLanguageChoiceBox.getItems().addAll(ioManager.getAvailableLanguages());
     }
 
     private void removeAutoFocusFromTextField(TextField textField) {
@@ -60,7 +62,7 @@ public class RegisterController implements Initializable {
             return;
         }
 
-        loginManager.createAccount(usernameInput.getText(), passwordInput.getText(), emailInput.getText(), firstNameInput.getText(), lastNameInput.getText(), preferredLanguageChoiceBox.getValue().toString());
+        loginManager.createAccount(usernameInput.getText(), passwordInput.getText(), emailInput.getText(), firstNameInput.getText(), lastNameInput.getText(), preferredLanguageChoiceBox.getValue().toString(), aiLanguageChoiceBox.getValue().toString());
         loginManager.login(emailInput.getText(), passwordInput.getText());
         errorLabel.getStyleClass().removeAll();
         errorLabel.getStyleClass().add("confirmationLabel");
@@ -91,6 +93,10 @@ public class RegisterController implements Initializable {
         }
         if(preferredLanguageChoiceBox.getValue() == null) {
             errorLabel.setText("Choose a preferred language");
+            return false;
+        }
+        if(aiLanguageChoiceBox.getValue() == null) {
+            errorLabel.setText("Choose an AI language");
             return false;
         }
         if(loginManager.checkIfUserWithEmailExists(emailInput.getText())) {
