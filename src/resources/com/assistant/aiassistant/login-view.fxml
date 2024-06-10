@@ -45,7 +45,7 @@
                         <HBox alignment="CENTER">
                            <children>
                               <Button mnemonicParsing="false" styleClass="smallTextButtonLabel" text="Geen account?" textAlignment="CENTER" />  <!-- EN = "No account?" -->
-                              <Button fx:id="registerButton" layoutX="144.0" layoutY="10.0" mnemonicParsing="false" onAction="#showRegisterScreen" styleClass="smallTextButton" text="Registreer Nu." textAlignment="CENTER" /> <!-- EN = "Register Now." -->
+                              <Button fx:id="registerButton" layoutX="144.0" layoutY="10.0" mnemonicParsing="false" onAction="#showRegisterScreen" styleClass="smallTextButton" text="Registreer nu" textAlignment="CENTER" /> <!-- EN = "Register Now." -->
                            </children>
                         </HBox>
                </children>

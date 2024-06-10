@@ -66,7 +66,7 @@
                   <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="23.0" prefWidth="225.0" VBox.vgrow="NEVER">
                      <children>
                         <Button mnemonicParsing="false" styleClass="smallTextButtonLabel" text="Heb je al een account?" textAlignment="CENTER" />
-                        <Button fx:id="loginButton" layoutX="144.0" layoutY="10.0" mnemonicParsing="false" onAction="#showLoginScreen" styleClass="smallTextButton" text="log in" textAlignment="CENTER" />
+                        <Button fx:id="loginButton" layoutX="144.0" layoutY="10.0" mnemonicParsing="false" onAction="#showLoginScreen" styleClass="smallTextButton" text="Log in" textAlignment="CENTER" />
                      </children>
                   </HBox>
                </children>
