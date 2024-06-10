@@ -7,19 +7,21 @@ public class  User {
     private String lastName;
     private String email;
     private String preferredLanguage;
+    private String aiLanguage;
 
 
     public User(String userName) {
         this.userName = userName;
     }
 
-    public User(String userName, String password, String email, String firstName, String lastName, String preferredLanguage) {
+    public User(String userName, String password, String email, String firstName, String lastName, String preferredLanguage, String aiLanguage) {
         this.userName = userName;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.preferredLanguage = preferredLanguage;
+        this.aiLanguage = aiLanguage;
     }
 
     public void setUserName(String userName) {
@@ -44,6 +46,10 @@ public class  User {
 
     public void setPreferredLanguage(String preferredLanguage) {
         this.preferredLanguage = preferredLanguage;
+    }
+
+    public void setAiLanguage(String aiLanguage) {
+        this.aiLanguage = aiLanguage;
     }
 
     public String getUsername() {
@@ -72,6 +78,10 @@ public class  User {
 
     public String getPreferredLanguage() {
         return preferredLanguage;
+    }
+
+    public String getAiLanguage() {
+        return aiLanguage;
     }
 
     public void changeLanguage() {

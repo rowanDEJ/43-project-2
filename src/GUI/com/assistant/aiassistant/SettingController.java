@@ -27,6 +27,7 @@ public class SettingController {
     public TextField firstName;
     public TextField lastName;
     public ChoiceBox<String> preferredLanguage;
+    public ChoiceBox<String> aiLanguage;
 
     public Label settingsLabel;
     public Label profileLabel;
@@ -36,6 +37,7 @@ public class SettingController {
     public Label passwordLabel;
     public Label emailLabel;
     public Label preferredLanguageLabel;
+    public Label aiLanguageLabel;
     public Button saveButton;
     public ImageView profileImageView;
     public Button logOutButton;
@@ -72,6 +74,7 @@ public class SettingController {
         passwordLabel.setText(bundle.getString("password")); //Password
         emailLabel.setText(bundle.getString("email")); //Email
         preferredLanguageLabel.setText(bundle.getString("preferredLanguage")); //Preferred Language
+        aiLanguageLabel.setText(bundle.getString("aiLanguage")); //AI Language
         saveButton.setText(bundle.getString("save")); //Save
         logOutButton.setText(bundle.getString("logOut")); //Log Out
         notification.setText(bundle.getString("notification")); //Notification
@@ -103,6 +106,10 @@ public class SettingController {
             UserInterfaceManager.getInstance().updateLanguage(preferredLanguage.getValue().toString());
             hasChanged = true;
         }
+        if (aiLanguage.getValue() != null) {
+            changePersonalData.changeAiLanguage(activeUser, aiLanguage.getValue().toString());
+            hasChanged = true;
+        }
         
         // Als er wijzigingen zijn, update de gebruiker
         if (hasChanged) {
@@ -112,7 +119,8 @@ public class SettingController {
                     email.getText().isEmpty() ? activeUser.getEmail() : email.getText(), // Gebruik de nieuwe email als het niet leeg is
                     firstName.getText().isEmpty() ? activeUser.getFirstName() : firstName.getText(), // Gebruik de nieuwe voornaam als het niet leeg is
                     lastName.getText().isEmpty() ? activeUser.getLastName() : lastName.getText(), // Gebruik de nieuwe achternaam als het niet leeg is
-                    preferredLanguage.getValue() == null ? activeUser.getPreferredLanguage() : preferredLanguage.getValue().toString() // Gebruik de nieuwe taal als het niet null is
+                    preferredLanguage.getValue() == null ? activeUser.getPreferredLanguage() : preferredLanguage.getValue().toString(), // Gebruik de nieuwe taal als het niet null is
+                    aiLanguage.getValue() == null ? activeUser.getAiLanguage() : aiLanguage.getValue().toString() // Gebruik de nieuwe ai taal als het niet null is
             );
 
             accountManager.setActiveUser(updatedUser); // Update de actieve gebruiker in AccountManager
@@ -137,7 +145,7 @@ public class SettingController {
         FileIOManager ioManager = new FileIOManager();
         List<String> languages = ioManager.getAvailableLanguages().stream().map(Language::toString).collect(Collectors.toList());
         preferredLanguage.getItems().addAll(languages);
-//        preferredLanguage.getItems().addAll(ioManager.getAvailableLanguages());
+        aiLanguage.getItems().addAll(languages);
     }
 
     @FXML

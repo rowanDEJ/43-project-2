@@ -102,12 +102,12 @@ public class AccountManager {
         return false;
     }
 
-    public void createAccount(String username, String password, String email, String fname, String lname, String preferredlanguage) {
+    public void createAccount(String username, String password, String email, String fname, String lname, String preferredlanguage, String aiLanguage) {
         if (checkIfUserWithUsernameExists(username)) {
             System.out.println("Gebruikersnaam bestaat al: " + username);
             return;
         }
-        User newlyCreatedUser = new User(username, password, email, fname, lname, preferredlanguage);
+        User newlyCreatedUser = new User(username, password, email, fname, lname, preferredlanguage, aiLanguage);
         fileManager.saveUserToFile(newlyCreatedUser);
         ArrayList<User> users = fileManager.getUsersFromFile();
         users.add(newlyCreatedUser);

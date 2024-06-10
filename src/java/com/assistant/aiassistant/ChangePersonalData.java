@@ -32,6 +32,10 @@ public class ChangePersonalData {
         fileIOManager.editUser(selectedUser, newPreferredLanguage, "preferredLanguage");
     }
 
+    public void changeAiLanguage(User selectedUser, String newAiLanguage) {
+        fileIOManager.editUser(selectedUser, newAiLanguage, "aiLanguage");
+    }
+
     // Misschien deze methode verplaatsen naar een andere class
     public boolean checkEmail(String newEmail) {
         users = fileIOManager.getUsersFromFile();

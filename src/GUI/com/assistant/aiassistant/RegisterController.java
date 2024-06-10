@@ -39,6 +39,8 @@ public class RegisterController implements Initializable {
     @FXML
     public ComboBox<Language> preferredLanguageChoiceBox;
     @FXML
+    public ComboBox<Language> aiLanguageChoiceBox;
+    @FXML
     public CheckBox showPasswordCheckbox;
 
     private final AccountManager loginManager = AccountManager.getInstance();
@@ -53,6 +55,7 @@ public class RegisterController implements Initializable {
     public void addLanguageOptionsToDropdownMenu() {
         FileIOManager ioManager = new FileIOManager();
         preferredLanguageChoiceBox.getItems().addAll(ioManager.getAvailableLanguages());
+        aiLanguageChoiceBox.getItems().addAll(ioManager.getAvailableLanguages());
     }
 
     private void removeAutoFocusFromTextField(TextField textField) {
@@ -72,7 +75,7 @@ public class RegisterController implements Initializable {
             return;
         }
 
-        loginManager.createAccount(usernameInput.getText(), passwordInput.getText(), emailInput.getText(), firstNameInput.getText(), lastNameInput.getText(), preferredLanguageChoiceBox.getValue().toString());
+        loginManager.createAccount(usernameInput.getText(), passwordInput.getText(), emailInput.getText(), firstNameInput.getText(), lastNameInput.getText(), preferredLanguageChoiceBox.getValue().toString(), aiLanguageChoiceBox.getValue().toString());
         loginManager.login(emailInput.getText(), passwordInput.getText());
         confirmationLabel.setText("Account created successfully. You can now log in.");
     }
@@ -98,6 +101,10 @@ public class RegisterController implements Initializable {
         }
         if(preferredLanguageChoiceBox.getValue() == null) {
             errorLabel.setText("Choose a preferred language");
+            return false;
+        }
+        if(aiLanguageChoiceBox.getValue() == null) {
+            errorLabel.setText("Choose an AI language");
             return false;
         }
         if(loginManager.checkIfUserWithEmailExists(emailInput.getText())) {
