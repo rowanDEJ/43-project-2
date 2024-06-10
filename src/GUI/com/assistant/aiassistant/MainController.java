@@ -12,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +21,6 @@ import java.util.*;
 
 public class MainController {
     public Button newChatButton;
-    @FXML
     private Stage primaryStage;
     public VBox chatNavigationBar;
     public VBox chatBox;

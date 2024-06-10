@@ -8,10 +8,6 @@ public class  User {
     private String email;
     private String preferredLanguage;
 
-    public User(String userName) {
-        this.userName = userName;
-    }
-
     public User(String userName, String password, String email, String firstName, String lastName, String preferredLanguage) {
         this.userName = userName;
         this.password = password;
@@ -71,24 +67,5 @@ public class  User {
 
     public String getPreferredLanguage() {
         return preferredLanguage;
-    }
-
-    public void changeLanguage() {
-        if (preferredLanguage.equals("NL")) {
-            preferredLanguage = "EN";
-        } else {
-            preferredLanguage = "NL";
-        }
-
-    }
-
-    public void login() {
-        // nog maken
-
-    }
-
-    public void logout() {
-        // nog maken
-
     }
 }

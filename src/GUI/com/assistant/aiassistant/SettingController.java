@@ -7,7 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -16,14 +20,13 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 public class SettingController {
-    @FXML
+
     public Label showName;
     public TextField password;
     public TextField email;
     public TextField firstName;
     public TextField lastName;
     public ChoiceBox<String> preferredLanguage;
-
     public Label settingsLabel;
     public Label profileLabel;
     public Label profileLabel2;
@@ -33,12 +36,13 @@ public class SettingController {
     public Label emailLabel;
     public Label preferredLanguageLabel;
     public Button saveButton;
-
+    public ImageView profileImageView;
+    public Button logOutButton;
+    public Label notification;
+    public Label policy;
     private AccountManager accountManager;
     private ResourceBundle bundle;
-
     public ChangePersonalData changePersonalData;
-
 
     public void initialize() {
         changePersonalData = new ChangePersonalData();
@@ -65,6 +69,9 @@ public class SettingController {
         emailLabel.setText(bundle.getString("email")); //Email
         preferredLanguageLabel.setText(bundle.getString("preferredLanguage")); //Preferred Language
         saveButton.setText(bundle.getString("save")); //Save
+        logOutButton.setText(bundle.getString("logOut")); //Log Out
+        notification.setText(bundle.getString("notification")); //Notification
+        policy.setText(bundle.getString("policy")); //Policy
     }
 
     public void checkChangable() {
@@ -92,7 +99,7 @@ public class SettingController {
             UserInterfaceManager.getInstance().updateLanguage(preferredLanguage.getValue().toString());
             hasChanged = true;
         }
-
+        
         // Als er wijzigingen zijn, update de gebruiker
         if (hasChanged) {
             User updatedUser = new User(
@@ -135,8 +142,18 @@ public class SettingController {
     }
 
     @FXML
-    private void editImage() {
+    public void editImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Profile Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
 
+        File selectedFile = fileChooser.showOpenDialog(profileImageView.getScene().getWindow());
+        if (selectedFile != null) {
+            Image image = new Image(selectedFile.toURI().toString());
+            profileImageView.setImage(image);
+        }
     }
 
     @FXML
@@ -151,5 +168,10 @@ public class SettingController {
 
     private boolean notNull(String text) {
         return text != null && !text.isEmpty();
+    }
+
+    public void logOut() throws IOException {
+        UserInterfaceManager uiManager = UserInterfaceManager.getInstance();
+        uiManager.switchCurrentViewTo(uiManager.loginViewFilename);
     }
 }

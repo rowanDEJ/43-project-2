@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,21 +17,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-    @FXML
+
     public TextField emailInput;
-    @FXML
     public TextField passwordInput;
-    @FXML
     public HBox masterPane;
-    @FXML
     public Button loginButton;
-    @FXML
     public Button registerButton;
-    @FXML
     public Label errorLabel;
-    @FXML
     public TextField visiblePasswordInput;
-    @FXML
     public CheckBox showPasswordCheckbox;
 
     private final AccountManager loginManager = AccountManager.getInstance();

@@ -78,11 +78,4 @@ public class UserInterfaceManager {
         this.currentLanguage = newLanguage;
         System.out.println("Language updated to: " + newLanguage);
     }
-
-    public void refreshLanguage() {
-        // refresh de taal van de applicatie
-        if (mainController != null) {
-            mainController.refreshLanguage();
-        }
-    }
 }

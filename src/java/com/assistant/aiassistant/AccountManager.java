@@ -109,10 +109,6 @@ public class AccountManager {
         }
         User newlyCreatedUser = new User(username, password, email, fname, lname, preferredlanguage);
         fileManager.saveUserToFile(newlyCreatedUser);
-        // Log de gebruikers voor debugging doeleinden
-        //for (User user : users) {
-        //    System.out.println("User in list: " + user.getUsername());
-        //}
     }
 
     public boolean login(String email, String password) {
