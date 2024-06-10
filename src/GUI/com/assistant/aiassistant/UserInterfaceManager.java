@@ -26,6 +26,7 @@ public class UserInterfaceManager {
         if(AccountManager.getInstance().getActiveUser() != null) {
             this.currentLanguage = AccountManager.getInstance().getActiveUser().getPreferredLanguage();
         }
+        mainController = MainController.getInstance();
     }
 
     public static UserInterfaceManager getInstance() {
@@ -41,20 +42,14 @@ public class UserInterfaceManager {
         this.currentStage.setTitle("43-AI-Assistant");
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(loginViewFilename));
-        Scene scene = new Scene(fxmlLoader.load(), defaultWidth, defaultHeight);
-//        Scene scene = getSceneWithDefaultSize(loginViewFilename);
+        Scene scene = getSceneWithDefaultSize(loginViewFilename);
         this.currentStage.setScene(scene);
         this.currentStage.show();
     }
 
     public void switchCurrentViewTo(String fxmlFileName) throws IOException {
         // laat een andere fxml view ding zien op het scherm.
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFileName));
-        Scene scene = new Scene(fxmlLoader.load(), defaultWidth, defaultHeight);
-
-        if (fxmlFileName.equals(mainViewFilename)) {
-            mainController = fxmlLoader.getController();
-        }
+        Scene scene = getSceneWithCurrentSize(fxmlFileName);
 
         this.currentStage.setScene(scene);
         this.currentStage.show();
@@ -82,12 +77,5 @@ public class UserInterfaceManager {
         // update de taal van de applicatie
         this.currentLanguage = newLanguage;
         System.out.println("Language updated to: " + newLanguage);
-    }
-
-    public void refreshLanguage() {
-        // refresh de taal van de applicatie
-        if (mainController != null) {
-            mainController.refreshLanguage();
-        }
     }
 }

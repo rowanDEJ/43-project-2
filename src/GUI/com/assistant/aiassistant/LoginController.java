@@ -8,8 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,21 +17,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-    @FXML
+
     public TextField emailInput;
-    @FXML
     public TextField passwordInput;
-    @FXML
-    public VBox masterPane;
-    @FXML
+    public HBox masterPane;
     public Button loginButton;
-    @FXML
     public Button registerButton;
-    @FXML
     public Label errorLabel;
-    @FXML
     public TextField visiblePasswordInput;
-    @FXML
     public CheckBox showPasswordCheckbox;
 
     private final AccountManager loginManager = AccountManager.getInstance();
@@ -53,6 +46,9 @@ public class LoginController implements Initializable {
     }
 
     public void tryLogin() {
+        errorLabel.getStyleClass().removeAll();
+        errorLabel.getStyleClass().add("errorLabel");
+
         ArrayList<TextField> inputs = new ArrayList<>(List.of(emailInput, passwordInput));
         TextField firstEmptyTextField = InputValidator.findFirstEmptyTextField(inputs);
         if(firstEmptyTextField != null) {

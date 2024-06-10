@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -14,33 +15,19 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
-    @FXML
+
     public TextField usernameInput;
-    @FXML
     public TextField passwordInput;
-    @FXML
     public TextField visiblePasswordInput;
-    @FXML
     public TextField emailInput;
-    @FXML
     public TextField firstNameInput;
-    @FXML
     public TextField lastNameInput;
-    @FXML
-    public VBox masterPane;
-    @FXML
+    public HBox masterPane;
     public Label errorLabel;
-    @FXML
-    public Label confirmationLabel;
-    @FXML
     public Button loginButton;
-    @FXML
     public Button registerButton;
-    @FXML
     public ComboBox<Language> preferredLanguageChoiceBox;
-    @FXML
     public ComboBox<Language> aiLanguageChoiceBox;
-    @FXML
     public CheckBox showPasswordCheckbox;
 
     private final AccountManager loginManager = AccountManager.getInstance();
@@ -77,14 +64,19 @@ public class RegisterController implements Initializable {
 
         loginManager.createAccount(usernameInput.getText(), passwordInput.getText(), emailInput.getText(), firstNameInput.getText(), lastNameInput.getText(), preferredLanguageChoiceBox.getValue().toString(), aiLanguageChoiceBox.getValue().toString());
         loginManager.login(emailInput.getText(), passwordInput.getText());
-        confirmationLabel.setText("Account created successfully. You can now log in.");
+        errorLabel.getStyleClass().removeAll();
+        errorLabel.getStyleClass().add("confirmationLabel");
+        errorLabel.setText("Account gecreëerd. Je kan nu inloggen.");
     }
 
     private boolean areAllTextInputsValid() {
         ArrayList<TextField> inputs = new ArrayList<>(List.of(usernameInput, passwordInput, emailInput, firstNameInput, lastNameInput));
         TextField firstEmptyTextField = InputValidator.findFirstEmptyTextField(inputs);
+        errorLabel.getStyleClass().removeAll();
+        errorLabel.getStyleClass().add("errorLabel");
+
         if(firstEmptyTextField != null) {
-            errorLabel.setText("Enter " + firstEmptyTextField.getPromptText());
+            errorLabel.setText("Voer " + firstEmptyTextField.getPromptText() + " in.");
             return false;
         }
 

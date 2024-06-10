@@ -7,117 +7,71 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="masterPane" alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" styleClass="mainPaneRegister" stylesheets="@login_page_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assistant.aiassistant.RegisterController">
+<HBox fx:id="masterPane" alignment="CENTER" prefHeight="600.0" prefWidth="800.0" styleClass="mainPane" stylesheets="@login_page_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assistant.aiassistant.RegisterController">
+   <children>
+      <VBox alignment="CENTER" styleClass="contentContainer" HBox.hgrow="NEVER">
          <children>
-            <BorderPane prefHeight="200.0" prefWidth="200.0">
-               <center>
-                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-                     <image>
-                        <Image url="@images/account-image.png" />
-                     </image></ImageView>
-               </center>
-               <bottom>
-                  <Label styleClass="bigTitle" text="MAAK NIEUW ACCOUNT" BorderPane.alignment="CENTER" /> <!-- EN = "CREATE NEW ACCOUNT" -->
-               </bottom>
-               <VBox.margin>
-                  <Insets bottom="20.0" top="20.0" />
-               </VBox.margin>
-            </BorderPane>
-            <HBox alignment="CENTER" fillHeight="false" layoutX="264.0" layoutY="292.0" maxWidth="-Infinity" prefWidth="260.0" styleClass="inputFieldContainer">
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="492.0" styleClass="secondaryContainer">
                <children>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
-                     <image>
-                        <Image url="@icons/user_icon.png" />
-                     </image>
-                  </ImageView>
-                  <TextField fx:id="usernameInput" prefWidth="235.0" promptText="gebruikersnaam" /> <!-- EN = "username" -->
+                        <Label styleClass="bigTitle" text="MAAK NIEUW ACCOUNT" />
                </children>
-            </HBox>
-            <HBox alignment="CENTER" fillHeight="false" layoutX="264.0" layoutY="310.0" maxWidth="-Infinity" prefWidth="260.0" styleClass="inputFieldContainer">
+            </VBox>
+            <VBox alignment="CENTER" styleClass="container">
+                     <children>
+                        <HBox alignment="CENTER" fillHeight="false" layoutX="264.0" layoutY="292.0" maxWidth="-Infinity" prefWidth="250.0" styleClass="inputFieldContainer">
+                           <children>
+                              <TextField fx:id="usernameInput" promptText="gebruikersnaam" HBox.hgrow="ALWAYS" /> <!-- EN = "username" -->
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" fillHeight="false" layoutX="264.0" layoutY="310.0" maxWidth="-Infinity" prefWidth="250.0" styleClass="inputFieldContainer">
+                           <children>
+                              <PasswordField fx:id="passwordInput" promptText="wachtwoord" HBox.hgrow="ALWAYS" /> <!-- EN = "password" -->
+                              <TextField fx:id="visiblePasswordInput" promptText="wachtwoord" HBox.hgrow="ALWAYS" /> <!-- EN = "password" -->
+                              <CheckBox fx:id="showPasswordCheckbox" mnemonicParsing="false" />
+                           </children>
+                        </HBox>
+                  <HBox alignment="CENTER" fillHeight="false" layoutX="298.0" layoutY="310.0" maxWidth="-Infinity" prefWidth="250.0" styleClass="inputFieldContainer">
+                     <children>
+                        <TextField fx:id="emailInput" promptText="e-mailadres" HBox.hgrow="ALWAYS" /> <!-- EN = "e-mail address" -->
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" fillHeight="false" layoutX="298.0" layoutY="464.0" maxWidth="-Infinity" prefWidth="250.0" styleClass="inputFieldContainer">
+                     <children>
+                        <TextField fx:id="firstNameInput" promptText="voornaam" HBox.hgrow="ALWAYS" /> <!-- EN = "first name" -->
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" fillHeight="false" layoutX="298.0" layoutY="500.0" maxWidth="-Infinity" prefWidth="250.0" styleClass="inputFieldContainer">
+                     <children>
+                        <TextField fx:id="lastNameInput" promptText="achternaam" HBox.hgrow="ALWAYS" /> <!-- EN = "last name" -->
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="298.0" layoutY="430.0" maxWidth="-Infinity" prefWidth="250.0" styleClass="inputFieldContainer">
+                     <children>
+                        <ComboBox fx:id="preferredLanguageChoiceBox" prefWidth="250.0" promptText="kies een taal" HBox.hgrow="ALWAYS" /> <!-- EN = "choose a language" -->
+                     </children>
+                  </HBox>
+                        <Button fx:id="registerButton" mnemonicParsing="false" onAction="#tryRegistering" prefHeight="26.0" prefWidth="230.0" styleClass="bigButton" text="REGISTREER" textAlignment="CENTER"> <!-- EN = "REGISTER" -->
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                  </Button>
+                        <Label fx:id="errorLabel" styleClass="errorLabel" text=" " />
+                     </children>
+                  </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="96.0" styleClass="secondaryContainer">
                <children>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icons/unlock.png" />
-                     </image>
-                  </ImageView>
-                  <PasswordField fx:id="passwordInput" prefWidth="235.0" promptText="wachtwoord" /> <!-- EN = "password" -->
-                  <TextField fx:id="visiblePasswordInput" prefWidth="235.0" promptText="wachtwoord" /> <!-- EN = "password" -->
-                  <CheckBox fx:id="showPasswordCheckbox" mnemonicParsing="false" />
+                  <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="23.0" prefWidth="225.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Button mnemonicParsing="false" styleClass="smallTextButtonLabel" text="Heb je al een account?" textAlignment="CENTER" />
+                        <Button fx:id="loginButton" layoutX="144.0" layoutY="10.0" mnemonicParsing="false" onAction="#showLoginScreen" styleClass="smallTextButton" text="Log in" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
                </children>
-            </HBox>
-      <HBox alignment="CENTER" fillHeight="false" layoutX="298.0" layoutY="310.0" maxWidth="-Infinity" prefWidth="260.0" styleClass="inputFieldContainer">
-         <children>
-            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
-               <image>
-                  <Image url="@icons/envelope.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="emailInput" prefWidth="235.0" promptText="e-mailadres" /> <!-- EN = "e-mail address" -->
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" fillHeight="false" layoutX="298.0" layoutY="464.0" maxWidth="-Infinity" prefWidth="260.0" styleClass="inputFieldContainer">
-         <children>
-            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
-               <image>
-                  <Image url="@icons/user_icon.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="firstNameInput" prefWidth="235.0" promptText="voornaam" /> <!-- EN = "first name" -->
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" fillHeight="false" layoutX="298.0" layoutY="500.0" maxWidth="-Infinity" prefWidth="260.0" styleClass="inputFieldContainer">
-         <children>
-            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
-               <image>
-                  <Image url="@icons/user_icon.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="lastNameInput" prefWidth="235.0" promptText="achternaam" /> <!-- EN = "last name" -->
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="298.0" layoutY="430.0" maxWidth="-Infinity" prefWidth="260.0" styleClass="inputFieldContainer">
-         <children>
-            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
-               <image>
-                  <Image url="@icons/globe-icon.png" />
-               </image>
-               <HBox.margin>
-                  <Insets left="3.0" />
-               </HBox.margin>
-            </ImageView>
-            <ComboBox fx:id="preferredLanguageChoiceBox" prefHeight="31.0" prefWidth="235.0" promptText="kies een voorkeurstaal" /> <!-- EN = "choose a language" -->
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="295.0" layoutY="430.0" maxWidth="-Infinity" prefWidth="260.0" styleClass="inputFieldContainer">
-         <children>
-            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
-               <image>
-                  <Image url="@icons/globe-icon.png" />
-               </image>
-               <HBox.margin>
-                  <Insets left="3.0" />
-               </HBox.margin>
-            </ImageView>
-            <ComboBox fx:id="aiLanguageChoiceBox" prefHeight="31.0" prefWidth="235.0" promptText="kies een ai taal" />
-         </children>
-      </HBox>
-            <Button fx:id="registerButton" mnemonicParsing="false" onAction="#tryRegistering" prefHeight="26.0" prefWidth="260.0" styleClass="bigButton" text="REGISTREER" textAlignment="CENTER"> <!-- EN = "REGISTER" -->
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin></Button>
-            <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="23.0" prefWidth="225.0" VBox.vgrow="NEVER">
-               <children>
-                  <Button mnemonicParsing="false" styleClass="smallTextButtonLabel" text="Heb je al een account?" textAlignment="CENTER" /> <!-- EN = "Already have an account?" -->
-                  <Button fx:id="loginButton" layoutX="144.0" layoutY="10.0" mnemonicParsing="false" onAction="#showLoginScreen" styleClass="smallTextButton" text="log in" textAlignment="CENTER" /> <!-- EN = NL -->
-               </children>
-            </HBox>
-            <Label fx:id="errorLabel" styleClass="errorLabel" text=" " />
-            <Label fx:id="confirmationLabel" styleClass="confirmationLabel" text=" " />
+            </VBox>
          </children>
       </VBox>
+   </children>
+</HBox>

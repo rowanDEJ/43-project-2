@@ -9,11 +9,6 @@ public class  User {
     private String preferredLanguage;
     private String aiLanguage;
 
-
-    public User(String userName) {
-        this.userName = userName;
-    }
-
     public User(String userName, String password, String email, String firstName, String lastName, String preferredLanguage, String aiLanguage) {
         this.userName = userName;
         this.password = password;
@@ -83,24 +78,4 @@ public class  User {
     public String getAiLanguage() {
         return aiLanguage;
     }
-
-    public void changeLanguage() {
-        if (preferredLanguage.equals("NL")) {
-            preferredLanguage = "EN";
-        } else {
-            preferredLanguage = "NL";
-        }
-
-    }
-
-    public void login() {
-        // nog maken
-
-    }
-
-    public void logout() {
-        // nog maken
-
-    }
-
 }
