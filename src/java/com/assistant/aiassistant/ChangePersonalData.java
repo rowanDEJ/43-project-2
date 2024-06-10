@@ -2,7 +2,6 @@ package com.assistant.aiassistant;
 
 import java.util.ArrayList;
 
-// De meeste van de souts kunnen worden weggehaald als hij aan de applicatie wordt gelinkt
 public class ChangePersonalData {
 
     public FileIOManager fileIOManager = new FileIOManager();
@@ -17,12 +16,10 @@ public class ChangePersonalData {
     }
 
     public void changePassword(User selectedUser, String newPassword) {
-
         fileIOManager.editUser(selectedUser, newPassword, "password");
     }
 
     public void changeEmail(User selectedUser, String newEmail) {
-
         // Miss nog methode om email te checken of hij al in gebruik is
         if (checkEmail(newEmail)) {
             fileIOManager.editUser(selectedUser, newEmail, "email");

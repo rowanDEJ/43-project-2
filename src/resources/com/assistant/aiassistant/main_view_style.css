@@ -4,20 +4,23 @@
     -fx-background-color: LIGHTGREY; /* Standaard achtergrondkleur */
 }
 
-.innerButton {
-    visibility: hidden; /* Verberg de inner-button standaard */
+.optionsImage {
+    -fx-opacity: 0; /* Verberg de inner-button standaard */
     -fx-background-color: transparent;
 }
 
-.HBox:hover .innerButton {
-    visibility: visible; /* Toon de inner-button bij hover */
-    -fx-background-color: DARKGREY;
-    -fx-background-radius: 0 10 10 0;
+.HBox:hover .optionsImage {
+    -fx-opacity: 1; /* Toon de inner-button bij hover */
 }
 
-.HBox:hover .parentButton{
+
+.HBox:hover {
     -fx-background-color: DARKGREY;
-    -fx-background-radius: 10 0 0 10;
+    -fx-background-radius: 10;
+}
+
+.parentButton {
+    -fx-background-color: transparent;
 }
 
 .HBox:hover .newChatButton {
