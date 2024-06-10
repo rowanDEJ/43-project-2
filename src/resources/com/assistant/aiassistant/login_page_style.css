@@ -32,6 +32,10 @@
 .combo-box .arrow-button {
     -fx-background-color: transparent;
 }
+.combo-box .arrow-button:hover {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}
 .combo-box .arrow-button .arrow {
     -fx-background-color: BLACK;
 }
