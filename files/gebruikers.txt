@@ -1,8 +1,10 @@
-username/~/wachtwoord/~/email/~/voornaam/~/achternaam/~/preferredLanguage
-MeneerMart/~/geheim/~/martvanderveen06@gmail.com/~/Mart/~/van der Veen/~/nederlands
-MisterCheese/~/kaasislekker/~/sathpremsital@gmail.com/~/Sathprem/~/Sital/~/english
-DanielD/~/wachtwoord/~/danieldijke@gmail.com/~/Daniel/~/Dijke/~/nederlands
-Ayhan/~/dikzak/~/hhs@live.nl/~/ayhan/~/bozkurt/~/nederlands
-Meneerm/~/geheim/~/meneermart@gmail.com/~/Meneer/~/Mart/~/nederlands
-test/~/test/~/t@t.tt/~/test/~/test/~/english
-test/~/test/~/nt@t.tt/~/test/~/test/~/nederlands
+username/~/wachtwoord/~/email/~/voornaam/~/achternaam/~/preferredLanguage/~/aiLanguage
+MeneerMart/~/geheim/~/martvanderveen06@gmail.com/~/Mart/~/van der Veen/~/nederlands/~/nederlands
+MisterCheese/~/kaasislekker/~/sathpremsital@gmail.com/~/Sathprem/~/Sital/~/english/~/enlish
+DanielD/~/wachtwoord/~/danieldijke@gmail.com/~/Daniel/~/Dijke/~/nederlands/~/nederlands
+Ayhan/~/dikzak/~/hhs@live.nl/~/ayhan/~/bozkurt/~/nederlands/~/nederlands
+Meneerm/~/geheim/~/meneermart@gmail.com/~/Meneer/~/Mart/~/nederlands/~/nederlands
+testEN/~/test/~/t@t.tt/~/test/~/test/~/English/~/English
+testNL/~/test/~/nt@t.tt/~/test/~/test/~/nederlands/~/nederlands
+fsdfds/~/dsfsdf/~/sdfsdf@dsfsdf.df/~/sdfsd/~/sdfsdfs/~/English/~/Englishfsdfs
+ayhan00/~/henry/~/henry@live.nl/~/henry/~/henry/~/English/~/English

@@ -17,7 +17,7 @@
          <left>
             <ScrollPane fitToHeight="true" fitToWidth="true" vvalue="1.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox fx:id="convVBox" prefHeight="444.0" prefWidth="148.0" style="-fx-background-color: LIGHTGREY;" stylesheets="@main_view_style.css" />
+                  <VBox fx:id="chatNavigationBar" prefHeight="444.0" prefWidth="148.0" style="-fx-background-color: LIGHTGREY;" stylesheets="@main_view_style.css" />
                </content>
             </ScrollPane>
          </left>

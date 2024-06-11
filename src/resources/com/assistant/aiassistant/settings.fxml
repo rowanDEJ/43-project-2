@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assistant.aiassistant.SettingController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assistant.aiassistant.SettingController">
    <left>
       <VBox prefHeight="200.0" prefWidth="340.0" spacing="50.0" styleClass="primaryPaneSettings" stylesheets="@settings_styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -45,7 +53,7 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <ImageView fx:id="profileImageView" onMouseClicked="#editImage" fitHeight="100" fitWidth="100">
+                  <ImageView fx:id="profileImageView" fitHeight="100" fitWidth="100" onMouseClicked="#editImage">
                      <image>
                         <Image url="@images/HHS.png" />
                      </image>
@@ -69,7 +77,7 @@
                               <Image url="@images/user.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="profileLabel2" prefHeight="34.0" prefWidth="181.0" styleClass="selected" stylesheets="@settings_styles.css" text=" Profile">
+                        <Label fx:id="profileLabel2" prefHeight="34.0" prefWidth="181.0" styleClass="selected" stylesheets="@settings_styles.css" text=" Profiel">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -86,7 +94,7 @@
                               <Image url="@images/user.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="34.0" prefWidth="181.0" styleClass="selected" stylesheets="@settings_styles.css" text=" Notifications">
+                        <Label fx:id="notification" prefHeight="34.0" prefWidth="181.0" styleClass="selected" stylesheets="@settings_styles.css" text=" Notificaties">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -100,7 +108,7 @@
                               <Image url="@images/user.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="34.0" prefWidth="181.0" styleClass="selected" stylesheets="@settings_styles.css" text=" Policy">
+                        <Label fx:id="policy" prefHeight="34.0" prefWidth="181.0" styleClass="selected" stylesheets="@settings_styles.css" text=" Beleid">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -109,6 +117,17 @@
                   </HBox>
                </children>
             </VBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOut" prefHeight="22.0" styleClass="selected" text="Log uit">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+               </children></HBox>
          </children>
          <BorderPane.margin>
             <Insets />
@@ -118,7 +137,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" stylesheets="@settings_styles.css" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="settingsLabel" alignment="CENTER" prefHeight="71.0" prefWidth="471.0" text="Settings">
+            <Label fx:id="settingsLabel" alignment="CENTER" prefHeight="71.0" prefWidth="471.0" text="Instellingen">
                <font>
                   <Font size="25.0" />
                </font>
@@ -126,9 +145,9 @@
                   <Insets left="50.0" right="50.0" />
                </padding>
             </Label>
-            <VBox prefHeight="243.0" prefWidth="457.0" spacing="50.0">
+            <VBox prefHeight="243.0" prefWidth="457.0" spacing="30.0">
                <children>
-                  <Label fx:id="profileLabel" prefHeight="46.0" prefWidth="880.0" text="Profiel">
+                  <Label fx:id="profileLabel" prefHeight="30.0" prefWidth="485.0" text="Profiel">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -141,7 +160,7 @@
                   </Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
                      <children>
-                        <Label fx:id="firstNameLabel" prefHeight="30.0" prefWidth="127.0" text="Name">
+                        <Label fx:id="firstNameLabel" prefHeight="30.0" prefWidth="180.0" text="Naam">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -149,13 +168,13 @@
                               <Insets left="30.0" />
                            </padding>
                         </Label>
-                        <Pane prefHeight="200.0" prefWidth="50.0" />
+                        <Pane prefHeight="200.0" prefWidth="30.0" />
                         <TextField fx:id="firstName" prefHeight="0.0" prefWidth="215.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
                      <children>
-                        <Label fx:id="lastNameLabel" prefHeight="30.0" prefWidth="127.0" text="Surname">
+                        <Label fx:id="lastNameLabel" prefHeight="30.0" prefWidth="180.0" text="Achternaam">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -163,13 +182,13 @@
                               <Insets left="30.0" />
                            </padding>
                         </Label>
-                        <Pane prefHeight="200.0" prefWidth="50.0" />
+                        <Pane prefHeight="200.0" prefWidth="30.0" />
                         <TextField fx:id="lastName" prefHeight="0.0" prefWidth="215.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
                      <children>
-                        <Label fx:id="passwordLabel" prefHeight="30.0" prefWidth="127.0" text="Password">
+                        <Label fx:id="passwordLabel" prefHeight="30.0" prefWidth="180.0" text="Wachtwoord">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -177,13 +196,13 @@
                               <Insets left="30.0" />
                            </padding>
                         </Label>
-                        <Pane prefHeight="200.0" prefWidth="50.0" />
+                        <Pane prefHeight="200.0" prefWidth="30.0" />
                         <TextField fx:id="password" prefHeight="27.0" prefWidth="215.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="880.0">
                      <children>
-                        <Label fx:id="emailLabel" prefHeight="30.0" prefWidth="127.0" text="Email">
+                        <Label fx:id="emailLabel" prefHeight="30.0" prefWidth="180.0" text="Email">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -191,13 +210,13 @@
                               <Insets left="30.0" />
                            </padding>
                         </Label>
-                        <Pane prefHeight="200.0" prefWidth="50.0" />
+                        <Pane prefHeight="200.0" prefWidth="30.0" />
                         <TextField fx:id="email" prefHeight="27.0" prefWidth="215.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="880.0">
                      <children>
-                        <Label fx:id="preferredLanguageLabel" prefHeight="26.0" prefWidth="134.0" text="Language">
+                        <Label fx:id="preferredLanguageLabel" prefHeight="26.0" prefWidth="180.0" text="Preferred Language">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -205,8 +224,8 @@
                               <Insets left="30.0" />
                            </padding>
                         </Label>
-                        <Pane prefHeight="26.0" prefWidth="50.0" />
-                        <ChoiceBox fx:id="preferredLanguage" prefHeight="25.0" prefWidth="193.0">
+                        <Pane prefHeight="26.0" prefWidth="30.0" />
+                        <ChoiceBox fx:id="preferredLanguage" prefHeight="25.0" prefWidth="215.0">
                            <styleClass>
                               <String fx:value="button" />
                               <String fx:value="selected" />
@@ -216,11 +235,33 @@
                            </padding></ChoiceBox>
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="880.0">
+                     <children>
+                        <Label fx:id="aiLanguageLabel" prefHeight="26.0" prefWidth="180.0" text="Ai taal">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                        </Label>
+                        <Pane prefHeight="26.0" prefWidth="30.0" />
+                        <ChoiceBox fx:id="aiLanguage" prefHeight="25.0" prefWidth="215.0">
+                           <styleClass>
+                              <String fx:value="button" />
+                              <String fx:value="selected" />
+                           </styleClass>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </ChoiceBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
-                  <Button fx:id="saveButton" alignment="CENTER" mnemonicParsing="false" onAction="#checkChangable" prefHeight="30.0" styleClass="selected" text="Save">
+                  <Button fx:id="saveButton" alignment="CENTER" mnemonicParsing="false" onAction="#checkChangable" prefHeight="30.0" styleClass="selected" text="Opslaan">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>

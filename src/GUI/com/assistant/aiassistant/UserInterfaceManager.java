@@ -8,8 +8,9 @@ import java.io.IOException;
 
 public class UserInterfaceManager {
     private static UserInterfaceManager instance;
+    private MainController mainController;
 
-    private String currentLanguage;
+    public String currentLanguage;
     private Stage currentStage;
 
     public final int defaultWidth = 800;
@@ -25,6 +26,7 @@ public class UserInterfaceManager {
         if(AccountManager.getInstance().getActiveUser() != null) {
             this.currentLanguage = AccountManager.getInstance().getActiveUser().getPreferredLanguage();
         }
+        mainController = MainController.getInstance();
     }
 
     public static UserInterfaceManager getInstance() {
@@ -47,6 +49,7 @@ public class UserInterfaceManager {
     public void switchCurrentViewTo(String fxmlFileName) throws IOException {
         // laat een andere fxml view ding zien op het scherm.
         Scene scene = getSceneWithCurrentSize(fxmlFileName);
+
         this.currentStage.setScene(scene);
         this.currentStage.show();
     }
@@ -67,5 +70,10 @@ public class UserInterfaceManager {
         // geeft een Scene object van de gespecificeerde fxml view file ding.
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFileName));
         return new Scene(fxmlLoader.load(), width, height);
+    }
+
+    public void updateLanguage(String newLanguage) {
+        // update de taal van de applicatie
+        this.currentLanguage = newLanguage;
     }
 }

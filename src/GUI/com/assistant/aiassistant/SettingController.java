@@ -12,19 +12,22 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 public class SettingController {
-    @FXML
+
     public Label showName;
     public TextField password;
     public TextField email;
     public TextField firstName;
     public TextField lastName;
-    public ChoiceBox preferredLanguage;
+    public ChoiceBox<String> preferredLanguage;
+    public ChoiceBox<String> aiLanguage;
 
     public Label settingsLabel;
     public Label profileLabel;
@@ -34,15 +37,15 @@ public class SettingController {
     public Label passwordLabel;
     public Label emailLabel;
     public Label preferredLanguageLabel;
+    public Label aiLanguageLabel;
     public Button saveButton;
     public ImageView profileImageView;
-
-    public AccountManager accountManager = AccountManager.getInstance();
-    public Locale appLocale = new Locale(accountManager.getActiveUser().getPreferredLanguage());
-    ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", appLocale);
-
+    public Button logOutButton;
+    public Label notification;
+    public Label policy;
+    private AccountManager accountManager;
+    private ResourceBundle bundle;
     public ChangePersonalData changePersonalData;
-
 
     public void initialize() {
         changePersonalData = new ChangePersonalData();
@@ -50,7 +53,16 @@ public class SettingController {
         accountManager = AccountManager.getInstance();
         setUsername();
         addLanguageOptionsToDropdownMenu();
+        loadResourceBundle();
+        setLabelTexts();
+    }
 
+    public void loadResourceBundle() {
+        Locale appLocale = new Locale(accountManager.getActiveUser().getPreferredLanguage());
+        bundle = ResourceBundle.getBundle("MessageBundle", appLocale);
+    }
+
+    public void setLabelTexts() {
         settingsLabel.setText(bundle.getString("settings")); //Settings
         profileLabel.setText(bundle.getString("profile")); //Profile
         profileLabel2.setText(bundle.getString("profile")); //Profile
@@ -59,32 +71,76 @@ public class SettingController {
         passwordLabel.setText(bundle.getString("password")); //Password
         emailLabel.setText(bundle.getString("email")); //Email
         preferredLanguageLabel.setText(bundle.getString("preferredLanguage")); //Preferred Language
+        aiLanguageLabel.setText(bundle.getString("aiLanguage")); //AI Language
         saveButton.setText(bundle.getString("save")); //Save
+        logOutButton.setText(bundle.getString("logOut")); //Log Out
+        notification.setText(bundle.getString("notification")); //Notification
+        policy.setText(bundle.getString("policy")); //Policy
     }
 
     public void checkChangable() {
         User activeUser = accountManager.getActiveUser();
+        Boolean hasChanged = false;
 
         if (notNull(firstName.getText())) {
             changePersonalData.changeFirstName(activeUser, firstName.getText());
+            hasChanged = true;
         }
         if (notNull(lastName.getText())) {
             changePersonalData.changeLastName(activeUser, lastName.getText());
+            hasChanged = true;
         }
         if (notNull(password.getText())) {
             changePersonalData.changePassword(activeUser, password.getText());
+            hasChanged = true;
         }
         if (notNull(email.getText())) {
             changePersonalData.changeEmail(activeUser, email.getText());
+            hasChanged = true;
         }
         if (preferredLanguage.getValue() != null) {
             changePersonalData.changePreferredLanguage(activeUser, preferredLanguage.getValue().toString());
+            UserInterfaceManager.getInstance().updateLanguage(preferredLanguage.getValue().toString());
+            hasChanged = true;
+        }
+        if (aiLanguage.getValue() != null) {
+            changePersonalData.changeAiLanguage(activeUser, aiLanguage.getValue().toString());
+            hasChanged = true;
+        }
+
+        // Als er wijzigingen zijn, update de gebruiker
+        if (hasChanged) {
+            User updatedUser = new User(
+                    activeUser.getUsername(),
+                    password.getText().isEmpty() ? activeUser.getPassword() : password.getText(), // Gebruik het nieuwe wachtwoord als het niet leeg is
+                    email.getText().isEmpty() ? activeUser.getEmail() : email.getText(), // Gebruik de nieuwe email als het niet leeg is
+                    firstName.getText().isEmpty() ? activeUser.getFirstName() : firstName.getText(), // Gebruik de nieuwe voornaam als het niet leeg is
+                    lastName.getText().isEmpty() ? activeUser.getLastName() : lastName.getText(), // Gebruik de nieuwe achternaam als het niet leeg is
+                    preferredLanguage.getValue() == null ? activeUser.getPreferredLanguage() : preferredLanguage.getValue().toString(), // Gebruik de nieuwe taal als het niet null is
+                    aiLanguage.getValue() == null ? activeUser.getAiLanguage() : aiLanguage.getValue().toString() // Gebruik de nieuwe ai taal als het niet null is
+            );
+
+            accountManager.setActiveUser(updatedUser); // Update de actieve gebruiker in AccountManager
+
+            reloadSettings(); // Herlaad de instellingen om de veranderingen door te voeren
+        }
+    }
+
+    public void reloadSettings(){
+        try {
+            loadResourceBundle();
+            setLabelTexts();
+            UserInterfaceManager.getInstance().switchCurrentViewTo(UserInterfaceManager.getInstance().settingsViewFilename);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void addLanguageOptionsToDropdownMenu() {
         FileIOManager ioManager = new FileIOManager();
-        preferredLanguage.getItems().addAll(ioManager.getAvailableLanguages());
+        List<String> languages = ioManager.getAvailableLanguages().stream().map(Language::toString).collect(Collectors.toList());
+        preferredLanguage.getItems().addAll(languages);
+        aiLanguage.getItems().addAll(languages);
     }
 
     @FXML
@@ -119,5 +175,10 @@ public class SettingController {
 
     private boolean notNull(String text) {
         return text != null && !text.isEmpty();
+    }
+
+    public void logOut() throws IOException {
+        UserInterfaceManager uiManager = UserInterfaceManager.getInstance();
+        uiManager.switchCurrentViewTo(uiManager.loginViewFilename);
     }
 }

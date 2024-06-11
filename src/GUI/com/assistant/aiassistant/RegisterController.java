@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,31 +14,19 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
-    @FXML
+
     public TextField usernameInput;
-    @FXML
     public TextField passwordInput;
-    @FXML
     public TextField visiblePasswordInput;
-    @FXML
     public TextField emailInput;
-    @FXML
     public TextField firstNameInput;
-    @FXML
     public TextField lastNameInput;
-    @FXML
-    public VBox masterPane;
-    @FXML
+    public HBox masterPane;
     public Label errorLabel;
-    @FXML
-    public Label confirmationLabel;
-    @FXML
     public Button loginButton;
-    @FXML
     public Button registerButton;
-    @FXML
     public ComboBox<Language> preferredLanguageChoiceBox;
-    @FXML
+    public ComboBox<Language> aiLanguageChoiceBox;
     public CheckBox showPasswordCheckbox;
 
     private final AccountManager loginManager = AccountManager.getInstance();
@@ -47,12 +35,13 @@ public class RegisterController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         removeAutoFocusFromTextField(usernameInput);
         addLanguageOptionsToDropdownMenu();
-        passwordVisibilityToggleSetup.execute(visiblePasswordInput, passwordInput, showPasswordCheckbox);
+        PasswordVisibilityToggleSetup.execute(visiblePasswordInput, passwordInput, showPasswordCheckbox);
     }
 
     public void addLanguageOptionsToDropdownMenu() {
         FileIOManager ioManager = new FileIOManager();
         preferredLanguageChoiceBox.getItems().addAll(ioManager.getAvailableLanguages());
+        aiLanguageChoiceBox.getItems().addAll(ioManager.getAvailableLanguages());
     }
 
     private void removeAutoFocusFromTextField(TextField textField) {
@@ -67,21 +56,26 @@ public class RegisterController implements Initializable {
 
     @FXML
     private void tryRegistering() {
-        // check of in alle input velden een waarde ingevoerd is, als dat zo is maak dan een account
+        // check of in alle input velden een waarde ingevoerd is, als dat zo is, maak dan een account
         if(!areAllTextInputsValid()) {
             return;
         }
 
-        loginManager.createAccount(usernameInput.getText(), passwordInput.getText(), emailInput.getText(), firstNameInput.getText(), lastNameInput.getText(), preferredLanguageChoiceBox.getValue().toString());
+        loginManager.createAccount(usernameInput.getText(), passwordInput.getText(), emailInput.getText(), firstNameInput.getText(), lastNameInput.getText(), preferredLanguageChoiceBox.getValue().toString(), aiLanguageChoiceBox.getValue().toString());
         loginManager.login(emailInput.getText(), passwordInput.getText());
-        confirmationLabel.setText("Account created successfully. You can now log in.");
+        errorLabel.getStyleClass().removeAll();
+        errorLabel.getStyleClass().add("confirmationLabel");
+        errorLabel.setText("Account gecreëerd. Je kan nu inloggen.");
     }
 
     private boolean areAllTextInputsValid() {
         ArrayList<TextField> inputs = new ArrayList<>(List.of(usernameInput, passwordInput, emailInput, firstNameInput, lastNameInput));
         TextField firstEmptyTextField = InputValidator.findFirstEmptyTextField(inputs);
+        errorLabel.getStyleClass().removeAll();
+        errorLabel.getStyleClass().add("errorLabel");
+
         if(firstEmptyTextField != null) {
-            errorLabel.setText("Enter " + firstEmptyTextField.getPromptText());
+            errorLabel.setText("Voer " + firstEmptyTextField.getPromptText() + " in.");
             return false;
         }
 
@@ -98,6 +92,10 @@ public class RegisterController implements Initializable {
         }
         if(preferredLanguageChoiceBox.getValue() == null) {
             errorLabel.setText("Choose a preferred language");
+            return false;
+        }
+        if(aiLanguageChoiceBox.getValue() == null) {
+            errorLabel.setText("Choose an AI language");
             return false;
         }
         if(loginManager.checkIfUserWithEmailExists(emailInput.getText())) {

@@ -1,0 +1,5 @@
+AI-Hello! How can I help you?
+Jo
+AI-Je query was "JO", lengte: 2
+gnrio
+AI-Je query was "GNRIO", lengte: 5
