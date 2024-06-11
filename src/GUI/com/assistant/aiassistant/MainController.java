@@ -32,8 +32,8 @@ public class MainController {
     public ArrayList<Conversation> savedConversations;
     private ArrayList<String> createdConversations = new ArrayList<>();
 
-    public AccountManager accountManager; // = AccountManager.getInstance();
-    public ResourceBundle bundle; // = ResourceBundle.getBundle("MessageBundle", appLocale);
+    public AccountManager accountManager;
+    public ResourceBundle bundle;
 
     private static MainController instance = null;
 
