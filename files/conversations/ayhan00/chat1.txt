@@ -1,0 +1,11 @@
+AI-Hello! How can I help you?
+Hallo
+AI-Je query was "HALLO", lengte: 5
+kaas
+AI-Je query was "KAAS", lengte: 4
+ik wil kaas
+AI-Ik wil kaas
+hallo
+AI-Your query was "HALLO", length: 5
+ik wil kaas
+AI-I want cheese

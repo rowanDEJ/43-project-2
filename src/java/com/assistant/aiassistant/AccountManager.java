@@ -46,10 +46,6 @@ public class AccountManager {
         setUserWithUsername(null);
     }
 
-    public boolean isLoggedIn() {
-        return getActiveUser() != null;
-    }
-
     protected boolean checkUsernamePassword(String userName, String password) {
         for (User user : fileManager.getUsersFromFile()) {
             if (user.getUsername().equals(userName) && user.getPassword().equals(password)) {
