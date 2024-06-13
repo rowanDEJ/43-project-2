@@ -6,13 +6,14 @@ import com.assistant.aiassistant.UserInterfaceManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -64,26 +65,51 @@ public class ChatNavButtonCreator {
         imageView.getStyleClass().add("optionsImage");
         return imageView;
     }
-    private static ContextMenu createChatOptions(String chatTopicToDelete) {
+    private static ContextMenu createChatOptions(String buttonChatTopic) {
 
         ContextMenu contextMenu = new ContextMenu();
 
-        MenuItem deleteItem = new MenuItem("Verwijder chat"); //TODO: talen
-        MenuItem renameItem = new MenuItem("Hernoem chat");
+        MenuItem deleteItem = new MenuItem("Delete chat");
+        CustomMenuItem renameItem = new CustomMenuItem(new Text("Change topic"));
+        renameItem.setHideOnClick(false);
 
-        deleteItem.setOnAction(e -> {
-            Platform.runLater(() -> {
-                try {
-                    FileIOManager.deleteConversation(MainController.getInstance().getConversationWithTopic(chatTopicToDelete));
-                    UserInterfaceManager.getInstance().switchCurrentViewTo(UserInterfaceManager.getInstance().mainViewFilename);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+        TextField textField = new TextField();
+        textField.setPromptText("Enter new topic");
+
+        CustomMenuItem inputMenuItem = new CustomMenuItem(textField);
+        inputMenuItem.setHideOnClick(false);
+
+        deleteItem.setOnAction(e -> Platform.runLater(() -> {
+            try {
+                FileIOManager.deleteConversation(MainController.getInstance().getConversationWithTopic(buttonChatTopic));
+                UserInterfaceManager.getInstance().switchCurrentViewTo(UserInterfaceManager.getInstance().mainViewFilename);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }));
+
+        renameItem.setOnAction(e -> Platform.runLater(() -> {
+            contextMenu.getItems().remove(renameItem);
+            contextMenu.getItems().add(inputMenuItem);
+
+            TextField field = (TextField) inputMenuItem.getContent();
+            field.setOnKeyPressed(keyEvent -> {
+                if(keyEvent.getCode() == KeyCode.ENTER) {
+                    if(field.getText() != null && (! field.getText().isBlank())) {
+                        boolean success = FileIOManager.changeConversationTopic(MainController.getInstance().getConversationWithTopic(buttonChatTopic), field.getText());
+                        if(success) {
+                            try {
+                                UserInterfaceManager.getInstance().switchCurrentViewTo(UserInterfaceManager.getInstance().mainViewFilename);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        }
+                    }
                 }
+                keyEvent.consume();
             });
-        });
+        }));
 
-        renameItem.setOnAction(e -> {
-        });
 
         contextMenu.getItems().addAll(deleteItem, renameItem);
         return contextMenu;
