@@ -54,6 +54,7 @@ public class MainController {
     }
 
     public void initialize() {
+        instance = this;
         accountManager = AccountManager.getInstance();
         loadResourceBundle();
         loadSavedConversations();
@@ -189,6 +190,10 @@ public class MainController {
 
     private Conversation getCurrentlyShowingConversation() {
         String topic = chatTitle.getText();
+        return getConversationWithTopic(topic);
+    }
+
+    public Conversation getConversationWithTopic(String topic) {
         for (Conversation conversation : savedConversations) {
             if (conversation.getTopic().equals(topic)) {
                 return conversation;
