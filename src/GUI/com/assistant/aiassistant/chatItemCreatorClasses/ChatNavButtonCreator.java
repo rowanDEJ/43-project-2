@@ -1,5 +1,9 @@
 package com.assistant.aiassistant.chatItemCreatorClasses;
 
+import com.assistant.aiassistant.FileIOManager;
+import com.assistant.aiassistant.MainController;
+import com.assistant.aiassistant.UserInterfaceManager;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -10,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
+import java.io.IOException;
+
 public class ChatNavButtonCreator {
     public static String moreOptionsIconPath = "file:src/resources/com/assistant/aiassistant/icons/three-dots-vertical.png";
     public static HBox Create(String topic, EventHandler<ActionEvent> buttonEvent) {
@@ -17,7 +23,7 @@ public class ChatNavButtonCreator {
 
         Button chatButton = createChatButton(topic);
         ImageView optionsImageView = createOptionsImageView();
-        ContextMenu contextMenu = createChatOptions();
+        ContextMenu contextMenu = createChatOptions(topic);
 
         optionsImageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             double mouseX = e.getScreenX();
@@ -58,7 +64,7 @@ public class ChatNavButtonCreator {
         imageView.getStyleClass().add("optionsImage");
         return imageView;
     }
-    private static ContextMenu createChatOptions() {
+    private static ContextMenu createChatOptions(String chatTopicToDelete) {
 
         ContextMenu contextMenu = new ContextMenu();
 
@@ -66,7 +72,14 @@ public class ChatNavButtonCreator {
         MenuItem renameItem = new MenuItem("Hernoem chat");
 
         deleteItem.setOnAction(e -> {
-            //TODO: add funct ionatlihaoysdpo fyaosudhf oaushdf pliasduhd
+            Platform.runLater(() -> {
+                try {
+                    FileIOManager.deleteConversation(MainController.getInstance().getConversationWithTopic(chatTopicToDelete));
+                    UserInterfaceManager.getInstance().switchCurrentViewTo(UserInterfaceManager.getInstance().mainViewFilename);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
         });
 
         renameItem.setOnAction(e -> {
