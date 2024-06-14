@@ -8,16 +8,16 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AccountManagerTest {
+class AccountManagerTest {
 
     private AccountManager accountManager;
     private FileIOManager fileIOManager;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         accountManager = AccountManager.getInstance();
         fileIOManager = new FileIOManager() {
-            private ArrayList<User> users = new ArrayList<>(Arrays.asList(
+            private final ArrayList<User> users = new ArrayList<>(Arrays.asList(
                     new User("user1", "pass1", "email1@test.com", "John", "Doe", "EN", "EN"),
                     new User("user2", "pass2", "email2@test.com", "Jane", "Doe", "EN", "EN")
             ));
@@ -29,13 +29,11 @@ public class AccountManagerTest {
 
             @Override
             public void editUser(User user, String nieuw, String aspect) {
-                switch (aspect) {
-                    case "email":
-                        user.setEmail(nieuw);
-                        break;
+                if (aspect.equals("email")) {
+                    user.setEmail(nieuw);
                     // Voeg andere attributen toe indien nodig
-                    default:
-                        throw new IllegalArgumentException("Onbekend aspect: " + aspect);
+                } else {
+                    throw new IllegalArgumentException("Onbekend aspect: " + aspect);
                 }
             }
 
@@ -48,7 +46,7 @@ public class AccountManagerTest {
     }
 
     @Test
-    public void testLogin_DecisionTable() {
+    void testLogin_DecisionTable() {
         // Decision Table for login method
         assertTrue(accountManager.login("email1@test.com", "pass1"));
         assertFalse(accountManager.login("email1@test.com", "wrongpass"));
@@ -57,7 +55,7 @@ public class AccountManagerTest {
     }
 
     @Test
-    public void testCheckUsernamePassword_DecisionTable() {
+    void testCheckUsernamePassword_DecisionTable() {
         // Decision Table for checkUsernamePassword method
         assertTrue(accountManager.checkUsernamePassword("user1", "pass1"));
         assertFalse(accountManager.checkUsernamePassword("user1", "wrongpass"));
@@ -66,24 +64,27 @@ public class AccountManagerTest {
     }
 
     @Test
-    public void testCreateAccount_EquivalentieklassenRandwaarden() {
+    void testCreateAccount_EquivalentieklassenRandwaarden() {
         // Equivalentieklassen en Randwaarden voor createAccount
-        accountManager.createAccount("user3", "pass3", "email3@test.com", "New", "User", "EN", "EN");
+        accountManager.createAccount("user3", "pass3", "email3@test.com",
+                "New", "User", "EN", "EN");
         assertTrue(accountManager.checkIfUserWithUsernameExists("user3"));
         assertFalse(accountManager.checkIfUserWithUsernameExists("unknown"));
 
-        accountManager.createAccount("user4", "pass4", "email4@test.com", "New", "User", "EN", "EN");
+        accountManager.createAccount("user4", "pass4", "email4@test.com",
+                "New", "User", "EN", "EN");
         assertTrue(accountManager.checkIfUserWithEmailExists("email4@test.com"));
         assertFalse(accountManager.checkIfUserWithEmailExists("unknown@test.com"));
     }
 
     @Test
-    public void testChangeEmail_EquivalentieklassenRandwaarden() {
+    void testChangeEmail_EquivalentieklassenRandwaarden() {
         // Equivalentieklassen en Randwaarden voor changeEmail
         ChangePersonalData changePersonalData = new ChangePersonalData();
         changePersonalData.fileIOManager = fileIOManager;
 
-        User user = new User("user5", "pass5", "email5@test.com", "Change", "Email", "EN", "EN");
+        User user = new User("user5", "pass5",
+                "email5@test.com", "Change", "Email", "EN", "EN");
         changePersonalData.users.add(user);
         fileIOManager.saveUserToFile(user);
 
@@ -102,7 +103,7 @@ public class AccountManagerTest {
     }
 
     @Test
-    public void testCheckEmailPassword_ConditionCoverage() {
+    void testCheckEmailPassword_ConditionCoverage() {
         // Condition Coverage voor checkEmailPassword
         assertTrue(accountManager.checkEmailPassword("email1@test.com", "pass1"));
         assertFalse(accountManager.checkEmailPassword("email1@test.com", "wrongpass"));
@@ -110,7 +111,7 @@ public class AccountManagerTest {
     }
 
     @Test
-    public void testCheckEmail_MultipleConditionCoverage() {
+    void testCheckEmail_MultipleConditionCoverage() {
         // Multiple Condition Coverage voor checkEmail
         ChangePersonalData changePersonalData = new ChangePersonalData();
         changePersonalData.fileIOManager = fileIOManager;
