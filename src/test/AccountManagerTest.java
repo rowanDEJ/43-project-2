@@ -49,6 +49,7 @@ public class AccountManagerTest {
 
     @Test
     public void testLogin_DecisionTable() {
+        // Decision Table for login method
         assertTrue(accountManager.login("email1@test.com", "pass1"));
         assertFalse(accountManager.login("email1@test.com", "wrongpass"));
         assertFalse(accountManager.login("email2@test.com", "pass1"));
@@ -57,6 +58,7 @@ public class AccountManagerTest {
 
     @Test
     public void testCheckUsernamePassword_DecisionTable() {
+        // Decision Table for checkUsernamePassword method
         assertTrue(accountManager.checkUsernamePassword("user1", "pass1"));
         assertFalse(accountManager.checkUsernamePassword("user1", "wrongpass"));
         assertFalse(accountManager.checkUsernamePassword("user2", "pass1"));
@@ -65,6 +67,7 @@ public class AccountManagerTest {
 
     @Test
     public void testCreateAccount_EquivalentieklassenRandwaarden() {
+        // Equivalentieklassen en Randwaarden voor createAccount
         accountManager.createAccount("user3", "pass3", "email3@test.com", "New", "User", "EN", "EN");
         assertTrue(accountManager.checkIfUserWithUsernameExists("user3"));
         assertFalse(accountManager.checkIfUserWithUsernameExists("unknown"));
@@ -76,6 +79,7 @@ public class AccountManagerTest {
 
     @Test
     public void testChangeEmail_EquivalentieklassenRandwaarden() {
+        // Equivalentieklassen en Randwaarden voor changeEmail
         ChangePersonalData changePersonalData = new ChangePersonalData();
         changePersonalData.fileIOManager = fileIOManager;
 
@@ -92,12 +96,14 @@ public class AccountManagerTest {
         changePersonalData.users.forEach(u -> System.out.println(u.getEmail()));
 
         assertThrows(IllegalArgumentException.class, () -> {
+            // Test with an already existing email
             changePersonalData.changeEmail(user, "email1@test.com");
         });
     }
 
     @Test
     public void testCheckEmailPassword_ConditionCoverage() {
+        // Condition Coverage voor checkEmailPassword
         assertTrue(accountManager.checkEmailPassword("email1@test.com", "pass1"));
         assertFalse(accountManager.checkEmailPassword("email1@test.com", "wrongpass"));
         assertFalse(accountManager.checkEmailPassword("unknown@test.com", "pass1"));
@@ -105,6 +111,7 @@ public class AccountManagerTest {
 
     @Test
     public void testCheckEmail_MultipleConditionCoverage() {
+        // Multiple Condition Coverage voor checkEmail
         ChangePersonalData changePersonalData = new ChangePersonalData();
         changePersonalData.fileIOManager = fileIOManager;
         changePersonalData.users = fileIOManager.getUsersFromFile();
