@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ChangePersonalData {
 
-    public static final FileIOManager fileIOManager = new FileIOManager();
+    public FileIOManager fileIOManager = new FileIOManager();
     public ArrayList<User> users = new ArrayList<>();
 
     public void changeFirstName(User selectedUser, String newFirstName) {
@@ -20,14 +20,12 @@ public class ChangePersonalData {
     }
 
     public void changeEmail(User selectedUser, String newEmail) {
-        // Miss nog methode om email te checken of hij al in gebruik is
-        if (checkEmail(newEmail)) {
-            fileIOManager.editUser(selectedUser, newEmail, "email");
+        if (!checkEmail(newEmail)) {
+            throw new IllegalArgumentException("Email already in use");
         }
+        fileIOManager.editUser(selectedUser, newEmail, "email");
     }
 
-    // Hier misschien handig om opties te geven in welke taal de gebruiker zijn voorkeur heeft
-    // Deze methode moet nog worden gebruikt als de dropdown bar werkt op de settings pagina
     public void changePreferredLanguage(User selectedUser, String newPreferredLanguage) {
         fileIOManager.editUser(selectedUser, newPreferredLanguage, "preferredLanguage");
     }
@@ -36,13 +34,10 @@ public class ChangePersonalData {
         fileIOManager.editUser(selectedUser, newAiLanguage, "aiLanguage");
     }
 
-    // Misschien deze methode verplaatsen naar een andere class
     public boolean checkEmail(String newEmail) {
         users = fileIOManager.getUsersFromFile();
-
         for (User u : users) {
-            if (u.getEmail().equals(newEmail)) {
-
+            if (u.getEmail().equalsIgnoreCase(newEmail)) {
                 return false;
             }
         }

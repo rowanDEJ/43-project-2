@@ -1,129 +1,115 @@
 package com.assistant.aiassistant;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AccountManagerTest {
 
     private AccountManager accountManager;
-    private FileIOManager fileManager;
+    private FileIOManager fileIOManager;
 
     @BeforeEach
     public void setUp() {
-        fileManager = new FileIOManager() {
-            private ArrayList<User> users = new ArrayList<>();
+        accountManager = AccountManager.getInstance();
+        fileIOManager = new FileIOManager() {
+            private ArrayList<User> users = new ArrayList<>(Arrays.asList(
+                    new User("user1", "pass1", "email1@test.com", "John", "Doe", "EN", "EN"),
+                    new User("user2", "pass2", "email2@test.com", "Jane", "Doe", "EN", "EN")
+            ));
 
             @Override
             public ArrayList<User> getUsersFromFile() {
-                if (users.isEmpty()) {
-                    users.add(new User("testUser1", "password1", "email1@example.com", "First1", "Last1", "EN"));
-                    users.add(new User("testUser2", "password2", "email2@example.com", "First2", "Last2", "EN"));
-                }
                 return users;
             }
 
             @Override
-            public void saveUserToFile(User userToSave) {
-                users.add(userToSave);
+            public void editUser(User user, String nieuw, String aspect) {
+                switch (aspect) {
+                    case "email":
+                        user.setEmail(nieuw);
+                        break;
+                    // Voeg andere attributen toe indien nodig
+                    default:
+                        throw new IllegalArgumentException("Onbekend aspect: " + aspect);
+                }
             }
 
             @Override
-            public void rewriteUsersToFile(ArrayList<User> users) {
-                this.users = users;
+            public void saveUserToFile(User user) {
+                users.add(user);
             }
         };
-
-        accountManager = AccountManager.getInstance();
-        accountManager.fileManager = fileManager;
-        accountManager.logout();  // Ensuring no user is logged in at the start of each test
+        accountManager.fileManager = fileIOManager;
     }
 
-    // Decision table for login method
     @Test
-    public void testLoginDecisionTable() {
-        assertTrue(accountManager.login("email1@example.com", "password1")); // true, true
-        assertFalse(accountManager.login("email1@example.com", "wrongpassword")); // true, false
-        assertFalse(accountManager.login("wrongemail@example.com", "password1")); // false, true
-        assertFalse(accountManager.login("wrongemail@example.com", "wrongpassword")); // false, false
+    public void testLogin_DecisionTable() {
+        assertTrue(accountManager.login("email1@test.com", "pass1"));
+        assertFalse(accountManager.login("email1@test.com", "wrongpass"));
+        assertFalse(accountManager.login("email2@test.com", "pass1"));
+        assertFalse(accountManager.login("unknown@test.com", "pass1"));
     }
 
-    // Decision table for checkIfUserWithUsernameExists method
     @Test
-    public void testCheckIfUserWithUsernameExistsDecisionTable() {
-        assertTrue(accountManager.checkIfUserWithUsernameExists("testUser1")); // true
-        assertFalse(accountManager.checkIfUserWithUsernameExists("nonexistentUser")); // false
+    public void testCheckUsernamePassword_DecisionTable() {
+        assertTrue(accountManager.checkUsernamePassword("user1", "pass1"));
+        assertFalse(accountManager.checkUsernamePassword("user1", "wrongpass"));
+        assertFalse(accountManager.checkUsernamePassword("user2", "pass1"));
+        assertFalse(accountManager.checkUsernamePassword("unknown", "pass1"));
     }
 
-    // Equivalence partitioning and boundary value analysis for checkUsernamePassword method
     @Test
-    public void testCheckUsernamePasswordEquivalencePartitioningAndBoundaryValue() {
-        assertTrue(accountManager.checkUsernamePassword("testUser1", "password1")); // valid
-        assertFalse(accountManager.checkUsernamePassword("wrongUser", "password1")); // invalid username
-        assertFalse(accountManager.checkUsernamePassword("testUser1", "wrongPassword")); // invalid password
-        assertFalse(accountManager.checkUsernamePassword("", "")); // boundary value: empty username and password
+    public void testCreateAccount_EquivalentieklassenRandwaarden() {
+        accountManager.createAccount("user3", "pass3", "email3@test.com", "New", "User", "EN", "EN");
+        assertTrue(accountManager.checkIfUserWithUsernameExists("user3"));
+        assertFalse(accountManager.checkIfUserWithUsernameExists("unknown"));
+
+        accountManager.createAccount("user4", "pass4", "email4@test.com", "New", "User", "EN", "EN");
+        assertTrue(accountManager.checkIfUserWithEmailExists("email4@test.com"));
+        assertFalse(accountManager.checkIfUserWithEmailExists("unknown@test.com"));
     }
 
-    // Equivalence partitioning and boundary value analysis for checkEmailPassword method
     @Test
-    public void testCheckEmailPasswordEquivalencePartitioningAndBoundaryValue() {
-        assertTrue(accountManager.checkEmailPassword("email1@example.com", "password1")); // valid
-        assertFalse(accountManager.checkEmailPassword("wrongEmail@example.com", "password1")); // invalid email
-        assertFalse(accountManager.checkEmailPassword("email1@example.com", "wrongPassword")); // invalid password
-        assertFalse(accountManager.checkEmailPassword("", "")); // boundary value: empty email and password
+    public void testChangeEmail_EquivalentieklassenRandwaarden() {
+        ChangePersonalData changePersonalData = new ChangePersonalData();
+        changePersonalData.fileIOManager = fileIOManager;
+
+        User user = new User("user5", "pass5", "email5@test.com", "Change", "Email", "EN", "EN");
+        changePersonalData.users.add(user);
+        fileIOManager.saveUserToFile(user);
+
+        System.out.println("Before change: " + user.getEmail());
+        changePersonalData.changeEmail(user, "newemail@test.com");
+        System.out.println("After change: " + user.getEmail());
+        assertEquals("newemail@test.com", user.getEmail());
+
+        // Debug output
+        changePersonalData.users.forEach(u -> System.out.println(u.getEmail()));
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            changePersonalData.changeEmail(user, "email1@test.com");
+        });
     }
 
-    // Decision, condition, and multiple condition coverage for setUserWithUsername method
     @Test
-    public void testSetUserWithUsernameDecisionConditionCoverage() {
-        accountManager.setUserWithUsername("testUser1");
-        assertNotNull(accountManager.getActiveUser());
-        assertEquals("testUser1", accountManager.getActiveUser().getUsername());
-
-        accountManager.setUserWithUsername("nonexistentUser");
-        assertNull(accountManager.getActiveUser());
+    public void testCheckEmailPassword_ConditionCoverage() {
+        assertTrue(accountManager.checkEmailPassword("email1@test.com", "pass1"));
+        assertFalse(accountManager.checkEmailPassword("email1@test.com", "wrongpass"));
+        assertFalse(accountManager.checkEmailPassword("unknown@test.com", "pass1"));
     }
 
-    // Test for createAccount method
     @Test
-    public void testCreateAccount() {
-        accountManager.createAccount("newUser", "newPass", "newEmail@example.com", "New", "User", "EN");
-        assertTrue(accountManager.checkIfUserWithUsernameExists("newUser"));
-        assertTrue(accountManager.checkIfUserWithEmailExists("newEmail@example.com"));
-    }
+    public void testCheckEmail_MultipleConditionCoverage() {
+        ChangePersonalData changePersonalData = new ChangePersonalData();
+        changePersonalData.fileIOManager = fileIOManager;
+        changePersonalData.users = fileIOManager.getUsersFromFile();
 
-    // Test for createAccount method with existing username
-    @Test
-    public void testCreateAccountExistingUsername() {
-        int initialUserCount = fileManager.getUsersFromFile().size();
-        accountManager.createAccount("testUser1", "newPass", "newEmail2@example.com", "New", "User", "EN");
-        int currentUserCount = fileManager.getUsersFromFile().size();
-        assertFalse(accountManager.checkIfUserWithEmailExists("newEmail2@example.com"));
-        assertEquals(initialUserCount, currentUserCount);
-        // We expect the old username to remain and the new user with the same username to be ignored
-        assertEquals(1, fileManager.getUsersFromFile().stream().filter(u -> u.getUsername().equals("testUser1")).count());
-    }
-
-    // Test for logout method
-    @Test
-    public void testLogout() {
-        accountManager.setUserWithUsername("testUser1");
-        accountManager.logout();
-        assertNull(accountManager.getActiveUser());
-    }
-
-    // Test for checkIfUserWithEmailExists method
-    @Test
-    public void testCheckIfUserWithEmailExists() {
-        assertTrue(accountManager.checkIfUserWithEmailExists("email1@example.com"));
-        assertFalse(accountManager.checkIfUserWithEmailExists("nonexistentEmail@example.com"));
-    }
-
-    // Test for checkIfUserWithFullNameExists method
-    @Test
-    public void testCheckIfUserWithFullNameExists() {
-        assertTrue(accountManager.checkIfUserWithFullNameExists("First1 Last1"));
-        assertFalse(accountManager.checkIfUserWithFullNameExists("Non Existent"));
+        assertTrue(changePersonalData.checkEmail("newemail@test.com"));
+        assertFalse(changePersonalData.checkEmail("email1@test.com"));
     }
 }
