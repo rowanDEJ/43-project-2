@@ -219,12 +219,27 @@ public class FileIOManager {
 
     // verwijdert een gesprek
     public static void deleteConversation(Conversation conversation) {
+        String filePath = FILE_PATH + conversationsFolder + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt";
 
-        File file = new File(FILE_PATH + conversationsFolder + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt");
-        if (file.delete()) {
-        } else {
+        File file = new File(filePath);
+        if (!file.delete()) {
             System.out.println("Failed to delete the conversation");
         }
+    }
+
+    public static boolean changeConversationTopic(Conversation conversation, String newTopic) {
+        String path = FILE_PATH + conversationsFolder + AccountManager.getInstance().getActiveUser().getUsername() + "/" + conversation.getTopic() + ".txt";
+        String path2 = FILE_PATH + conversationsFolder + AccountManager.getInstance().getActiveUser().getUsername() + "/" + newTopic + ".txt";
+
+        File fileToRename = new File(path);
+        File fileWithNewName = new File(path2);
+
+        if (fileWithNewName.exists()) {
+            System.out.println("chat with this topic already exists");
+            return false;
+        }
+
+        return fileToRename.renameTo(fileWithNewName); // returns boolean if it was successful or not
     }
 }
 
