@@ -5,7 +5,7 @@ public class AccountManager {
     private User activeUser;
     FileIOManager fileManager = new FileIOManager();
 
-    private AccountManager() {
+    public AccountManager() {
         setUserWithUsername(null); // null betekent dat er niemand is ingelogd
         instance = this;
     }
