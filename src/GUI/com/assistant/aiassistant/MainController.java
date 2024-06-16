@@ -88,7 +88,7 @@ public class MainController {
 
     private void addBerichtTypingListener(int maxValue) {
         bericht.textProperty().addListener((observable, oldValue, newValue) -> {
-            Text text = new Text(newValue.toUpperCase());
+            Text text = new Text(newValue);
             text.setFont(bericht.getFont());
             text.setWrappingWidth(bericht.getWidth());
 
