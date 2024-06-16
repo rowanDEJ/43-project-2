@@ -45,7 +45,7 @@
 }
 
 .convScrollPane {
-    -fx-background-color: rgba(255, 255, 255, 0.0);
+    -fx-background-color: rgba(255, 255, 255, 0.7);
     -fx-padding: 10;
 }
 
@@ -146,7 +146,6 @@
 }
 
 /* SCROLLBAR STYLES */
-
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track{
     -fx-background-color :transparent;
@@ -186,14 +185,19 @@
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color: #0059b3;
-    -fx-background-insets: 2.0, 0.0, 0.0;
-    -fx-background-radius: 2.0em;
+    -fx-background-color :derive(black,90.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
 }
 
 .scroll-bar:horizontal .thumb:hover,
 .scroll-bar:vertical .thumb:hover {
-    -fx-background-color: #0066cc;
-    -fx-background-insets: 2.0, 0.0, 0.0;
+    -fx-background-color :derive(#4D4C4F,10.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar {
     -fx-background-radius: 2.0em;
+    -fx-pref-width: 10;
 }
