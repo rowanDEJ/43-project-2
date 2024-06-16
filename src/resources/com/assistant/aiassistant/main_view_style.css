@@ -10,12 +10,6 @@
     -fx-background-radius: 10;
 }
 
-.sideBarButton {
-}
-
-.iconButton{
-}
-
 .bottomLabel {
     -fx-font-size: 12;
     -fx-font-family: "Roboto Thin";
@@ -196,4 +190,8 @@
 .scroll-bar {
     -fx-background-radius: 2.0em;
     -fx-pref-width: 10;
+}
+
+.sideBar {
+    -fx-background-color: LIGHTGRAY;
 }
