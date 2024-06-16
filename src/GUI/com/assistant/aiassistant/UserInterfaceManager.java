@@ -1,5 +1,6 @@
 package com.assistant.aiassistant;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -8,7 +9,6 @@ import java.io.IOException;
 
 public class UserInterfaceManager {
     private static UserInterfaceManager instance;
-    private MainController mainController;
 
     public String currentLanguage;
     private Stage currentStage;
@@ -26,7 +26,6 @@ public class UserInterfaceManager {
         if(AccountManager.getInstance().getActiveUser() != null) {
             this.currentLanguage = AccountManager.getInstance().getActiveUser().getPreferredLanguage();
         }
-        mainController = MainController.getInstance();
     }
 
     public static UserInterfaceManager getInstance() {
@@ -50,6 +49,10 @@ public class UserInterfaceManager {
         // laat een andere fxml view ding zien op het scherm.
         Scene scene = getSceneWithCurrentSize(fxmlFileName);
 
+        this.currentStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
         this.currentStage.setScene(scene);
         this.currentStage.show();
     }

@@ -6,6 +6,8 @@ import com.assistant.aiassistant.UserInterfaceManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -40,26 +42,25 @@ public class ChatNavButtonCreator {
     }
     private static HBox createContainerHBox() {
         HBox buttonHbox = new HBox();
-        buttonHbox.setPrefHeight(14.0);
-        buttonHbox.setPrefWidth(146.0);
-        buttonHbox.getStyleClass().add("HBox");
+        buttonHbox.setAlignment(Pos.CENTER);
+        buttonHbox.getStyleClass().add("chatNavButtonContainer");
         return buttonHbox;
     }
     private static Button createChatButton(String topic) {
         Button button = new Button(topic);
-        button.setGraphicTextGap(0.0);
         button.setMaxHeight(Double.MAX_VALUE);
-        button.setMaxWidth(Double.MAX_VALUE);
-        button.setPrefHeight(43.0);
-        button.setPrefWidth(302.0);
+        button.setMaxWidth(170 - 19);
+        button.setPrefWidth(170 - 19);
         button.getStyleClass().add("parentButton");
+        button.setAlignment(Pos.CENTER_LEFT);
         button.setId(topic);
+
         return button;
     }
     private static ImageView createOptionsImageView() {
         ImageView imageView = new ImageView(new Image(moreOptionsIconPath));
-        imageView.setFitHeight(24.0);
-        imageView.setFitWidth(23.0);
+        imageView.setFitHeight(20.0);
+        imageView.setFitWidth(19.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
         imageView.getStyleClass().add("optionsImage");

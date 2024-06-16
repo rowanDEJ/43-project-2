@@ -4,34 +4,196 @@
     -fx-background-color: LIGHTGREY; /* Standaard achtergrondkleur */
 }
 
-.optionsImage {
-    -fx-opacity: 0; /* Verberg de inner-button standaard */
-    -fx-background-color: transparent;
-}
-
-.HBox:hover .optionsImage {
-    -fx-opacity: 1; /* Toon de inner-button bij hover */
-}
-
 
 .HBox:hover {
     -fx-background-color: DARKGREY;
     -fx-background-radius: 10;
 }
 
-.parentButton {
+.sideBarButton {
+}
+
+.iconButton{
+}
+
+.bottomLabel {
+    -fx-font-size: 12;
+    -fx-font-family: "Roboto Thin";
+    -fx-text-fill: GRAY;
+}
+
+.chatTopicContainer {
+    -fx-background-color: WHITE;
+    -fx-padding: 10 50 10 50;
+    -fx-background-radius: 1;
+    -fx-effect: dropshadow(one-pass-box, BLACK, 15, 0.15, 0, 0);
+}
+
+.mainContentContainer {
+    -fx-background-image: url("images/blue_wallpaper.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.transparentBG {
     -fx-background-color: transparent;
 }
 
-.HBox:hover .newChatButton {
-    -fx-background-color: DARKGREY;
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
 }
 
-.HBox {
-    -fx-background-color: LIGHTGREY;
+.convScrollPane {
+    -fx-background-color: rgba(255, 255, 255, 0.0);
+    -fx-padding: 10;
 }
 
-.settingsButton:hover{
-    -fx-background-color: DARKGREY;
+.chatBox {
+    -fx-spacing: 10;
 }
 
+.berichtTextField {
+    -fx-prompt-text-fill: GRAY;
+    -fx-font-family: "Roboto Thin";
+    -fx-font-size: 14;
+    -fx-text-fill: BLACK;
+
+    -fx-border-color: transparent;
+
+    -fx-background-color:WHITE;
+    -fx-background-radius: 50;
+
+    -fx-effect: dropshadow(one-pass-box, BLACK, 15, 0.15, 0, 0);
+}
+
+.berichtTextField:disabled {
+
+}
+
+.berichtTextfieldContainer {
+    -fx-border-width: 2;
+    -fx-border-color: WHITE;
+    -fx-border-radius: 50;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+.chatNavButtonContainer {
+    -fx-background-color: transparent;
+    -fx-pref-width: 170;
+    -fx-pref-height: 20;
+    -fx-max-width: 170;
+    -fx-max-height: 20;
+}
+
+.chatNavButtonContainer:hover {
+    -fx-background-color: LIGHTGRAY;
+}
+
+.chatNavButtonContainer:hover .optionsImage {
+    -fx-opacity: 1; /* Toon de inner-button bij hover */
+}
+
+.parentButton {
+    -fx-background-color: transparent;
+    -fx-pref-height: 43;
+    -fx-pref-width: 302;
+    -fx-graphic-text-gap: 0;
+
+    -fx-text-fill: BLACK;
+    -fx-font-family: "Roboto Thin";
+    -fx-font-size: 14;
+}
+
+.optionsImage {
+    -fx-opacity: 0; /* Verberg de inner-button standaard */
+    -fx-background-color: transparent;
+    -fx-pref-width: 23;
+    -fx-pref-height: 24;
+    -fx-max-width: 23;
+    -fx-max-height: 24;
+}
+
+.optionsImage:hover {
+    -fx-scale-y: 1.3;
+    -fx-scale-x: 1.3;
+}
+
+.navbarButtonsContainerTop {
+    -fx-border-color: #0066cc;
+    -fx-border-width: 0 0 2 0;
+}
+
+.navbarButtonsContainerBottom {
+    -fx-border-color: #0066cc;
+    -fx-border-width: 2 0 0 0;
+}
+
+.chatTitle {
+    -fx-font-family: "Roboto Thin";
+    -fx-font-size: 16;
+}
+
+/* SCROLLBAR STYLES */
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-border-radius :2.0em;
+}
+
+
+.scroll-bar:horizontal .increment-button ,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 0.0 10.0 0.0;
+
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #0059b3;
+    -fx-background-insets: 2.0, 0.0, 0.0;
+    -fx-background-radius: 2.0em;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #0066cc;
+    -fx-background-insets: 2.0, 0.0, 0.0;
+    -fx-background-radius: 2.0em;
+}
