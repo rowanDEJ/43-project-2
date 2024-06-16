@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.File;
@@ -77,10 +78,28 @@ public class MainController {
         createResizeListener();
         createSplitpaneDividerChangedListener();
         showSidebarButton.setVisible(false);
+        addBerichtTypingListener(75);
+
 
         bericht.setDisable(true);
         bericht.setPromptText(bundle.getString("messagePrompt")); // Bericht...
         chatTitle.setText(bundle.getString("noChat")); // Geen Chat
+    }
+
+    private void addBerichtTypingListener(int maxValue) {
+        bericht.textProperty().addListener((observable, oldValue, newValue) -> {
+            Text text = new Text(newValue.toUpperCase());
+            text.setFont(bericht.getFont());
+            text.setWrappingWidth(bericht.getWidth());
+
+            double textHeight = text.getLayoutBounds().getHeight();
+            double prefHeight = textHeight + bericht.getPadding().getTop() + bericht.getPadding().getBottom() + 12;
+            if(prefHeight < maxValue) {
+                bericht.setPrefHeight(prefHeight); // Padding + some space
+            } else {
+                bericht.setPrefHeight(maxValue);
+            }
+        });
     }
 
     private void createSplitpaneDividerChangedListener() {

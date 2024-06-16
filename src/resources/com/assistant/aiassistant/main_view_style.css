@@ -45,12 +45,14 @@
 }
 
 .convScrollPane {
-    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-background-color: WHITE;
+    -fx-background-radius: 1;
+    -fx-effect: dropshadow(one-pass-box, BLACK, 15, 0.15, 0, 0);
     -fx-padding: 10;
 }
 
 .chatBox {
-    -fx-spacing: 10;
+    -fx-spacing: 5;
 }
 
 .berichtTextField {
@@ -61,20 +63,14 @@
 
     -fx-border-color: transparent;
 
-    -fx-background-color:WHITE;
-    -fx-background-radius: 50;
-
-    -fx-effect: dropshadow(one-pass-box, BLACK, 15, 0.15, 0, 0);
-}
-
-.berichtTextField:disabled {
-
+    -fx-background-color: transparent;
 }
 
 .berichtTextfieldContainer {
-    -fx-border-width: 2;
-    -fx-border-color: WHITE;
-    -fx-border-radius: 50;
+    -fx-background-color: WHITE;
+    -fx-padding: 5;
+    -fx-background-radius: 1;
+    -fx-effect: dropshadow(one-pass-box, BLACK, 15, 0.15, 0, 0);
 }
 
 .text-area .scroll-pane {
