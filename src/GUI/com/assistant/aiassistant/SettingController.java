@@ -178,7 +178,7 @@ public class SettingController {
     }
 
     public void logOut() throws IOException {
-        UserInterfaceManager uiManager = UserInterfaceManager.getInstance();
-        uiManager.switchCurrentViewTo(uiManager.loginViewFilename);
+        UserInterfaceManager.getInstance().switchCurrentViewTo(UserInterfaceManager.getInstance().loginViewFilename);
+        AccountManager.getInstance().logout();
     }
 }

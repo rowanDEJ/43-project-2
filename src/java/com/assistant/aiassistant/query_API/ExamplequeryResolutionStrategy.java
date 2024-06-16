@@ -13,9 +13,9 @@ public class ExamplequeryResolutionStrategy implements QueryResolutionStrategy<S
     public QueryResolutionResult<String> resolve(QueryResolutionForm<String> form) {
         loadResourceBundle();
 
-        String data = form.getQueryData().toUpperCase();
+        String data = form.getQueryData();
 
-        return switch (data) {
+        return switch (data.toUpperCase()) {
             case "IK WIL KAAS" ->
                     new QueryResolutionResult<>(bundle.getString("aiIWantCheese"));
             case "I WANT CHEESE" ->

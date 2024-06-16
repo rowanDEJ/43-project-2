@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.File;
@@ -21,21 +22,27 @@ import java.util.*;
 
 public class MainController {
     public Button newChatButton;
+    public Button hideSidebarButton;
+    public Button showSidebarButton;
+    public VBox sideBar;
     private Stage primaryStage;
     public VBox chatNavigationBar;
     public VBox chatBox;
     public Label chatTitle;
     public TextArea bericht;
     public ScrollPane convScrollPane;
+    public SplitPane root;
 
     private static final String FILE_PATH = "files/";
     public ArrayList<Conversation> savedConversations;
-    private ArrayList<String> createdConversations = new ArrayList<>();
+    private final ArrayList<String> createdConversations = new ArrayList<>();
 
     public AccountManager accountManager;
     public ResourceBundle bundle;
 
     private static MainController instance = null;
+
+    private int splitPaneDividerPositionPX = 170;
 
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
@@ -62,10 +69,54 @@ public class MainController {
         fileCreationListener();
         initializeMessagebox();
         loadConversations();
+        createResizeListener();
+        createSplitpaneDividerChangedListener();
+        showSidebarButton.setVisible(false);
+        addBerichtTypingListener();
+
 
         bericht.setDisable(true);
         bericht.setPromptText(bundle.getString("messagePrompt")); // Bericht...
         chatTitle.setText(bundle.getString("noChat")); // Geen Chat
+    }
+
+    private void addBerichtTypingListener() {
+        bericht.textProperty().addListener((observable, oldValue, newValue) -> {
+            Text text = new Text(newValue);
+            text.setFont(bericht.getFont());
+            text.setWrappingWidth(bericht.getWidth());
+
+            double textHeight = text.getLayoutBounds().getHeight();
+            double prefHeight = textHeight + bericht.getPadding().getTop() + bericht.getPadding().getBottom() + 12;
+            if(prefHeight < 75) {
+                bericht.setPrefHeight(prefHeight); // Padding + some space
+            } else {
+                bericht.setPrefHeight(75);
+            }
+        });
+    }
+
+    private void createSplitpaneDividerChangedListener() {
+        root.getDividers().getFirst().positionProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.intValue() == 0) {
+                return;
+            }
+
+            double width = root.getWidth();
+            double doubleValue = newValue.doubleValue() * width;
+            splitPaneDividerPositionPX = (int) doubleValue;
+        });
+    }
+
+    private void createResizeListener() {
+        root.widthProperty().addListener((observable, oldValue, newValue) -> {
+            if(sideBar.isVisible()) {
+                double width = root.getWidth();
+                root.setDividerPosition(0, splitPaneDividerPositionPX / width);
+            } else {
+                root.setDividerPosition(0, 0);
+            }
+        });
     }
 
     private void loadConversations() {
@@ -76,20 +127,16 @@ public class MainController {
 
     private void fileCreationListener() {
         FileCreationMonitor monitor = new FileCreationMonitor(new File("files/conversations/" + accountManager.getActiveUser().getUsername()));
-        monitor.addObserver(fileName -> {
-            Platform.runLater(() -> {
-                // fileName is the name of the file that was created
-                String topic = fileName.replace(".txt", "");
-                createChatNavigationButton(topic);
-            });
-        });
+        monitor.addObserver(fileName -> Platform.runLater(() -> {
+            // fileName is the name of the file that was created
+            String topic = fileName.replace(".txt", "");
+            createChatNavigationButton(topic);
+        }));
         monitor.start();
     }
 
     private void createChatScrollListener() {
-        chatBox.heightProperty().addListener((observable, oldValue, newValue) -> {
-            Platform.runLater(() -> convScrollPane.setVvalue(1.0));
-        });
+        chatBox.heightProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> convScrollPane.setVvalue(1.0)));
     }
 
     private void loadResourceBundle() {
@@ -100,7 +147,6 @@ public class MainController {
     public void refreshLanguage() {
         loadResourceBundle();
         initialize();
-
     }
 
     private void initializeMessagebox() {
@@ -112,6 +158,7 @@ public class MainController {
                 handleMessage(message);
             }
         });
+        bericht.setWrapText(true);
     }
 
     private void loadSavedConversations() {
@@ -149,10 +196,10 @@ public class MainController {
                 for (String message : conversation.getMessages()) {
                     if (message.startsWith("AI-")) {
                         String contents = message.substring(3);
-                        HBox answerBubble = ChatItemCreator.createAnswerBubble(contents);
+                        VBox answerBubble = ChatItemCreator.createAnswerBubble(contents);
                         chatBox.getChildren().add(answerBubble);
                     } else {
-                        HBox questionBubble = ChatItemCreator.createQuestionBubble(message);
+                        VBox questionBubble = ChatItemCreator.createQuestionBubble(message);
                         chatBox.getChildren().add(questionBubble);
                     }
                 }
@@ -169,9 +216,20 @@ public class MainController {
         VBox dialogVBox = new VBox(10);
         Label label = new Label(bundle.getString("newChatDialog")); // New chat dialog
         TextField textField = new TextField();
-        Button button = new Button(bundle.getString("startChat")); // Start Chat
-        button.setOnAction(e -> {
+        Button confirmButton = new Button(bundle.getString("startChat")); // Start Chat
+        Button cancelButton = new Button(bundle.getString("cancel")); // Start Chat
+
+        HBox buttonsHBox = new HBox();
+        buttonsHBox.getChildren().addAll(confirmButton, cancelButton);
+
+        Label errorLabel = new Label("");
+
+        confirmButton.setOnAction(e -> {
             String topic = textField.getText();
+            if(topic.isEmpty()) {
+                errorLabel.setText(bundle.getString("emptyInput"));
+                return;
+            }
 
             new StartNewConversationAction(topic, "AI-Hello! How can I help you?").execute();
             loadConversations();
@@ -180,7 +238,9 @@ public class MainController {
             dialog.close();
         });
 
-        dialogVBox.getChildren().addAll(label, textField, button);
+        cancelButton.setOnAction(e -> dialog.close());
+
+        dialogVBox.getChildren().addAll(label, textField, buttonsHBox, errorLabel);
 
         Scene dialogScene = new Scene(dialogVBox, 300, 200);
         dialog.setScene(dialogScene);
@@ -218,7 +278,7 @@ public class MainController {
         FileIOManager.addMessageToConversation(message, conversation);
 
         // create text bubble in gui, with the question in it
-        HBox questionBubble = ChatItemCreator.createQuestionBubble(message);
+        VBox questionBubble = ChatItemCreator.createQuestionBubble(message);
         chatBox.getChildren().add(questionBubble);
 
         // geef message door aan AI
@@ -242,12 +302,38 @@ public class MainController {
 
         FileIOManager.addMessageToConversation("AI-" + resultData, conversation);
 
-        HBox questionBubble = ChatItemCreator.createAnswerBubble(resultData);
+        VBox questionBubble = ChatItemCreator.createAnswerBubble(resultData);
         chatBox.getChildren().add(questionBubble);
     }
 
     public void showSettings() throws IOException {
         UserInterfaceManager uiManager = UserInterfaceManager.getInstance();
         uiManager.switchCurrentViewTo(uiManager.settingsViewFilename);
+    }
+
+    @FXML
+    public void hideSidebar() {
+        sideBar.setManaged(false);
+        sideBar.setVisible(false);
+
+        showSidebarButton.setVisible(true);
+
+        Platform.runLater(() -> root.getDividers().getFirst().setPosition(0));
+    }
+
+    @FXML
+    public void showSidebar() {
+        sideBar.setManaged(true);
+        sideBar.setVisible(true);
+
+        showSidebarButton.setVisible(false);
+
+        Platform.runLater(() -> root.getDividers().getFirst().setPosition(splitPaneDividerPositionPX/root.getWidth()));
+    }
+
+    @FXML
+    public void logOut() throws IOException{
+        UserInterfaceManager.getInstance().switchCurrentViewTo(UserInterfaceManager.getInstance().loginViewFilename);
+        AccountManager.getInstance().logout();
     }
 }

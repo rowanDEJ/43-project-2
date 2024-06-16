@@ -7,6 +7,7 @@ public class AccountManager {
 
     private AccountManager() {
         setUserWithUsername(null); // null betekent dat er niemand is ingelogd
+        instance = this;
     }
 
     public static AccountManager getInstance() {
