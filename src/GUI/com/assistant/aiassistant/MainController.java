@@ -5,12 +5,7 @@ import com.assistant.aiassistant.query_API.ExamplequeryResolutionStrategy;
 import com.assistant.aiassistant.query_API.QueryResolutionForm;
 import com.assistant.aiassistant.query_API.QueryResolutionResult;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -24,7 +19,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.Callable;
 
 public class MainController {
     public Button newChatButton;
@@ -41,7 +35,7 @@ public class MainController {
 
     private static final String FILE_PATH = "files/";
     public ArrayList<Conversation> savedConversations;
-    private ArrayList<String> createdConversations = new ArrayList<>();
+    private final ArrayList<String> createdConversations = new ArrayList<>();
 
     public AccountManager accountManager;
     public ResourceBundle bundle;
@@ -78,7 +72,7 @@ public class MainController {
         createResizeListener();
         createSplitpaneDividerChangedListener();
         showSidebarButton.setVisible(false);
-        addBerichtTypingListener(75);
+        addBerichtTypingListener();
 
 
         bericht.setDisable(true);
@@ -86,7 +80,7 @@ public class MainController {
         chatTitle.setText(bundle.getString("noChat")); // Geen Chat
     }
 
-    private void addBerichtTypingListener(int maxValue) {
+    private void addBerichtTypingListener() {
         bericht.textProperty().addListener((observable, oldValue, newValue) -> {
             Text text = new Text(newValue);
             text.setFont(bericht.getFont());
@@ -94,10 +88,10 @@ public class MainController {
 
             double textHeight = text.getLayoutBounds().getHeight();
             double prefHeight = textHeight + bericht.getPadding().getTop() + bericht.getPadding().getBottom() + 12;
-            if(prefHeight < maxValue) {
+            if(prefHeight < 75) {
                 bericht.setPrefHeight(prefHeight); // Padding + some space
             } else {
-                bericht.setPrefHeight(maxValue);
+                bericht.setPrefHeight(75);
             }
         });
     }
@@ -133,20 +127,16 @@ public class MainController {
 
     private void fileCreationListener() {
         FileCreationMonitor monitor = new FileCreationMonitor(new File("files/conversations/" + accountManager.getActiveUser().getUsername()));
-        monitor.addObserver(fileName -> {
-            Platform.runLater(() -> {
-                // fileName is the name of the file that was created
-                String topic = fileName.replace(".txt", "");
-                createChatNavigationButton(topic);
-            });
-        });
+        monitor.addObserver(fileName -> Platform.runLater(() -> {
+            // fileName is the name of the file that was created
+            String topic = fileName.replace(".txt", "");
+            createChatNavigationButton(topic);
+        }));
         monitor.start();
     }
 
     private void createChatScrollListener() {
-        chatBox.heightProperty().addListener((observable, oldValue, newValue) -> {
-            Platform.runLater(() -> convScrollPane.setVvalue(1.0));
-        });
+        chatBox.heightProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> convScrollPane.setVvalue(1.0)));
     }
 
     private void loadResourceBundle() {
@@ -248,9 +238,7 @@ public class MainController {
             dialog.close();
         });
 
-        cancelButton.setOnAction(e -> {
-            dialog.close();
-        });
+        cancelButton.setOnAction(e -> dialog.close());
 
         dialogVBox.getChildren().addAll(label, textField, buttonsHBox, errorLabel);
 
@@ -330,9 +318,7 @@ public class MainController {
 
         showSidebarButton.setVisible(true);
 
-        Platform.runLater(() -> {
-                root.getDividers().getFirst().setPosition(0);
-        });
+        Platform.runLater(() -> root.getDividers().getFirst().setPosition(0));
     }
 
     @FXML
@@ -342,9 +328,7 @@ public class MainController {
 
         showSidebarButton.setVisible(false);
 
-        Platform.runLater(() -> {
-            root.getDividers().getFirst().setPosition(splitPaneDividerPositionPX/root.getWidth());
-        });
+        Platform.runLater(() -> root.getDividers().getFirst().setPosition(splitPaneDividerPositionPX/root.getWidth()));
     }
 
     @FXML
