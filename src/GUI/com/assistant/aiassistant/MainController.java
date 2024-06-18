@@ -230,6 +230,10 @@ public class MainController {
                 errorLabel.setText(bundle.getString("emptyInput"));
                 return;
             }
+            if(getConversationWithTopic(topic) != null) {
+                errorLabel.setText(bundle.getString("chatExists"));
+                return;
+            }
 
             new StartNewConversationAction(topic, "AI-Hello! How can I help you?").execute();
             loadConversations();
